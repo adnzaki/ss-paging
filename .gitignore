@@ -1,0 +1,14 @@
+example/system
+example/index.php
+example/application/cache
+example/application/config
+example/application/core
+example/application/helpers
+example/application/hooks
+example/application/language
+example/application/libraries
+example/application/logs
+example/application/third_party
+example/application/views/errors
+example/application/.htaccess
+example/application/index.html
