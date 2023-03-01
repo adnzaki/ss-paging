@@ -14,7 +14,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.2.5
+ * @version     2.2.6
  * @url         https://wolestech.com
  */
 const { ref, reactive, computed } = Vue
