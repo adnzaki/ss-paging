@@ -1,6 +1,6 @@
 # SSPaging
-SSPaging is a server-side pagination library for Vue.js only. SSPaging provides sets of ready-to-use functions and properties to create pagination. SSPaging does not provide any template or view, but you can learn how to create it with the examples provided<br/>
-SSPaging available in two types of version: `SSPaging` for using anywhere in the template, and `SSPagingStore` for using with Pinia. The Vuex version is no longer published since Vuex has been deprecated by the Vue Team. I will provide the Vuex version if you need it, but it has less feature than the Pinia version. Also, the Vuex version will no longer be updated.
+SSPaging is a server-side (or a low-level) pagination library for Vue.js. SSPaging provides sets of ready-to-use functions and properties to create pagination. SSPaging does not provide any template or view, but you can learn how to create it with the examples provided<br/>
+SSPaging available in two versions: `SSPaging` for using anywhere in the template, and `SSPagingStore` for using with Pinia. The Vuex version is no longer published since Vuex has been deprecated by the Vue Team. I will provide the Vuex version if you need it, but it has less feature than the Pinia version. Also, the Vuex version will no longer be updated.
 
 ## Installation
 SSPaging can be installed using NPM:
@@ -22,7 +22,7 @@ For use without build tool, you can include SSPaging via CDN:
 ```
 
 ## Brief Concept
-SSPaging aims to allow developer get a full control of pagination. Rather than using a full pagination library with the template included, you can include pagination functionalities on your own template as long as it is use Vue.js. With this way, you have a full flexibility with pagination without having to breakdown your current template. SSPaging can be used everywhere in your template, without forcing you to use template from pagination library itself.
+SSPaging aims to allow developer to get a full control of pagination. Rather than using a full pagination library with the template included, you can include pagination functionalities on your own template as long as it uses Vue.js. By using this way, you have a full flexibility with pagination without having to breakdown your current template. SSPaging can be used everywhere in your template, without forcing you to use template from pagination library itself.
 
 ## Features
 - ### Powerful
@@ -42,7 +42,7 @@ SSPaging only work with Composition API that needs Vue >3.0 or forcing you to us
 SSPaging does not provide any template, so you have to build or use your own template.
 
 ## URL Pattern
-SSPaging has 2 options for providing URL to get the data. The first option is follow SSPaging URL pattern, and the second option is using your own URL pattern.<br/>
+SSPaging has 2 options for providing URL to get the data. The first option is following SSPaging URL pattern, and the second option is using your own URL pattern.<br/>
 The pattern of URL  accepted by SSPaging must looked like this:
 ```
 /main-url/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}
@@ -61,6 +61,8 @@ This option is a part of SSPaging URL pattern. It will be used to limit results 
 This option is a part of SSPaging URL pattern. It will be used to determine where the display data to start from.
 ### `orderBy`: string
 This option is a part of SSPaging URL pattern. It will be used set data order.
+### `searchBy`: string|array
+This option is a part of SSPaging URL pattern. It will be used to tell the server which field that is used to search data. It can be a string or array
 ### `sort`: string
 This option is a part of SSPaging URL pattern. This common value of this option are 'ASC' and 'DESC', but it can be another value depend on your backend.
 ### `search`: string
@@ -110,13 +112,20 @@ paging.getData({
   limit,
   offset: 0,
   orderBy: 'name',
-  searchBy: 'name',
+  searchBy: 'name', // or array ['name', 'email']
   sort: 'ASC',
   search: '',
   url: `http://localhost/my-project/get-data/`,
+
+  // if you use your own URL pattern
+  // rawUrl: `http://localhost/my-project/get-data/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` 
   autoReset: {
     active: true,
     timeout: 500
+  },
+  delay: {
+    active: true,
+    timeout: 200
   },
   linkNum: 3,
   linkClass: 'page-item',
@@ -134,16 +143,23 @@ paging.getData({
 ```
 
 ## Page Navigation
-SSPaging provides actions/methods for managing pagination. Here they are:
+SSPaging provides action/method for managing pagination called `nav()`
 ### `nav(page: int)`
-Method for navigating the page with 0-based index. You have to add `-1` if the target page is 1-based index. To ease you when navigating the data, we provide reactive state that work automatically as SSPaging runs.
+Method for navigating the page with 0-based index. You have to add `-1` if the target page is 1-based index. To ease you when navigating the data, we provide reactive states that work automatically as SSPaging runs.
 - #### `first`: Call `nav(first)` to navigate to the first page.
 - #### `prev`: Call `nav(prev)` to navigate to the previous page
 - #### `next`: Call `nav(next)` to navigate to the next page
 - #### `last`: Call `nav(last)` to navigate to the last page.
-To navigate to the spesific page, call `nav(spesificPage - 1)` as the `page` argument is zero-based index. Example:
+To navigate to the spesific page, call `nav(currentPage - 1)` as the `page` argument is zero-based index. Example:
 ```javascript
+import { toRefs } from 'vue'
+
+// for composition API version
+const { first, prev, next, last } = toRefs(paging.state)
+
+// Pinia version does not need toRefs convertion
 const { first, prev, next, last } = paging
+
 const currentPage = 3 // 1-based index
 paging.nav(first) // go to the first page
 paging.nav(prev) // go to the previous page
