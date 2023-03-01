@@ -4,14 +4,22 @@ SSPaging available in two types of version: `SSPaging` for using anywhere in the
 
 ## Installation
 SSPaging can be installed using NPM:
-```dotnetcli
+```
 npm install ss-paging-vue
 ```
 After it is installed, you can import the composables or Pinia version of SSPaging (choose one depend on your need!).
-```dotnetcli
+```javascript
 import { usePaging, usePagingStore } from 'ss-paging-vue'
+// in composables mode, CDN version also use this one
+const paging = usePaging()
+
+// in Pinia mode
+const paging = usePagingStore()
 ```
-If you are not using build system or ES module, you can point to the full path of `ss-paging.js` or copy that file into your project directory.
+For use without build tool, you can include SSPaging via CDN:
+```javascript
+<script src="https://unpkg.com/ss-paging-vue@2.2.5/dist/ss-paging.js"></script>
+```
 
 ## Brief Concept
 SSPaging aims to allow developer get a full control of pagination. Rather than using a full pagination library with the template included, you can include pagination functionalities on your own template as long as it is use Vue.js. With this way, you have a full flexibility with pagination without having to breakdown your current template. SSPaging can be used everywhere in your template, without forcing you to use template from pagination library itself.
@@ -61,6 +69,12 @@ This option is a part of SSPaging URL pattern. It accepts your search query para
 This option is a part of SSPaging URL pattern. This is your main URL as described in SSPaging URL pattern, it can be customized depend on your needs.
 ### `rawUrl`: string
 This option will override all options that included in SSPaging URL pattern. You can use this option if you do not want to follow SSPaging URL pattern.
+### `linkNum`: number
+The number of page links you want to provide to users. (Eg. 1,2,3...)
+### `linkClass`: string
+The class style of pagination item. It is optional, use only if you want to dynamically change the link class
+### `activeClass`: string
+Current active page class style (for link number only)
 ### `autoReset`: object
 This option allows you to automatically reset search to the default data if it meets the specified timeout.
 - #### `active`: boolean
@@ -82,13 +96,7 @@ You can run something before the request sent by defining your function in this 
 ### `afterRequest`: function
 You can also run something after the request success by defining your function in this option.
 ### Example
-```
-// in composables mode
-const paging = usePaging()
-
-// in Pinia mode
-const paging = usePagingStore()
-
+```javascript
 const limit = 5
 
 // in composables
@@ -125,7 +133,7 @@ paging.getData({
 
 ```
 
-## Available actions/methods
+## Page Navigation
 SSPaging provides actions/methods for managing pagination. Here they are:
 ### `nav(page: int)`
 Method for navigating the page with 0-based index. You have to add `-1` if the target page is 1-based index. To ease you when navigating the data, we provide reactive state that work automatically as SSPaging runs.
@@ -133,7 +141,16 @@ Method for navigating the page with 0-based index. You have to add `-1` if the t
 - #### `prev`: Call `nav(prev)` to navigate to the previous page
 - #### `next`: Call `nav(next)` to navigate to the next page
 - #### `last`: Call `nav(last)` to navigate to the last page.
-To navigate to the spesific page, call `nav(spesificPage - 1)` as the `page` argument is zero-based index. For example, if you want to navigate to page 3, then you should call it with `nav(3-1)`.
+To navigate to the spesific page, call `nav(spesificPage - 1)` as the `page` argument is zero-based index. Example:
+```javascript
+const { first, prev, next, last } = paging
+const currentPage = 3 // 1-based index
+paging.nav(first) // go to the first page
+paging.nav(prev) // go to the previous page
+paging.nav(next) // go to the next page
+paging.nav(last) // go to the last page
+paging.nav((currentPage - 1) - 1) // go to the page 2 with 0-based index
+```
 
 ## And many more..
 Full documentation will be available on SSPaging site.
