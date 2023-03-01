@@ -1,47 +1,143 @@
-# ss-paging-vue
-ss-paging adalah plugin pagination untuk Vue.js yang fokus pada sisi server. Semua pemrosesan data dilakukan di sisi server dan ss-paging bertindak sebagai pengirim request via ajax dan menampung response untuk kemudian disimpan ke dalam data state.
+# SSPaging
+SSPaging is a server-side pagination library for Vue.js only. SSPaging provides sets of ready-to-use functions and properties to create pagination. SSPaging does not provide any template or view, but you can learn how to create it with the examples provided<br/>
+SSPaging available in two types of version: `SSPaging` for using anywhere in the template, and `SSPagingStore` for using with Pinia. The Vuex version is no longer published since Vuex has been deprecated by the Vue Team. I will provide the Vuex version if you need it, but it has less feature than the Pinia version. Also, the Vuex version will no longer be updated.
 
-## Fitur
-ss-paging telah dilengkapi sekumpulan fungsi yang siap digunakan untuk mengolah data pagination diantaranya:<br>
-- `execGetData()` untuk mengupdate data pagination setelah adanya update data seperti `INSERT` atau `UPDATE` 
-- `nav()` untuk melakukan navigasi halaman 
-- `filter()` untuk melakukan filter pencarian data berdasarkan ketikan pengguna (misalnya textbox)
-- `reloadData()` untuk merefresh data 
-- `sortData()` untuk melakukan sorting data berdasarkan field tertentu
-- `showPerPage()` untuk menampilkan data dalam jumlah baris tertentu
-- `getData()` untuk mengambil data dan membuat perhitungan pagination
-- `rowRange` untuk menampilkan informasi jumlah baris
+## Installation
+SSPaging can be installed using NPM:
+```dotnetcli
+npm install ss-paging-vue
+```
+After it is installed, you can import the composables or Pinia version of SSPaging (choose one depend on your need!).
+```dotnetcli
+import { usePaging, usePagingStore } from 'ss-paging-vue'
+```
+If you are not using build system or ES module, you can point to the full path of `ss-paging.js` or copy that file into your project directory.
 
-## Cara penggunaan
-ss-paging bekerja pada sisi server sehingga membutuhkan data dari server untuk dapat berjalan. Untuk menjalankan fitur-fitur yang ada pada ss-paging, tentu anda harus terlebih dahulu memasukkan Vue.js ke dalam source code. Silakan baca dokumentasi Vue.js di [sini](https://vuejs.org/) jika anda belum berpengalaman dengan Vue.js. Jika telah selesai dengan bagian server dan instalasi Vue.js, maka yang pertama dilakukan adalah melakukan inisialisasi menggunakan fungsi `getData()`. Kemudian untuk mengeksekusi fungsi yang ada di ss-paging, cukup sisipkan setiap fungsi ke dalam `event` yang sudah tersedia di Vue.js, misalnya `v-on:click` atau dengan pintasan `@click` untuk menjalankan fungsi saat suatu elemen HTML di-klik. Untuk contoh lengkap bisa dilihat pada folder <strong>example </strong> dalam repository ini (menggunakan framework CodeIgniter).
+## Brief Concept
+SSPaging aims to allow developer get a full control of pagination. Rather than using a full pagination library with the template included, you can include pagination functionalities on your own template as long as it is use Vue.js. With this way, you have a full flexibility with pagination without having to breakdown your current template. SSPaging can be used everywhere in your template, without forcing you to use template from pagination library itself.
 
-## Ketergantungan dan keterbatasan
-ss-paging adalah plugin untuk Vue.js sehingga diperlukan Vue.js untuk menjalankannya. ss-paging tidak terpaku pada library Javascript lain seperti jQuery. URL yang disupport ss-paging adalah yang berkonsep <strong>segment-based</strong>, misalnya `http://mywebsite.com/controller/method/param1/param2/param3` dan belum mendukung URL dengan query string.
+## Features
+- ### Powerful
+SSPaging is a powerful server-side pagination library that provides sets of ready-to-use actions/methods to work with the server. It uses no dependency to work, very small size and full of flexibility. 
+- ### Helpful 
+It provides a URL pattern that will guide you to create a suitable server-side code that match SSPaging needs, but still gives you a freedom to provide your own URL pattern.<br/>
+- ### Progressive
+SSPaging can be embeded everywhere, whether it is your new or even existing project.
 
-## Referensi fungsi
-`(method) execGetData(): void`<br>
-Fungsi untuk mengeksekusi getData() agar mencegah terjadinya kesalahan perhitungan offset setelah menyimpan atau update data<br><br>
-`(method) nav(page: any): void`<br>
-Fungsi navigasi halaman pagination<br><br>
-`(method) filter(): void`<br>
-Pencarian data berdasarkan parameter pencarian pada textbox / kotak pencarian<br><br>
-`(method) reloadData(): void`<br>
-Refresh data<br><br>
-`(method) sortData(orderBy: string): void` <br>
-Fungsi untuk sorting data berdasarkan kolom yang ada di tabel<br><br>
-`(method) showPerPage(): void`<br>
-Opsi untuk menampilkan jumlah data per halaman<br><br>
-`(method) runPaging(): void`<br>
-Menjalankan fungsi ambil data berdasarkan current state / state yang sedang aktif saat ini<br><br>
-`(method) getData(options: any): void`<br>
-Ambil data untuk pagination <br>Options: limit, offset, url, orderBy, searchBy, sort, search, linkNum, activeClass, linkClass<br><br>
-`(method) activeLink(link: number): any`<br>
-Fungsi untuk menandai link yang sedang aktif<br><br>
-`(method) reset(): void`
-Mengembalikan ss-paging ke pengaturan awal<br><br>
-`(method) rowRange(): string` <br>
-`computed property` - untuk menampilkan informasi jumlah baris
+## Limitations
+While SSPaging is a powerful server-side pagination, it has some limitations to work with. As it is a library that developed for my own projects.
+- ### Server-side dependant
+SSPaging is a server-side pagination, so it will not work without connection to server.
+- ### Usage scope
+SSPaging only work with Composition API that needs Vue >3.0 or forcing you to use Pinia if you want to use it in Vue 2. For Vue 3 users, SSPaging works well with Composition API and Pinia. Current version of SSPaging also does not support Vuex. Though the Vuex version is still used in my project, but it is just for migration process.
+- ### No template, make your own!
+SSPaging does not provide any template, so you have to build or use your own template.
 
-## Milestone
-Kami memproyeksikan ss-paging untuk dapat mendukung <i>component-based template</i> sehingga memberikan opsi bagi mereka yang menginginkan kemudahan dalam membuat pagination berikut struktur tabelnya. Rencana untuk penamaan component adalah `<ss-paging></ss-paging>`. Untuk dapat mewujudkan itu, kami sangat terbuka untuk menerima kontribusi dari anda.
+## URL Pattern
+SSPaging has 2 options for providing URL to get the data. The first option is follow SSPaging URL pattern, and the second option is using your own URL pattern.<br/>
+The pattern of URL  accepted by SSPaging must looked like this:
+```
+/main-url/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}
+```
+The `main-url` can contain anything you want, but `/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` must be in its order. If you need more URL arguments, you can add before `/{limit}...`.<br/>
+If you would like to use your own URL, you can set it in `getData` method that will be explained later. <strong>But remember that SSPaging is server-side pagination library, it will only work if you can provide everything from your backend (including URL pattern) that needed by SSPaging to generate pagination.</strong><br/>
+We recommend you to use the URL pattern from SSPaging, so you do not have to think how to match SSPaging needs.
+
+## The `getData()` method
+The main method of SSPaging is `getData()`. This method is the main actor of SSPaging, since it will get the data, set and save options and run the pagination generator. SSPaging consists of two arguments: `(options: object, callFromRunPaging: boolean)`. `options` is required in this method calls, while `callFromPaging` only use in internal code and <strong>should never be set</strong>. Some great options are available for you to set your pagination settings as follows:
+### `lang`: string
+SSPaging provides 2 languages for you: English and Indonesia. Accepted values are `'indonesia'` and `'english`.
+### `limit`: number
+This option is a part of SSPaging URL pattern. It will be used to limit results generated by the backend.
+### `offset`: number
+This option is a part of SSPaging URL pattern. It will be used to determine where the display data to start from.
+### `orderBy`: string
+This option is a part of SSPaging URL pattern. It will be used set data order.
+### `sort`: string
+This option is a part of SSPaging URL pattern. This common value of this option are 'ASC' and 'DESC', but it can be another value depend on your backend.
+### `search`: string
+This option is a part of SSPaging URL pattern. It accepts your search query parameter.
+### `url`: string 
+This option is a part of SSPaging URL pattern. This is your main URL as described in SSPaging URL pattern, it can be customized depend on your needs.
+### `rawUrl`: string
+This option will override all options that included in SSPaging URL pattern. You can use this option if you do not want to follow SSPaging URL pattern.
+### `autoReset`: object
+This option allows you to automatically reset search to the default data if it meets the specified timeout.
+- #### `active`: boolean
+Option to activate the `autoReset` option
+- #### `timeout`: number
+Option to set the timeout before `autoReset` runs.
+### `delay`: object
+By activate this option, SSPaging will delay search after the query has submitted in the specified timeout.
+- #### `active`: boolean
+Option to activate the `delay` option
+- #### `timeout`: number
+Option to set the waiting time of SSPaging filter function to run.
+### `useAuth`: boolean
+By default, SSPaging requires token-based authentication (like JSON Web Tokens and Personal Access Token) to get the data. Set it to `false` if you do not need authentication or if you use session to secure your sites.
+### `token`: string
+This option is used to store your token.
+### `beforeRequest`: function
+You can run something before the request sent by defining your function in this option.
+### `afterRequest`: function
+You can also run something after the request success by defining your function in this option.
+### Example
+```
+// in composables mode
+const paging = usePaging()
+
+// in Pinia mode
+const paging = usePagingStore()
+
+const limit = 5
+
+// in composables
+paging.state.rows = limit
+
+// in Pinia 
+paging.rows = limit
+
+paging.getData({
+  lang: 'indonesia',
+  limit,
+  offset: 0,
+  orderBy: 'name',
+  searchBy: 'name',
+  sort: 'ASC',
+  search: '',
+  url: `http://localhost/my-project/get-data/`,
+  autoReset: {
+    active: true,
+    timeout: 500
+  },
+  linkNum: 3,
+  linkClass: 'page-item',
+  activeClass: 'active',
+  useAuth: false, // if you do not use token-based authentication or using session
+  // token: yourToken, // do not set useAuth if you use token-based authentication
+  beforeRequest: () => {
+    // do something
+  },
+  afterRequest: () => {
+    // do something
+  }
+})
+
+```
+
+## Available actions/methods
+SSPaging provides actions/methods for managing pagination. Here they are:
+### `nav(page: int)`
+Method for navigating the page with 0-based index. You have to add `-1` if the target page is 1-based index. To ease you when navigating the data, we provide reactive state that work automatically as SSPaging runs.
+- #### `first`: Call `nav(first)` to navigate to the first page.
+- #### `prev`: Call `nav(prev)` to navigate to the previous page
+- #### `next`: Call `nav(next)` to navigate to the next page
+- #### `last`: Call `nav(last)` to navigate to the last page.
+To navigate to the spesific page, call `nav(spesificPage - 1)` as the `page` argument is zero-based index. For example, if you want to navigate to page 3, then you should call it with `nav(3-1)`.
+
+## And many more..
+Full documentation will be available on SSPaging site.
+
+## Contribution
+Just create a pull request if you want to add features or fix bugs.
 

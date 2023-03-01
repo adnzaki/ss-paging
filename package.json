@@ -1,0 +1,33 @@
+{
+  "name": "ss-paging-vue",
+  "version": "2.2.3",
+  "description": "SSPaging - A Full Server-side pagination library for Vue.js",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adnzaki/ss-paging.git"
+  },
+  "keywords": [
+    "vue",
+    "pagination",
+    "paging",
+    "pinia"
+  ],
+  "author": "Adnan Zaki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adnzaki/ss-paging/issues"
+  },
+  "homepage": "https://github.com/adnzaki/ss-paging#readme",
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.49",
+    "vue": "^3.2.47"
+  }
+}
