@@ -14,7 +14,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.2.6
+ * @version     2.2.7
  * @url         https://wolestech.com
  */
 const { ref, reactive, computed } = Vue
@@ -62,7 +62,7 @@ const usePaging = () => {
         rows: 'rows',
       }
     },
-    pagingLang: 'indonesia',
+    pagingLang: 'english',
   })
 
   return {

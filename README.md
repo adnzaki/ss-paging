@@ -10,15 +10,16 @@ npm install ss-paging-vue
 After it is installed, you can import the composables or Pinia version of SSPaging (choose one depend on your need!).
 ```javascript
 import { usePaging, usePagingStore } from 'ss-paging-vue'
-// in composables mode, CDN version also use this one
+
+// in composables mode (CDN version also use this one)
 const paging = usePaging()
 
 // in Pinia mode
 const paging = usePagingStore()
 ```
 For use without build tool, you can include SSPaging via CDN:
-```javascript
-<script src="https://unpkg.com/ss-paging-vue@2.2.6/dist/ss-paging.js"></script>
+```html
+<script src="https://unpkg.com/ss-paging-vue@2.2.7/dist/ss-paging.js"></script>
 ```
 
 ## Brief Concept
@@ -168,8 +169,8 @@ paging.nav(last) // go to the last page
 paging.nav((currentPage - 1) - 1) // go to the page 2 with 0-based index
 ```
 
-## And many more..
-Full documentation will be available on SSPaging site.
+## Documentation
+For complete documentation, see [SSPaging site](https://lib.actudent.com/ss-paging/). The site is on active progress, so the content may not complete yet.
 
 ## Contribution
 Just create a pull request if you want to add features or fix bugs.

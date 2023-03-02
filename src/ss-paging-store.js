@@ -15,7 +15,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.2.6
+ * @version     2.2.7
  * @url         https://wolestech.com
  */
 
@@ -67,7 +67,7 @@ export const usePagingStore = defineStore('paging', {
           rows: 'rows',
         }
       },
-      pagingLang: 'indonesia',
+      pagingLang: 'english',
     }
   },
   actions: {
