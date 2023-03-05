@@ -143,32 +143,6 @@ paging.getData({
 
 ```
 
-## Page Navigation
-SSPaging provides action/method for managing pagination called `nav()`
-### `nav(page: int)`
-Method for navigating the page with 0-based index. You have to add `-1` if the target page is 1-based index. To ease you when navigating the data, we provide reactive states that work automatically as SSPaging runs.
-- #### `first`: Call `nav(first)` to navigate to the first page.
-- #### `prev`: Call `nav(prev)` to navigate to the previous page
-- #### `next`: Call `nav(next)` to navigate to the next page
-- #### `last`: Call `nav(last)` to navigate to the last page.
-To navigate to the spesific page, call `nav(currentPage - 1)` as the `page` argument is zero-based index. Example:
-```javascript
-import { toRefs } from 'vue'
-
-// for composition API version
-const { first, prev, next, last } = toRefs(paging.state)
-
-// Pinia version does not need toRefs convertion
-const { first, prev, next, last } = paging
-
-const currentPage = 3 // 1-based index
-paging.nav(first) // go to the first page
-paging.nav(prev) // go to the previous page
-paging.nav(next) // go to the next page
-paging.nav(last) // go to the last page
-paging.nav((currentPage - 1) - 1) // go to the page 2 with 0-based index
-```
-
 ## Documentation
 For complete documentation, see [SSPaging site](https://lib.actudent.com/ss-paging/). The site is on active progress, so the content may not complete yet.
 
