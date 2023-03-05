@@ -1,0 +1,1 @@
+import{_ as s,o as n,c as a,a as l}from"./app.780ce4ef.js";const A=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"tutorials/components/row-select.md"}'),o={name:"tutorials/components/row-select.md"},p=l("",2),t=[p];function e(c,r,D,F,y,i){return n(),a("div",null,t)}const g=s(o,[["render",e]]);export{A as __pageData,g as default};
