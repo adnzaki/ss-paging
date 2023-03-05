@@ -48,7 +48,7 @@ The final part or this tutorial is wrapping up our components. It is just import
 ```vue
 <script setup>
 import { provide } from 'vue';
-import { usePaging } from '../../src/ss-paging-esm';
+import { usePaging } from 'ss-paging-vue';
 import DataTable from './DataTable.vue';
 import Navigation from './Navigation.vue';
 import RowSelection from './RowSelection.vue';
