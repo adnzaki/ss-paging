@@ -22,7 +22,7 @@ For use without build tool, you can include SSPaging via CDN:
 <script src="https://unpkg.com/ss-paging-vue@2.2.7/dist/ss-paging.js"></script>
 ```
 ## Documentation
-For complete documentation, see [SSPaging site](https://lib.actudent.com/ss-paging/). The site is on active progress, so the content may not complete yet.
+For complete documentation, please refer to [SSPaging site](https://lib.actudent.com/ss-paging/). The site is on active progress, so the content may not complete yet.
 
 ## Contribution
 Just create a pull request if you want to add features or fix bugs.
