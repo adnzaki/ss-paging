@@ -58,7 +58,7 @@ onMounted(() => {
     </thead>
     <tbody>
       <tr v-for="(item, index) in data" :key="index">
-        <td>{{ index + 1 }}</td>
+        <td>{{ paging.itemNumber(index) }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.province }}</td>
