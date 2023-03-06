@@ -1,0 +1,26 @@
+/* Hero section */
+:root {
+  --vp-c-brand: #d44670;
+  --vp-c-brand-light: #dd5981;
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(145deg, #e71655, #e2829f);
+  --vp-home-hero-image-background-image: linear-gradient(
+    -75deg,
+    #b11644 50%,
+    #9e2185 50%
+  );
+  --vp-home-hero-image-filter: blur(90px);
+}
+
+/* Component: Button */
+:root {
+  --vp-button-brand-border: var(--vp-c-brand-light);
+  --vp-button-brand-text: var(--vp-c-white);
+  --vp-button-brand-bg: var(--vp-c-brand);
+  --vp-button-brand-hover-border: var(--vp-c-brand-light);
+  --vp-button-brand-hover-text: var(--vp-c-white);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-light);
+  --vp-button-brand-active-border: var(--vp-c-brand-light);
+  --vp-button-brand-active-text: var(--vp-c-white);
+  --vp-button-brand-active-bg: var(--vp-button-brand-bg);
+}

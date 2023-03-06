@@ -7,6 +7,7 @@ export default {
       {
         text: 'Introduction', 
         items: [
+          { text: 'What is SSPaging?', link: '/intro' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Configuration', link: '/configuration' },
           { text: 'Navigation', link: '/navigation' },
