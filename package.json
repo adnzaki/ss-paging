@@ -1,6 +1,6 @@
 {
   "name": "ss-paging-vue",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "description": "SSPaging: A Full Server-side pagination library for Vue.js",
   "main": "index.js",
   "directories": {

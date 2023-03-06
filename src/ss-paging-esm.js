@@ -14,7 +14,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.2.7
+ * @version     2.2.8
  * @url         https://wolestech.com
  */
 import { ref, reactive, computed } from 'vue'
