@@ -3,7 +3,8 @@ SSPaging is a server-side (or a low-level) pagination library for Vue.js. The na
 SSPaging available in two versions: for Composition API and Pinia. The Vuex version is no longer published since Vuex has been deprecated by the Vue Team. I will provide the Vuex version if you need it, but it has less feature than the Pinia version. Also, the Vuex version will no longer be updated.
 
 ## Brief Concept
-SSPaging aims to allow developer to get a full control of pagination. Rather than using a full pagination library with the template included, you can include pagination functionalities on your own template as long as it uses Vue.js. By using this way, you have a full flexibility with pagination without having to breakdown your current template. SSPaging can be used everywhere in your template, without forcing you to use template from pagination library itself.
+SSPaging aims to allow developer to get a full control of pagination. Rather than using a full pagination library with the template included, you can include pagination functionalities on your own template as long as it uses Vue.js. By using this way, you have a full flexibility with pagination without having to breakdown your current template. SSPaging can be used everywhere in your template, without forcing you to use template from pagination library itself.<br/>
+SSPaging has been used in any scale of projects, from small to large. It is tested on [Quasar Framework](https://quasar.dev), [Primevue DataTable](https://primevue.org/datatable) and any PHP-served website. Because of its simplicity, SSPaging allows developer to use it everywhere, especially on template or framework that does not support server-side pagination.
 
 ## Features
 - ### Powerful
