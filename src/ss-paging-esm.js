@@ -380,7 +380,7 @@ const usePaging = () => {
      * 
      * @return int
      */
-    itemNumber: index => {
+    itemNumber(index) {
       return this.dataFrom.value + index
     },
     /**
