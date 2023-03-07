@@ -2,7 +2,11 @@ export default {
   title: 'SSPagingVue',
   description: 'A Low-Level Server-side Pagination Library for Vue.js',
   base: '/ss-paging/',
+  head: [
+    ['link', { rel: 'icon', type: 'image', href: '/ss-paging/sspaging-logo.png' }]
+  ],
   themeConfig: {
+    logo: '/sspaging-logo.png',
     sidebar: [
       {
         text: 'Introduction', 
