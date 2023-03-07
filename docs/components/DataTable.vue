@@ -10,7 +10,7 @@ onMounted(() => {
   paging.state.rows = limit
 
   paging.getData({
-    lang: 'indonesia',
+    lang: 'english',
     limit,
     offset: 0,
     orderBy: 'institution_name',

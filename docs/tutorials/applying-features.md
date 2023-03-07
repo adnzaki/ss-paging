@@ -9,12 +9,13 @@ After preprared all necessary components, it's time to apply all SSPaging featur
 ## Getting Data
 The first thing we have to do to apply SSPaging is getting data. Let's add SSPaging `getData()` method into `DataTable.vue`:
 ```js
+// DataTable.vue
 onMounted(() => {
   const limit = 10
   paging.state.rows = limit
 
   paging.getData({
-    lang: 'indonesia',
+    lang: 'english',
     limit,
     offset: 0,
     orderBy: 'institution_name',
@@ -46,9 +47,10 @@ Note that `/all/all/none/none/null/` is additional part of the URL that used to 
 :::
 
 ## Rows Numbering
-In previous example, we get rows number from `index + 1`. It is good enough for most cases, but this method will not continue numbering on the next page, so the row number will back to 1 if we navigate to the next page. The good news is SSPaging provides built-in method to provide continous rows numbering. We can get access to this method by calling `paging.itemNumber(index)`. The only difference between Composition API and Pinia version is just the method type. In Composition API version, it is a regular method, while in Pinia version is a getter. Both have the same functionality and will automatically detech which is the right number for its index.<br/>
+In previous example, we get rows number from `index + 1`. It is good enough for most cases, but this method will not continue numbering on the next page, so the row number will back to 1 if we navigate to the next page. The good news is SSPaging provides built-in method to provide continous rows numbering. We can get access to this method by calling `paging.itemNumber(index)`. The only difference between Composition API and Pinia version is just the method type. In Composition API version, it is a regular method, while in Pinia version is a getter. Both have the same functionality and will automatically detect which is the right number for its index.<br/>
 Let's modify `DataTable.vue` to give it continous numbering:
 ```html
+<!-- DataTable.vue -->
 <tbody>
   <tr v-for="(item, index) in data" :key="index">
     <td>{{ index + 1 }}</td> // [!code --]
@@ -60,9 +62,17 @@ Let's modify `DataTable.vue` to give it continous numbering:
   </tr>
 </tbody>
 ```
+
+## Data Range
+SSPaging provides a method for showing data table range via `paging.rowRange()`. Here is the code for our main component later:
+```html
+<p>{{ paging.rowRange() }}</p>
+```
+
 ## Reloading Data
 SSPaging provides `runPaging()` method to reload data. This method is also used internally by SSPaging itself. Simply prepare an element like button and attach it into click event. Here is the code for reload button:
 ```vue
+<!-- ReloadButton.vue -->
 <script setup>
 import { inject } from 'vue';
 
@@ -139,6 +149,7 @@ provide('paging', paging)
       <data-table></data-table> // [!code ++]
     </div> // [!code ++]
   </div> // [!code ++]
+  <p>{{ paging.rowRange() }}</p> // [!code ++]
   <div class="row"> // [!code ++]
     <div class="col"> // [!code ++]
       <navigation></navigation> // [!code ++]

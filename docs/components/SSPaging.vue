@@ -50,6 +50,7 @@ provide('paging', paging)
       <data-table></data-table>
     </div>
   </div>
+  <p>{{ paging.rowRange() }}</p>
   <div class="row">
     <div class="col">
       <navigation></navigation>
