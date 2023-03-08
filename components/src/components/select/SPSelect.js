@@ -29,6 +29,16 @@ export default defineComponent({
     dense: {
       type: Boolean,
       default: false
+    },
+    customSelectClass: {
+      type: String,
+    },
+    customOptionClass: {
+      type: String
+    },
+    dark: {
+      type: Boolean,
+      default: false,
     }
   },
   emits: ['update:selected'],
@@ -65,9 +75,18 @@ export default defineComponent({
       //watch(props, updateSelectedOption)
     }
 
+    const selectClass = () => {
+      const classes = [props.dark ? 'sp-select dark' : 'sp-select']
+      if(props.customSelectClass !== undefined) {
+        classes.push(props.customSelectClass)
+      }
+
+      return classes
+    }
+
     // attributes for Select
     const selectAttrs = {
-      class: 'sp-select',
+      class: selectClass(),
       style: props.dense ? densePadding : '',
       id: 'sp-select-id',
       onClick(event) {
@@ -75,9 +94,19 @@ export default defineComponent({
       },
     }
 
+    const optionClass = () => {
+      const classes = [props.dark ? 'dark' : '']
+      if(props.customOptionClass !== undefined) {
+        classes.push(props.customOptionClass)
+      }
+
+      return classes
+    }
+
     // attributes for Options
     const optionsAttrs = (row, key) => {
       return {
+        class: optionClass(),
         key,
         style: props.dense ? densePadding : '',
         onClick(event) {
