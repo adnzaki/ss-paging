@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from './App.vue'
-import SPSelect from "../components/select/SPSelect";
+import SPSelect from "../components/select/select";
 
 const app = createApp(App)
 const pinia = createPinia()
