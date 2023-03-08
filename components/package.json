@@ -1,0 +1,21 @@
+{
+  "name": "ss-paging-components",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "comp:build": "rollup index.js --file dist/ss-components.js --format iife --name SSComponents --globals vue:Vue"
+  },
+  "dependencies": {
+    "pinia": "^2.0.33",
+    "rollup": "^3.18.0",
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.1.0"
+  }
+}
