@@ -1,11 +1,9 @@
-
-
 .sp-select {
-  min-width: 50px;
   padding: var(--sp-default-padding);
   cursor: pointer;
-  border: solid 0.8px #b3afaf81;
-  border-radius: 5px;  
+  border: var(--sp-default-border);
+  border-radius: var(--sp-default-border-radius);  
+  position: relative;
 }
 
 .sp-select.dark {
@@ -20,14 +18,15 @@
 
 .sp-select-options {
   background-color: #fff;
-  border-radius: var(--border-radius);
+  border-radius: var(--sp-default-border-radius);
   box-shadow: 1px 2px 8px rgba(105, 105, 105, 0.485);
   margin-top: 3px;
   list-style: none;
   padding: 0;
   text-align: left;
-  position: relative;
-  --border-radius: 5px;
+  overflow: auto;
+  max-height: 200px;
+  position: absolute;
 }
 
 .sp-select-options li {
@@ -36,13 +35,13 @@
 }
 
 .sp-select-options li:first-child {
-  border-top-right-radius: var(--border-radius);
-  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--sp-default-border-radius);
+  border-top-left-radius: var(--sp-default-border-radius);
 }
 
 .sp-select-options li:last-child {
-  border-bottom-right-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--sp-default-border-radius);
+  border-bottom-left-radius: var(--sp-default-border-radius);
 }
 .sp-select-options li:hover {
   background-color: #f7f2f2;
