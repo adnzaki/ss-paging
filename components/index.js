@@ -1,5 +1,8 @@
-import SPSelect from "./src/components/select/select";
+import Select from "./src/components/select/select";
+import Navigation from "./src/components/navigation/nav";
 
 export {
-  SPSelect
+  Select,
+  Navigation
+  
 }
