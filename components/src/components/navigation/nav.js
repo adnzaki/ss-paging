@@ -1,5 +1,5 @@
-import { h, defineComponent, ref, computed, onMounted, watch } from "vue";
-import { setPagingState, getPaging, iconSet } from "../helpers";
+import { h, defineComponent, ref, watch } from "vue";
+import { getPaging, iconSet } from "../helpers";
 
 export default defineComponent({
   props: {
@@ -18,6 +18,9 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    customNavigationClass: [String, Array],
+    customInputClass: [String, Array],
+    customNumlinkClass: [String, Array],
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
@@ -51,21 +54,27 @@ export default defineComponent({
     const navLinks = (icon, target) => {
       return createList(h('span', {
           class: iconSet
-        }, icon), target
+        }, icon), target, props.customNavigationClass
       )
     }   
     
     // Page number links
     const createNumberLinks = () => {
       return numberLinks.value.map(item => {
-        return createList(item, (item - 1), 'sp-numlink', props.paging.activeLink(item))
+        return createList(
+          item, 
+          (item - 1), 
+          'sp-numlink', 
+          props.paging.activeLink(item),
+          props.customNumlinkClass
+        )
       })
     }
 
     // Specific page input
     const setPage = () => {
       return createList(h('input', { 
-        class: 'sp-input',
+        class: ['sp-input', props.customInputClass],
         value: props.modelValue, 
         onKeyup(event) {
           // when user hit enter
