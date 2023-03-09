@@ -48,7 +48,7 @@ export default defineComponent({
 
     const showOptions = ref(false)
     const label = ref(props.label)
-    const selectWidth = ref(0)
+    const optionsWidth = ref(0)
     
     onMounted(() => {
       // hide options if users click outside the select element
@@ -60,7 +60,7 @@ export default defineComponent({
           }, 100)
         }
 
-        selectWidth.value = selectEl.offsetWidth
+        optionsWidth.value = selectEl.offsetWidth
       })
     })
 
@@ -131,13 +131,13 @@ export default defineComponent({
     return () => [
       // Select element
       h('div', selectAttrs, label.value,
-        h('span', { class: 'material-icons-sharp' }, 'expand_more'),
+        h('span', { class: 'material-icons-round' }, 'expand_more'),
       ),
 
       // Options element
       showOptions.value ? h('ul', { 
           class: 'sp-select-options', 
-          style: { width: `${selectWidth.value}px` } 
+          style: { width: `${optionsWidth.value}px` } 
         }, 
         props.options.map((row, index) => {
           return h('li', optionsAttrs(row, index), `${row} ${props.rowLabel}`)
