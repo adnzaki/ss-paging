@@ -27,8 +27,7 @@ export default defineComponent({
     const { 
       pageLinks,
       first, prev,
-      next, last,
-      limit
+      next, last
     } = getPaging(props.useStore, props.paging)
 
     const numberLinks = ref([])
