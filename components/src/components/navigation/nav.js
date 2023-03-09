@@ -78,13 +78,15 @@ export default defineComponent({
         onKeyup(event) {
           // when user hit enter
           if(event.keyCode === 13) {
-            if((event.target.value - 1) <= last.value) {
+            const targetPage = event.target.value - 1
+            if(targetPage <= last.value 
+              && targetPage >= 0) {
               emit('update:modelValue', event.target.value)
-              props.paging.nav(event.target.value - 1)
+              props.paging.nav(targetPage)
             }
           }
         }
-      }), null, 'no-background')
+      }), null /* used to avoid createList() to run click event */, 'no-background')
     }
 
     return () => h(
