@@ -23,7 +23,7 @@ After it is installed, you can import the composables or Pinia version of SSPagi
 ```javascript
 import { usePaging, usePagingStore } from 'ss-paging-vue'
 
-// in composables mode (CDN version also use this one)
+// in composables mode
 const paging = usePaging()
 
 // in Pinia mode
@@ -31,7 +31,11 @@ const paging = usePagingStore()
 ```
 For use without build tool, you can include SSPaging via CDN:
 ```html
-<script src="https://unpkg.com/ss-paging-vue@2.2.8/dist/ss-paging.js"></script>
+<script src="https://unpkg.com/ss-paging-vue@2.2.9/dist/ss-paging.dist.js"></script>
+```
+```javascript
+// in your JS file
+const paging = SSPaging.usePaging()
 ```
 ## Documentation
 For complete documentation, please refer to [SSPaging Official Documentation](https://lib.actudent.com/ss-paging/) instead.
