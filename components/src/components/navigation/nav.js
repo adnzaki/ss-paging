@@ -18,6 +18,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
     customNavigationClass: [String, Array],
     customInputClass: [String, Array],
     customNumlinkClass: [String, Array],
@@ -33,6 +37,10 @@ export default defineComponent({
     const numberLinks = ref([])
     watch(pageLinks, () => {
       numberLinks.value = pageLinks.value
+
+      if(props.paging.activePage.value === 1) {
+        emit('update:modelValue', 1)
+      }
     })
 
     const createList = (content, goTo, ...customClass) => {
@@ -53,7 +61,7 @@ export default defineComponent({
     const navLinks = (icon, target) => {
       return createList(h('span', {
           class: iconSet
-        }, icon), target, props.customNavigationClass
+        }, icon), target, props.dark ? 'dark' : '', props.customNavigationClass
       )
     }   
     
@@ -65,6 +73,7 @@ export default defineComponent({
           (item - 1), 
           'sp-numlink', 
           props.paging.activeLink(item),
+          props.dark ? 'dark' : '',
           props.customNumlinkClass
         )
       })

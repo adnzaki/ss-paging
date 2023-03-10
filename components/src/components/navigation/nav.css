@@ -13,12 +13,21 @@
   /* border: var(--sp-default-border); */
 }
 
+.sp-navigation .sp-item .sp-link.dark:hover {
+  background-color: var(--sp-dark);
+  color: #fff;
+}
+
 .sp-navigation .sp-item .sp-numlink {
   padding: 10px 18px 11px 18px
 }
 
 .sp-navigation .sp-item .sp-numlink.active {
   background-color: var(--sp-active-mark-color);
+}
+
+.sp-navigation .sp-item .sp-numlink.active.dark {
+  background-color: var(--sp-dark);
 }
 
 .sp-navigation .sp-item .sp-input {
@@ -30,12 +39,11 @@
 	border: var(--sp-default-border);
   outline: none;
   box-sizing: border-box;
-  transition: .1s;
+  transition: box-shadow 180ms ease-in;
 }
 
 .sp-navigation .sp-item .sp-input:focus {
-  border: solid 2.5px var(--sp-default-border-color) !important;
-  box-shadow: var(--sp-default-box-shadow);
+  box-shadow: 0 0 0 2px var(--sp-default-border-color);
 }
 
 .sp-navigation .sp-item .sp-link.no-background {

@@ -40,13 +40,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="width: 200px; box-sizing: border-box;">
+  <div style="width: 250px; box-sizing: border-box;">
     <sp-select :selected="limit" dense row-label="baris" :paging="paging"></sp-select>
+    <p></p>
+    <sp-searchbox placeholder="Search for institution name..." 
+      :paging="paging"
+      v-model="paging.state.search">
+    </sp-searchbox>
   </div>
-  <sp-navigation 
+  <sp-navigation
     :paging="paging" v-model="current"
-    use-input>
-  </sp-navigation>
+    >
+  </sp-navigation>  
+
+  <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
   <ul>
     <li v-for="(item, index) in paging.state.data" :key="index">{{ item.name }}</li>

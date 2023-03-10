@@ -1,4 +1,6 @@
 :root {
+  --sp-brand-color: #d44670;
+  --sp-brand-color-light: #dd5981;
   --sp-default-padding: 10px 15px;
   --sp-dark: #323232;
   --sp-dark-hover: #2a2a2a;
@@ -6,5 +8,7 @@
   --sp-default-border: solid 0.8px var(--sp-default-border-color);
   --sp-default-border-color: #b3afaf81;
   --sp-default-box-shadow: 1px 2px 8px rgba(147, 147, 147, 0.285);
+  --sp-dark-box-shadow: 1px 2px 4px rgba(76, 76, 76, 0.285);
   --sp-active-mark-color: rgb(238, 238, 238);
+  --sp-grey-color: #636363;
 }
