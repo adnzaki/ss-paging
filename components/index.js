@@ -1,9 +1,9 @@
-import Select from "./src/components/select/select";
-import Navigation from "./src/components/navigation/nav";
+import SelectRow from "./src/components/select/select";
+import Navigator from "./src/components/navigation/nav";
 import SearchBox from "./src/components/input/searchbox";
 
 export {
-  Select,
-  Navigation,
+  SelectRow,
+  Navigator,
   SearchBox
 }

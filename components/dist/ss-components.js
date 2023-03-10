@@ -327,9 +327,9 @@ var SSComponents = (function (exports, vue) {
     }
   });
 
-  exports.Navigation = nav;
+  exports.Navigator = nav;
   exports.SearchBox = searchbox;
-  exports.Select = select;
+  exports.SelectRow = select;
 
   return exports;
 
