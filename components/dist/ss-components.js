@@ -148,7 +148,7 @@ var SSComponents = (function (exports, vue) {
 
         // Options element
         showOptions.value ? vue.h('ul', { 
-            class: 'sp-select-options', 
+            class: ['sp-select-options', props.dark ? 'dark' : ''], 
             style: { width: `${optionsWidth.value}px` } 
           }, 
           props.options.map((row, index) => {
@@ -176,6 +176,10 @@ var SSComponents = (function (exports, vue) {
         type: Boolean,
         default: false
       },
+      dark: {
+        type: Boolean,
+        default: false,
+      },
       customNavigationClass: [String, Array],
       customInputClass: [String, Array],
       customNumlinkClass: [String, Array],
@@ -191,6 +195,10 @@ var SSComponents = (function (exports, vue) {
       const numberLinks = vue.ref([]);
       vue.watch(pageLinks, () => {
         numberLinks.value = pageLinks.value;
+
+        if(props.paging.activePage.value === 1) {
+          emit('update:modelValue', 1);
+        }
       });
 
       const createList = (content, goTo, ...customClass) => {
@@ -211,7 +219,7 @@ var SSComponents = (function (exports, vue) {
       const navLinks = (icon, target) => {
         return createList(vue.h('span', {
             class: iconSet
-          }, icon), target, props.customNavigationClass
+          }, icon), target, props.dark ? 'dark' : '', props.customNavigationClass
         )
       };   
       
@@ -223,6 +231,7 @@ var SSComponents = (function (exports, vue) {
             (item - 1), 
             'sp-numlink', 
             props.paging.activeLink(item),
+            props.dark ? 'dark' : '',
             props.customNumlinkClass
           )
         })
@@ -261,7 +270,65 @@ var SSComponents = (function (exports, vue) {
     }
   });
 
+  var searchbox = vue.defineComponent({
+    props: {
+      paging: {
+        type: Object,
+        required: true
+      },
+      useStore: {
+        type: Boolean,
+        default: false
+      },
+      modelValue: {
+        required: true
+      },
+      placeholder: {
+        type: String, 
+        default: ''
+      },
+      icon: {
+        type: String,
+        default: 'search'
+      }
+    },
+    emits: ['update:modelValue'],
+    setup(props, { emit }) {
+      const icons = {
+        search: 'search',
+        arrow: 'arrow_forward'
+      };
+
+      return () => 
+      vue.h('div', { class: 'sp-searchbox-wrapper' }, 
+        [
+          // input element
+          vue.h('input', { 
+            class: 'sp-searchbox',
+            placeholder: props.placeholder,
+            onInput(event) {
+              if(event.target.value === '') {
+                emit('update:modelValue', event.target.value);
+                props.paging.onSearchChanged();
+              }
+            },
+            onKeyup(event) {
+              if(event.keyCode === 13) {
+                emit('update:modelValue', event.target.value);
+                props.paging.filter();
+              }
+            }
+          }),
+
+          // the icon
+          vue.h('span', { class: [iconSet, 'sp-searchbox-icon'] }, icons[props.icon])
+        ]
+      )
+    }
+  });
+
   exports.Navigation = nav;
+  exports.SearchBox = searchbox;
   exports.Select = select;
 
   return exports;
