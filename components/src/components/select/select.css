@@ -29,6 +29,11 @@
   position: absolute;
 }
 
+.sp-select-options.dark {
+  background-color: var(--sp-dark);
+  box-shadow: var(--sp-dark-box-shadow);
+}
+
 .sp-select-options li {
   padding: var(--sp-default-padding);
   cursor: pointer;

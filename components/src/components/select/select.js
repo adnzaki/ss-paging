@@ -136,7 +136,7 @@ export default defineComponent({
 
       // Options element
       showOptions.value ? h('ul', { 
-          class: 'sp-select-options', 
+          class: ['sp-select-options', props.dark ? 'dark' : ''], 
           style: { width: `${optionsWidth.value}px` } 
         }, 
         props.options.map((row, index) => {
