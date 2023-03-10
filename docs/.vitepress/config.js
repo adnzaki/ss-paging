@@ -28,6 +28,12 @@ export default {
           { text: 'Preparing Template', link: '/tutorials/prepare-template' },
           { text: 'Applying Features', link: '/tutorials/applying-features' },
         ]
+      },
+      {
+        text: 'Pagination Components',
+        items: [
+          { text: 'Intro to Components', link: '/builtin-components/intro' }
+        ]
       }
       
     ],
