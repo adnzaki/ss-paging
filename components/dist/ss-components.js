@@ -1,0 +1,269 @@
+var SSComponents = (function (exports, vue) {
+  'use strict';
+
+  const setPagingState = (useStore, { paging, property, value }) => {
+    useStore ? paging[property] = value : paging.state[property] = value;
+  };
+
+  const getPaging = (useStore, paging) => {
+    return useStore ? vue.toRefs(paging) : vue.toRefs(paging.state)
+  };
+
+  const densePadding = { padding: '6px 12px' };
+
+  const iconSet = 'material-icons-round';
+
+  var select = vue.defineComponent({  
+    props: {
+      paging: {
+        type: Object,
+        required: true
+      },
+      useStore: {
+        type: Boolean,
+        default: false
+      },
+      label: {
+        type: String,
+        default: 'Choose Option'
+      },
+      rowLabel: {
+        type: String,
+        default: 'rows'
+      },
+      options: {
+        type: Array,
+        default: [10, 25, 50, 100, 250]
+      },
+      selected: {
+        default: null
+      },
+      dense: {
+        type: Boolean,
+        default: false
+      },
+      customSelectClass: {
+        type: String,
+      },
+      customOptionClass: {
+        type: String
+      },
+      dark: {
+        type: Boolean,
+        default: false,
+      }
+    },
+    emits: ['update:selected'],
+    setup(props, { emit }) {
+      // Pagination instance
+      const paging = props.paging;
+
+      const showOptions = vue.ref(false);
+      const label = vue.ref(props.label);
+      const optionsWidth = vue.ref(0);
+      
+      vue.onMounted(() => {
+        // hide options if users click outside the select element
+        document.addEventListener('click', event => {
+          const selectEl = document.getElementById('sp-select-id');
+          if(!selectEl.contains(event.target)) {
+            setTimeout(() => {
+              showOptions.value = false;            
+            }, 100);
+          }
+
+          optionsWidth.value = selectEl.offsetWidth;
+        });
+      });
+
+      // if user has predefined selected option
+      // use it as select label
+      if(props.selected !== null) {
+        const updateSelectedOption = () => {
+          if(props.options.includes(props.selected)) {
+            // only valid selected is accepted
+            label.value = `${props.selected} ${props.rowLabel}`;
+          }
+        };
+
+        updateSelectedOption();
+        //watch(props, updateSelectedOption)
+      }
+
+      const selectClass = () => {
+        const classes = [props.dark ? 'sp-select dark' : 'sp-select'];
+        if(props.customSelectClass !== undefined) {
+          classes.push(props.customSelectClass);
+        }
+
+        return classes
+      };
+
+      // attributes for Select
+      const selectAttrs = {
+        class: selectClass(),
+        style: props.dense ? densePadding : '',
+        id: 'sp-select-id',
+        onClick(event) {
+          showOptions.value = !showOptions.value;
+        },
+      };
+
+      const optionClass = () => {
+        const classes = [props.dark ? 'dark' : ''];
+        if(props.customOptionClass !== undefined) {
+          classes.push(props.customOptionClass);
+        }
+
+        return classes
+      };
+
+      // attributes for Options
+      const optionsAttrs = (row, key) => {
+        return {
+          class: optionClass(),
+          key,
+          style: props.dense ? densePadding : '',
+          onClick(event) {
+            setPagingState(props.useStore, {
+              paging,
+              property: 'rows',
+              value: row
+            });
+
+            label.value = `${row} ${props.rowLabel}`;
+            paging.showPerPage();
+            
+            // allow users to do something after internal operation completed
+            emit('update:selected', event, row);
+          }
+        }
+      };
+
+      return () => [
+        // Select element
+        vue.h('div', selectAttrs, label.value,
+          vue.h('span', { class: 'material-icons-round' }, 'expand_more'),
+        ),
+
+        // Options element
+        showOptions.value ? vue.h('ul', { 
+            class: 'sp-select-options', 
+            style: { width: `${optionsWidth.value}px` } 
+          }, 
+          props.options.map((row, index) => {
+            return vue.h('li', optionsAttrs(row, index), `${row} ${props.rowLabel}`)
+          })
+        ) : ''
+      ]
+    }
+  });
+
+  var nav = vue.defineComponent({
+    props: {
+      paging: {
+        type: Object,
+        required: true
+      },
+      useStore: {
+        type: Boolean,
+        default: false
+      },
+      modelValue: {
+        required: true
+      },
+      useInput: {
+        type: Boolean,
+        default: false
+      },
+      customNavigationClass: [String, Array],
+      customInputClass: [String, Array],
+      customNumlinkClass: [String, Array],
+    },
+    emits: ['update:modelValue'],
+    setup(props, { emit }) {
+      const { 
+        pageLinks,
+        first, prev,
+        next, last
+      } = getPaging(props.useStore, props.paging);
+
+      const numberLinks = vue.ref([]);
+      vue.watch(pageLinks, () => {
+        numberLinks.value = pageLinks.value;
+      });
+
+      const createList = (content, goTo, ...customClass) => {
+        return vue.h('li', { 
+          class: 'sp-item',
+          onClick(event) {
+            if(goTo !== null) {
+              emit('update:modelValue', goTo + 1);
+              props.paging.nav(goTo);
+            }
+          }
+        }, 
+          vue.h('a', { class: ['sp-link', ...customClass] }, content)
+        )
+      };
+
+      // Page navigation
+      const navLinks = (icon, target) => {
+        return createList(vue.h('span', {
+            class: iconSet
+          }, icon), target, props.customNavigationClass
+        )
+      };   
+      
+      // Page number links
+      const createNumberLinks = () => {
+        return numberLinks.value.map(item => {
+          return createList(
+            item, 
+            (item - 1), 
+            'sp-numlink', 
+            props.paging.activeLink(item),
+            props.customNumlinkClass
+          )
+        })
+      };
+
+      // Specific page input
+      const setPage = () => {
+        return createList(vue.h('input', { 
+          class: ['sp-input', props.customInputClass],
+          value: props.modelValue, 
+          onKeyup(event) {
+            // when user hit enter
+            if(event.keyCode === 13) {
+              const targetPage = event.target.value - 1;
+              if(targetPage <= last.value 
+                && targetPage >= 0) {
+                emit('update:modelValue', event.target.value);
+                props.paging.nav(targetPage);
+              }
+            }
+          }
+        }), null /* used to avoid createList() to run click event */, 'no-background')
+      };
+
+      return () => vue.h(
+        'ul',
+        { class: 'sp-navigation' },
+        [
+          navLinks('first_page', first.value),
+          navLinks('chevron_left', prev.value),
+          props.useInput ? setPage() : createNumberLinks(),
+          navLinks('chevron_right', next.value),
+          navLinks('last_page', last.value)
+        ]
+      )
+    }
+  });
+
+  exports.Navigation = nav;
+  exports.Select = select;
+
+  return exports;
+
+})({}, Vue);

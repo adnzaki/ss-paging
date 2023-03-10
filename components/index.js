@@ -4,5 +4,4 @@ import Navigation from "./src/components/navigation/nav";
 export {
   Select,
   Navigation
-  
 }
