@@ -32,7 +32,11 @@ export default {
       {
         text: 'Pagination Components',
         items: [
-          { text: 'Intro to Components', link: '/builtin-components/intro' }
+          { text: 'Intro to Components', link: '/builtin-components/intro' },
+          { text: 'Installation', link: '/builtin-components/installation' },
+          { text: 'SelectRow', link: '/builtin-components/select-row' },
+          { text: 'Navigator', link: '/builtin-components/navigator' },
+          { text: 'SearchBox', link: '/builtin-components/search-box' },
         ]
       }
       

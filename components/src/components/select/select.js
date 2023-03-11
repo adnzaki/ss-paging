@@ -30,12 +30,8 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    customSelectClass: {
-      type: String,
-    },
-    customOptionClass: {
-      type: String
-    },
+    customSelectClass: [String, Array],
+    customOptionClass: [String, Array],
     dark: {
       type: Boolean,
       default: false,
