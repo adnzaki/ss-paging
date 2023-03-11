@@ -27,6 +27,7 @@
   overflow: auto;
   max-height: 200px;
   position: absolute;
+  z-index: 999;
 }
 
 .sp-select-options.dark {

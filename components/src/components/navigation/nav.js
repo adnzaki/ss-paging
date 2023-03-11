@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, watch } from "vue";
+import { h, defineComponent, ref, watch, onMounted } from "vue";
 import { getPaging, iconSet } from "../helpers";
 
 export default defineComponent({
@@ -34,14 +34,17 @@ export default defineComponent({
       next, last
     } = getPaging(props.useStore, props.paging)
 
-    const numberLinks = ref([])
-    watch(pageLinks, () => {
-      numberLinks.value = pageLinks.value
-
+    const resetModelValue = () => {
       if(props.paging.activePage.value === 1) {
         emit('update:modelValue', 1)
       }
-    })
+    }
+
+    // for build tool version
+    watch(pageLinks, resetModelValue)
+
+    // for CDN version
+    onMounted(resetModelValue)
 
     const createList = (content, goTo, ...customClass) => {
       return h('li', { 
@@ -67,7 +70,7 @@ export default defineComponent({
     
     // Page number links
     const createNumberLinks = () => {
-      return numberLinks.value.map(item => {
+      return pageLinks.value.map(item => {
         return createList(
           item, 
           (item - 1), 

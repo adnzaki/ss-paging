@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+.sp-navigation .sp-item {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
 .sp-navigation .sp-item .sp-link {
 	display: block;
 	padding: 9px 10.5px 5px 10px;
@@ -19,7 +25,13 @@
 }
 
 .sp-navigation .sp-item .sp-numlink {
-  padding: 10px 18px 11px 18px
+  display: flex;
+  width: 23.5px;
+  height: 23.5px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  justify-content: center;
+  align-items:center;
 }
 
 .sp-navigation .sp-item .sp-numlink.active {
