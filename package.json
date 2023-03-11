@@ -1,6 +1,6 @@
 {
   "name": "ss-paging-vue",
-  "version": "2.3.0",
+  "version": "2.3.0-alpha.1",
   "description": "SSPaging: A Full Server-side pagination library for Vue.js",
   "main": "index.js",
   "directories": {},
@@ -30,5 +30,8 @@
   "devDependencies": {
     "vitepress": "^1.0.0-alpha.49",
     "vue": "^3.2.47"
+  },
+  "dependencies": {
+    "pinia": "^2.0.33"
   }
 }
