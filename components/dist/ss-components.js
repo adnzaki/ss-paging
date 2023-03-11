@@ -188,14 +188,17 @@ var SSComponents = (function (exports, vue) {
         next, last
       } = getPaging(props.useStore, props.paging);
 
-      const numberLinks = vue.ref([]);
-      vue.watch(pageLinks, () => {
-        numberLinks.value = pageLinks.value;
-
+      const resetModelValue = () => {
         if(props.paging.activePage.value === 1) {
           emit('update:modelValue', 1);
         }
-      });
+      };
+
+      // for build tool version
+      vue.watch(pageLinks, resetModelValue);
+
+      // for CDN version
+      vue.onMounted(resetModelValue);
 
       const createList = (content, goTo, ...customClass) => {
         return vue.h('li', { 
@@ -221,7 +224,7 @@ var SSComponents = (function (exports, vue) {
       
       // Page number links
       const createNumberLinks = () => {
-        return numberLinks.value.map(item => {
+        return pageLinks.value.map(item => {
           return createList(
             item, 
             (item - 1), 
