@@ -16,7 +16,18 @@
   cursor: pointer;
   border-radius: 50%;
   transition: .2s;
+  background-color: transparent;
+  border: none;
   /* border: var(--sp-default-border); */
+}
+
+.sp-navigation .sp-item .sp-link.disabled {
+  cursor: default;
+  color: #7d7d7d;
+}
+
+.sp-navigation .sp-item .sp-link.disabled:hover {
+  background-color: transparent;
 }
 
 .sp-navigation .sp-item .sp-link.dark:hover {
@@ -26,9 +37,9 @@
 
 .sp-navigation .sp-item .sp-numlink {
   display: flex;
-  width: 23.5px;
-  height: 23.5px;
-  padding-bottom: 10px;
+  width: 24px;
+  height: 24px;
+  padding: 20px 21px 20px 20px;
   border-radius: 25px;
   justify-content: center;
   align-items:center;

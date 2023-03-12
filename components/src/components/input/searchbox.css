@@ -1,5 +1,6 @@
 .sp-searchbox-wrapper {
   display: flex;
+  align-items: center;
 }
 
 .sp-searchbox {
@@ -19,6 +20,5 @@
 
 .sp-searchbox-icon {
   margin-left: -30px;
-  margin-top: 6px;
   color: var(--sp-grey-color);
 }

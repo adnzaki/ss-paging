@@ -9,7 +9,7 @@ var SSComponents = (function (exports, vue) {
     return useStore ? vue.toRefs(paging) : vue.toRefs(paging.state)
   };
 
-  const densePadding = { padding: '6px 12px' };
+  const largePadding = { padding: '10px 15px' };
 
   const iconSet = 'material-icons-round';
 
@@ -38,7 +38,7 @@ var SSComponents = (function (exports, vue) {
       selected: {
         default: null
       },
-      dense: {
+      large: {
         type: Boolean,
         default: false
       },
@@ -54,9 +54,11 @@ var SSComponents = (function (exports, vue) {
       // Pagination instance
       const paging = props.paging;
 
-      const showOptions = vue.ref(false);
       const label = vue.ref(props.label);
       const optionsWidth = vue.ref(0);
+
+      const listWrapperActive = vue.ref('');
+      const activeIcon = vue.ref('');
       
       vue.onMounted(() => {
         // hide options if users click outside the select element
@@ -64,7 +66,8 @@ var SSComponents = (function (exports, vue) {
           const selectEl = document.getElementById('sp-select-id');
           if(!selectEl.contains(event.target)) {
             setTimeout(() => {
-              showOptions.value = false;            
+              // showOptions.value = false
+              listWrapperActive.value = ''; 
             }, 100);
           }
 
@@ -95,14 +98,23 @@ var SSComponents = (function (exports, vue) {
         return classes
       };
 
-      // attributes for Select
-      const selectAttrs = {
-        class: selectClass(),
-        style: props.dense ? densePadding : '',
-        id: 'sp-select-id',
-        onClick(event) {
-          showOptions.value = !showOptions.value;
-        },
+      // attributes for Select    
+      const selectAttrs = () => {
+        return {
+          class: [selectClass(), activeIcon.value],
+          style: props.large ? largePadding : '',
+          id: 'sp-select-id',
+          onClick(event) {
+            // showOptions.value = !showOptions.value
+            if(listWrapperActive.value === 'active') {
+              listWrapperActive.value = '';
+              activeIcon.value = '';
+            } else {
+              listWrapperActive.value = 'active';   
+              activeIcon.value = 'active';      
+            }  
+          },
+        }
       };
 
       const optionClass = () => {
@@ -119,7 +131,7 @@ var SSComponents = (function (exports, vue) {
         return {
           class: optionClass(),
           key,
-          style: props.dense ? densePadding : '',
+          style: props.large ? largePadding : '',
           onClick(event) {
             setPagingState(props.useStore, {
               paging,
@@ -138,19 +150,23 @@ var SSComponents = (function (exports, vue) {
 
       return () => [
         // Select element
-        vue.h('div', selectAttrs, label.value,
+        vue.h('div', selectAttrs(), label.value,
           vue.h('span', { class: 'material-icons-round' }, 'expand_more'),
         ),
 
         // Options element
-        showOptions.value ? vue.h('ul', { 
-            class: ['sp-select-options', props.dark ? 'dark' : ''], 
+        vue.h('ul', { 
+            class: [
+              'sp-select-options', 
+              props.dark ? 'dark' : '',
+              listWrapperActive.value
+            ], 
             style: { width: `${optionsWidth.value}px` } 
           }, 
           props.options.map((row, index) => {
             return vue.h('li', optionsAttrs(row, index), `${row} ${props.rowLabel}`)
           })
-        ) : ''
+        )
       ]
     }
   });
@@ -210,7 +226,7 @@ var SSComponents = (function (exports, vue) {
             }
           }
         }, 
-          vue.h('a', { class: ['sp-link', ...customClass] }, content)
+          vue.h('button', { class: ['sp-link', ...customClass] }, content)
         )
       };
 
@@ -218,7 +234,10 @@ var SSComponents = (function (exports, vue) {
       const navLinks = (icon, target) => {
         return createList(vue.h('span', {
             class: iconSet
-          }, icon), target, props.dark ? 'dark' : '', props.customNavigationClass
+          }, icon), 
+          target, 
+          props.paging.isDisabled(target), 
+          props.dark ? 'dark' : '', props.customNavigationClass
         )
       };   
       

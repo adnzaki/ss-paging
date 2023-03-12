@@ -1,7 +1,7 @@
 :root {
   --sp-brand-color: #d44670;
   --sp-brand-color-light: #dd5981;
-  --sp-default-padding: 10px 15px;
+  --sp-default-padding: 6px 12px;
   --sp-dark: #323232;
   --sp-dark-hover: #2a2a2a;
   --sp-default-border-radius: 5px;
@@ -22,19 +22,30 @@
   color: #fff;
 }.sp-select span {
   float: right;
-  margin-left: 20px;
+  margin-right: -10px;
+  transition: .2s;
+}.sp-select.active span {
+  rotate: 180deg;
 }.sp-select-options {
   background-color: #fff;
   border-radius: var(--sp-default-border-radius);
   box-shadow: var(--sp-default-box-shadow);
-  margin-top: 3px;
+  margin-top: -40px;
   list-style: none;
   padding: 0;
   text-align: left;
   overflow: auto;
-  max-height: 200px;
+  max-height: 50px;
   position: absolute;
   z-index: 999;
+  transition: .2s;
+  opacity: 0;
+  visibility: hidden;
+}.sp-select-options.active {
+  margin-top: 3px;
+  opacity: 1;
+  visibility: visible;
+  max-height: 250px;
 }.sp-select-options.dark {
   background-color: var(--sp-dark);
   box-shadow: var(--sp-dark-box-shadow);
@@ -69,15 +80,22 @@
   cursor: pointer;
   border-radius: 50%;
   transition: .2s;
+  background-color: transparent;
+  border: none;
   /* border: var(--sp-default-border); */
+}.sp-navigation .sp-item .sp-link.disabled {
+  cursor: default;
+  color: #7d7d7d;
+}.sp-navigation .sp-item .sp-link.disabled:hover {
+  background-color: transparent;
 }.sp-navigation .sp-item .sp-link.dark:hover {
   background-color: var(--sp-dark);
   color: #fff;
 }.sp-navigation .sp-item .sp-numlink {
   display: flex;
-  width: 23.5px;
-  height: 23.5px;
-  padding-bottom: 10px;
+  width: 24px;
+  height: 24px;
+  padding: 20px 21px 20px 20px;
   border-radius: 25px;
   justify-content: center;
   align-items: center;
@@ -103,6 +121,7 @@
   background-color: var(--sp-active-mark-color);
 }.sp-searchbox-wrapper {
   display: flex;
+  align-items: center;
 }.sp-searchbox {
   outline: none;
   padding: 10px 15px 10px 10px;
@@ -116,6 +135,5 @@
   box-shadow: 0 0 0 2px var(--sp-default-border-color);
 }.sp-searchbox-icon {
   margin-left: -30px;
-  margin-top: 6px;
   color: var(--sp-grey-color);
 }

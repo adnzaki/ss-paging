@@ -41,7 +41,7 @@ onMounted(() => {
 
 <template>
   <div style="width: 250px; box-sizing: border-box;">
-    <sp-select :selected="limit" dense row-label="baris" :paging="paging"></sp-select>
+    <sp-select :selected="limit" row-label="baris" :paging="paging"></sp-select>
     <p></p>
     <sp-searchbox placeholder="Search for institution name..." 
       :paging="paging"

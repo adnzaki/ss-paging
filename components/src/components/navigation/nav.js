@@ -46,6 +46,10 @@ export default defineComponent({
     // for CDN version
     onMounted(resetModelValue)
 
+    const disableLink = link => {
+
+    }
+
     const createList = (content, goTo, ...customClass) => {
       return h('li', { 
         class: 'sp-item',
@@ -56,7 +60,7 @@ export default defineComponent({
           }
         }
       }, 
-        h('a', { class: ['sp-link', ...customClass] }, content)
+        h('button', { class: ['sp-link', ...customClass] }, content)
       )
     }
 
@@ -64,7 +68,10 @@ export default defineComponent({
     const navLinks = (icon, target) => {
       return createList(h('span', {
           class: iconSet
-        }, icon), target, props.dark ? 'dark' : '', props.customNavigationClass
+        }, icon), 
+        target, 
+        props.paging.isDisabled(target), 
+        props.dark ? 'dark' : '', props.customNavigationClass
       )
     }   
     

@@ -1,5 +1,5 @@
 import { h, defineComponent, ref, onMounted } from "vue";
-import { setPagingState, densePadding } from "../helpers";
+import { setPagingState, largePadding } from "../helpers";
 
 export default defineComponent({  
   props: {
@@ -26,7 +26,7 @@ export default defineComponent({
     selected: {
       default: null
     },
-    dense: {
+    large: {
       type: Boolean,
       default: false
     },
@@ -42,9 +42,11 @@ export default defineComponent({
     // Pagination instance
     const paging = props.paging
 
-    const showOptions = ref(false)
     const label = ref(props.label)
     const optionsWidth = ref(0)
+
+    const listWrapperActive = ref('')
+    const activeIcon = ref('')
     
     onMounted(() => {
       // hide options if users click outside the select element
@@ -52,7 +54,8 @@ export default defineComponent({
         const selectEl = document.getElementById('sp-select-id')
         if(!selectEl.contains(event.target)) {
           setTimeout(() => {
-            showOptions.value = false            
+            // showOptions.value = false
+            listWrapperActive.value = '' 
           }, 100)
         }
 
@@ -83,14 +86,23 @@ export default defineComponent({
       return classes
     }
 
-    // attributes for Select
-    const selectAttrs = {
-      class: selectClass(),
-      style: props.dense ? densePadding : '',
-      id: 'sp-select-id',
-      onClick(event) {
-        showOptions.value = !showOptions.value
-      },
+    // attributes for Select    
+    const selectAttrs = () => {
+      return {
+        class: [selectClass(), activeIcon.value],
+        style: props.large ? largePadding : '',
+        id: 'sp-select-id',
+        onClick(event) {
+          // showOptions.value = !showOptions.value
+          if(listWrapperActive.value === 'active') {
+            listWrapperActive.value = ''
+            activeIcon.value = ''
+          } else {
+            listWrapperActive.value = 'active'   
+            activeIcon.value = 'active'      
+          }  
+        },
+      }
     }
 
     const optionClass = () => {
@@ -107,7 +119,7 @@ export default defineComponent({
       return {
         class: optionClass(),
         key,
-        style: props.dense ? densePadding : '',
+        style: props.large ? largePadding : '',
         onClick(event) {
           setPagingState(props.useStore, {
             paging,
@@ -126,19 +138,23 @@ export default defineComponent({
 
     return () => [
       // Select element
-      h('div', selectAttrs, label.value,
+      h('div', selectAttrs(), label.value,
         h('span', { class: 'material-icons-round' }, 'expand_more'),
       ),
 
       // Options element
-      showOptions.value ? h('ul', { 
-          class: ['sp-select-options', props.dark ? 'dark' : ''], 
+      h('ul', { 
+          class: [
+            'sp-select-options', 
+            props.dark ? 'dark' : '',
+            listWrapperActive.value
+          ], 
           style: { width: `${optionsWidth.value}px` } 
         }, 
         props.options.map((row, index) => {
           return h('li', optionsAttrs(row, index), `${row} ${props.rowLabel}`)
         })
-      ) : ''
+      )
     ]
   }
 })

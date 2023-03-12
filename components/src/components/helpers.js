@@ -8,9 +8,9 @@ const getPaging = (useStore, paging) => {
   return useStore ? toRefs(paging) : toRefs(paging.state)
 }
 
-const densePadding = { padding: '6px 12px' }
+const largePadding = { padding: '10px 15px' }
 
 const iconSet = 'material-icons-round'
 
-export { setPagingState, getPaging, densePadding, iconSet }
+export { setPagingState, getPaging, largePadding, iconSet }
 
