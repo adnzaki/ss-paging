@@ -36,19 +36,28 @@ ul li:first-child {
   margin-top: 8px;
 }
 
+/* Style for active link */
 .active {
   background-color: rgb(24, 160, 115);
+}
+
+/* Style for disabled link */
+.disabled,
+ul li a.disabled:hover {
+  cursor: default;
+  color: #9b9999;
+  background-color: rgb(25, 118, 87);
 }
 </style>
 
 <template>
   <ul>
-    <li><a href="#" @click="paging.nav(first)">First</a></li>
-    <li><a href="#" @click="paging.nav(prev)">Prev</a></li>
+    <li><a href="#" :class="paging.isDisabled(first)" @click="paging.nav(first)">First</a></li>
+    <li><a href="#" :class="paging.isDisabled(prev)" @click="paging.nav(prev)">Prev</a></li>
     <li v-if="numLinks" v-for="(item, index) in pageLinks" :key="index">
       <a href="#" :class="paging.activeLink(item)" @click="paging.nav(item - 1)">{{ item }}</a>
     </li>
-    <li><a href="#" @click="paging.nav(next)">Next</a></li>
-    <li><a href="#" @click="paging.nav(last)">Last</a></li>
+    <li><a href="#" :class="paging.isDisabled(next)" @click="paging.nav(next)">Next</a></li>
+    <li><a href="#" :class="paging.isDisabled(last)" @click="paging.nav(last)">Last</a></li>
   </ul>
 </template>

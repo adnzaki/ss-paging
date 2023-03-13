@@ -78,4 +78,24 @@ You can run something before the request sent by defining your function in this 
 ### `afterRequest`: function
 You can also run something after the request success by defining your function in this option.
 
+::: tip
+Current version of SSPaging does not have option for disabled class. Since it is named `'disabled'` inside internal property, you should have to define your disabled class as 'disabled' as well.
+:::
+
+
+## API References
+Here is a complete API references you can use from SSPaging which we will cover later on this guide:
+| Method                      | Target     | Description                                                                                    |
+|-----------------------------|------------|------------------------------------------------------------------------------------------------|
+| `isDisabled(page: int)`     | Navigation | Determine whether a first/prev/next/last link should be disabled or not                        |
+| `onSearchChanged()`         | Search     | Method to run after search parameter has changed                                               |
+| `nav(page: int)`            | Navigation | Run pagination to the given page                                                               |
+| `filter()`                  | Search     | Search data based on search parameter                                                          |
+| `sortData(orderBy: string)` | Table      | Run pagination to apply sorting data on the server                                             |
+| `showPerPage()`             | Dropdown   | Change per page data based on selected row                                                     |
+| `runPaging()`               | Table      | Reload data based on settings stored in SSPaging                                               |
+| `activeLink(link: int)`     | Navigation | Determine whether a number link is currently active or not                                     |
+| `itemNumber(index: int)`    | Table      | Show an item number based on its order on the data                                             |
+| `activePage`                | -          | Get current active page. It is a computed property in Composition API and is a getter in Pinia |
+| `rowRange()` / `rowRange`   | -          | Show the range of current active data. It is a function in Composition API and as a getter in Pinia |
 
