@@ -56,6 +56,7 @@ export default defineComponent({
           setTimeout(() => {
             // showOptions.value = false
             listWrapperActive.value = '' 
+            activeIcon.value = ''
           }, 100)
         }
 

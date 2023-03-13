@@ -68,6 +68,7 @@ var SSComponents = (function (exports, vue) {
             setTimeout(() => {
               // showOptions.value = false
               listWrapperActive.value = ''; 
+              activeIcon.value = '';
             }, 100);
           }
 
