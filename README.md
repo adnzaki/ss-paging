@@ -6,7 +6,7 @@
 
 <p align="center">
   <img alt="npm" src="https://img.shields.io/npm/dt/ss-paging-vue">
-  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/adnzaki/ss-paging-vue">
+  <img alt="npm" src="https://img.shields.io/npm/v/ss-paging-vue">
   <img alt="SSPaging License" src="https://img.shields.io/npm/l/ss-paging-vue">
 </p>
 
