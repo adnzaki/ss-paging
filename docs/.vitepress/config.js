@@ -48,6 +48,9 @@ export default {
     socialLinks: [
       { icon: 'github', link: 'https://github.com/adnzaki/ss-paging-vue' }
     ],
+    nav: [
+      { text: 'v2.3.0-alpha.5', link: 'https://www.npmjs.com/package/ss-paging-vue' }
+    ]
   }
 }
   
