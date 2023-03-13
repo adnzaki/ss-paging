@@ -15,7 +15,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.3.0-alpha.4
+ * @version     2.3.0-alpha.5
  * @url         https://wolestech.com
  */
 
