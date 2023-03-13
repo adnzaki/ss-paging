@@ -12,7 +12,7 @@
 
 # SSPaging
 SSPaging is a server-side (or a low-level) pagination library for Vue.js. The name was taken from <strong>[Smartscore Pagination](https://smartscore.wolestech.com)</strong> which was a part from past project of SSPaging creator. SSPaging provides sets of ready-to-use functions and properties to create pagination. SSPaging does not provide any template or view, but you can learn how to create it with the examples provided<br/>
-SSPaging available in two versions: for Composition API and Pinia. The Vuex version is no longer published since Vuex has been deprecated by the Vue Team. I will provide the Vuex version if you need it, but it has less feature than the Pinia version. Also, the Vuex version will no longer be updated.
+SSPaging available in two versions: for Composition API and Pinia. The Vuex version is no longer published since Vuex has been deprecated by the Vue Team. 
 
 ## Installation
 SSPaging can be installed using NPM:
@@ -31,7 +31,7 @@ const paging = usePagingStore()
 ```
 For use without build tool, you can include SSPaging via CDN:
 ```html
-<script src="https://unpkg.com/ss-paging-vue@2.2.9/dist/ss-paging.dist.js"></script>
+<script src="https://unpkg.com/ss-paging-vue@2.3.0-alpha.4/dist/ss-paging.dist.js"></script>
 ```
 ```javascript
 // in your JS file

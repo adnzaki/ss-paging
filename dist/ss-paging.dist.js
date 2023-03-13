@@ -17,7 +17,7 @@ var SSPaging = (function (exports, vue) {
    * @package     Pagination
    * @author      Adnan Zaki
    * @type        Libraries
-   * @version     2.2.9
+   * @version     2.3.0-alpha.4
    * @url         https://wolestech.com
    */
 

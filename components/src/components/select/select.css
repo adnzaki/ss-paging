@@ -1,0 +1,79 @@
+.sp-select {
+  padding: var(--sp-default-padding);
+  cursor: pointer;
+  border: var(--sp-default-border);
+  border-radius: var(--sp-default-border-radius);  
+  position: relative;
+}
+
+.sp-select.dark {
+  background-color: var(--sp-dark);
+  color: #fff;
+}
+
+.sp-select span {
+  float: right;
+  margin-right: -10px;
+  transition: .2s;
+}
+
+.sp-select.active span {
+  rotate: 180deg;
+}
+
+.sp-select-options {
+  background-color: #fff;
+  border-radius: var(--sp-default-border-radius);
+  box-shadow: var(--sp-default-box-shadow);
+  margin-top: -40px;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  overflow: auto;
+  max-height: 50px;
+  position: absolute;
+  z-index: 999;
+  transition: .2s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.sp-select-options.active {
+  margin-top: 3px;
+  opacity: 1;
+  visibility: visible;
+  max-height: 250px;
+}
+
+.sp-select-options.dark {
+  background-color: var(--sp-dark);
+  box-shadow: var(--sp-dark-box-shadow);
+}
+
+.sp-select-options li {
+  padding: var(--sp-default-padding);
+  cursor: pointer;
+  transition: .2s;
+}
+
+.sp-select-options li:first-child {
+  border-top-right-radius: var(--sp-default-border-radius);
+  border-top-left-radius: var(--sp-default-border-radius);
+}
+
+.sp-select-options li:last-child {
+  border-bottom-right-radius: var(--sp-default-border-radius);
+  border-bottom-left-radius: var(--sp-default-border-radius);
+}
+.sp-select-options li:hover {
+  background-color: var(--sp-active-mark-color);
+}
+
+.sp-select-options li.dark {
+  background-color: var(--sp-dark);
+  color: #fff;
+}
+
+.sp-select-options li.dark:hover {
+  background-color: var(--sp-dark-hover);
+}

@@ -1,0 +1,139 @@
+:root {
+  --sp-brand-color: #d44670;
+  --sp-brand-color-light: #dd5981;
+  --sp-default-padding: 6px 12px;
+  --sp-dark: #323232;
+  --sp-dark-hover: #2a2a2a;
+  --sp-default-border-radius: 5px;
+  --sp-default-border: solid 0.8px var(--sp-default-border-color);
+  --sp-default-border-color: #b3afaf81;
+  --sp-default-box-shadow: 1px 2px 8px rgba(147, 147, 147, 0.285);
+  --sp-dark-box-shadow: 1px 2px 4px rgba(76, 76, 76, 0.285);
+  --sp-active-mark-color: rgb(238, 238, 238);
+  --sp-grey-color: #636363;
+}.sp-select {
+  padding: var(--sp-default-padding);
+  cursor: pointer;
+  border: var(--sp-default-border);
+  border-radius: var(--sp-default-border-radius);
+  position: relative;
+}.sp-select.dark {
+  background-color: var(--sp-dark);
+  color: #fff;
+}.sp-select span {
+  float: right;
+  margin-right: -10px;
+  transition: .2s;
+}.sp-select.active span {
+  rotate: 180deg;
+}.sp-select-options {
+  background-color: #fff;
+  border-radius: var(--sp-default-border-radius);
+  box-shadow: var(--sp-default-box-shadow);
+  margin-top: -40px;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  overflow: auto;
+  max-height: 50px;
+  position: absolute;
+  z-index: 999;
+  transition: .2s;
+  opacity: 0;
+  visibility: hidden;
+}.sp-select-options.active {
+  margin-top: 3px;
+  opacity: 1;
+  visibility: visible;
+  max-height: 250px;
+}.sp-select-options.dark {
+  background-color: var(--sp-dark);
+  box-shadow: var(--sp-dark-box-shadow);
+}.sp-select-options li {
+  padding: var(--sp-default-padding);
+  cursor: pointer;
+  transition: .2s;
+}.sp-select-options li:first-child {
+  border-top-right-radius: var(--sp-default-border-radius);
+  border-top-left-radius: var(--sp-default-border-radius);
+}.sp-select-options li:last-child {
+  border-bottom-right-radius: var(--sp-default-border-radius);
+  border-bottom-left-radius: var(--sp-default-border-radius);
+}.sp-select-options li:hover {
+  background-color: var(--sp-active-mark-color);
+}.sp-select-options li.dark {
+  background-color: var(--sp-dark);
+  color: #fff;
+}.sp-select-options li.dark:hover {
+  background-color: var(--sp-dark-hover);
+}.sp-navigation {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}.sp-navigation .sp-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}.sp-navigation .sp-item .sp-link {
+  display: block;
+  padding: 9px 10.5px 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: .2s;
+  background-color: transparent;
+  border: none;
+  /* border: var(--sp-default-border); */
+}.sp-navigation .sp-item .sp-link.disabled {
+  cursor: default;
+  color: #7d7d7d;
+}.sp-navigation .sp-item .sp-link.disabled:hover {
+  background-color: transparent;
+}.sp-navigation .sp-item .sp-link.dark:hover {
+  background-color: var(--sp-dark);
+  color: #fff;
+}.sp-navigation .sp-item .sp-numlink {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  padding: 20px 21px 20px 20px;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+}.sp-navigation .sp-item .sp-numlink.active {
+  background-color: var(--sp-active-mark-color);
+}.sp-navigation .sp-item .sp-numlink.active.dark {
+  background-color: var(--sp-dark);
+}.sp-navigation .sp-item .sp-input {
+  width: 50px;
+  padding: 10px 8px;
+  margin-top: -10px;
+  text-align: center;
+  border-radius: var(--sp-default-border-radius);
+  border: var(--sp-default-border);
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 180ms ease-in;
+}.sp-navigation .sp-item .sp-input:focus {
+  box-shadow: 0 0 0 2px var(--sp-default-border-color);
+}.sp-navigation .sp-item .sp-link.no-background {
+  background-color: transparent !important;
+}.sp-navigation .sp-item .sp-link:hover {
+  background-color: var(--sp-active-mark-color);
+}.sp-searchbox-wrapper {
+  display: flex;
+  align-items: center;
+}.sp-searchbox {
+  outline: none;
+  padding: 10px 15px 10px 10px;
+  border: var(--sp-default-border);
+  border-radius: var(--sp-default-border-radius);
+  box-sizing: border-box;
+  transition: box-shadow 180ms ease-in;
+  width: 100%;
+}.sp-searchbox:focus {
+  /* border: solid 1px var(--sp-default-border-color) !important; */
+  box-shadow: 0 0 0 2px var(--sp-default-border-color);
+}.sp-searchbox-icon {
+  margin-left: -30px;
+  color: var(--sp-grey-color);
+}
