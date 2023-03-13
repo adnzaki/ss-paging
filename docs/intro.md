@@ -12,11 +12,6 @@ While SSPaging is a powerful server-side pagination, it has some limitations as 
 SSPaging is a server-side pagination, so it will not work without connection to server. All features are rely on server connection to run.
 - ### Usage scope
 SSPaging only works with Vue.js through the Composition API that needs Vue >3.0 or forcing you to use Pinia if you want to use it in Vue 2. For Vue 3 users, SSPaging works well with Composition API and Pinia. Current version of SSPaging also does not support Vuex. Though the Vuex version is still used in my project, but it is just for migration process.
-- ### No template, make your own!
-SSPaging does not provide any template, so you have to build or use your own template.
-::: tip
-SSPaging components now are in development process, it takes about 1-2 weeks to be released. Stay tuned!
-:::
 
 ## URL Pattern
 SSPaging has 2 options for providing URL to get the data. The first option is following SSPaging URL pattern, and the second option is using your own URL pattern.<br/>
