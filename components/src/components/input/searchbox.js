@@ -21,7 +21,8 @@ export default defineComponent({
     icon: {
       type: String,
       default: 'search'
-    }
+    },
+    customClass: [String, Array]
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
@@ -35,7 +36,7 @@ export default defineComponent({
       [
         // input element
         h('input', { 
-          class: 'sp-searchbox',
+          class: ['sp-searchbox', props.customClass],
           placeholder: props.placeholder,
           onInput(event) {
             if(event.target.value === '') {

@@ -11,7 +11,7 @@ SSPaging components can have multiple instance since it uses props to connect to
 - ### Nearly Zero Config
 Since pagination components have been designed to work as best as possible with SSPaging, they need almost no configuration.
 - ### Customizable
-SSPaging components currently provides fully customizable CSS classes for `Navigator` and `SelectRow` components.
+All SSPaging components provides fully customizable CSS classes. Extending, customizing or even redesigning are definitely possible!
 
 ## How-it-works
 SSPaging components can be used locally via module or globally via `app.component()` option. For use without build tool, you can only use global version of the components.

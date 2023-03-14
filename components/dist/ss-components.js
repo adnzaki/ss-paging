@@ -309,7 +309,8 @@ var SSComponents = (function (exports, vue) {
       icon: {
         type: String,
         default: 'search'
-      }
+      },
+      customClass: [String, Array]
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
@@ -323,7 +324,7 @@ var SSComponents = (function (exports, vue) {
         [
           // input element
           vue.h('input', { 
-            class: 'sp-searchbox',
+            class: ['sp-searchbox', props.customClass],
             placeholder: props.placeholder,
             onInput(event) {
               if(event.target.value === '') {
