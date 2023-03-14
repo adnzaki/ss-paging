@@ -14,7 +14,7 @@ const paging = usePaging()
 </script>
 
 <template>
-  <form @submit:prevent="paging.filter()">
+  <form @submit.prevent="paging.filter()">
     <input v-model="paging.state.search" />
   </form>
 </template>
@@ -27,7 +27,7 @@ const paging = usePagingStore()
 </script>
 
 <template>
-  <form @submit:prevent="paging.filter()">
+  <form @submit.prevent="paging.filter()">
     <input v-model="paging.search" />
   </form>
 </template>

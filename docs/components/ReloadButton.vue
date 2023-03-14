@@ -15,5 +15,5 @@ button {
 </style>
 
 <template>
-  <button @click="paging.runPaging()">Reload Pagination!</button>
+  <button @click="paging.reloadData()">Reload Pagination!</button>
 </template>

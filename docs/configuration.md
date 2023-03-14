@@ -93,7 +93,7 @@ Here is a complete API references you can use from SSPaging which we will cover 
 | `filter()`                  | Search     | Search data based on search parameter                                                          |
 | `sortData(orderBy: string)` | Table      | Run pagination to apply sorting data on the server                                             |
 | `showPerPage()`             | Dropdown   | Change per page data based on selected row                                                     |
-| `runPaging()`               | Table      | Reload data based on settings stored in SSPaging                                               |
+| `reloadData()`              | Table      | Reload data based on settings stored in SSPaging                                               |
 | `activeLink(link: int)`     | Navigation | Determine whether a number link is currently active or not                                     |
 | `itemNumber(index: int)`    | Table      | Show an item number based on its order on the data                                             |
 | `activePage`                | -          | Get current active page. It is a computed property in Composition API and is a getter in Pinia |

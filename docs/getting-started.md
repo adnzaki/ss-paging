@@ -26,7 +26,7 @@ const paging = SSPaging.usePaging()
 ```
 
 ## Get Data
-The main method of SSPaging is `getData()`, it uses `fetch()` in the background to send request and get the response from server. This method is the main actor of SSPaging, since it will get the data, set and save options and run the pagination generator. SSPaging consists of two arguments: `(options: object, callFromRunPaging: boolean)`. `options` is required in this method calls, while `callFromPaging` only use in internal code and <strong>should never be set</strong>. 
+The main method of SSPaging is `getData()`, it uses `fetch()` in the background to send request and get the response from server. This method is the main actor of SSPaging, since it will get the data, set and save options and run the pagination generator. SSPaging consists of two arguments: `(options: object, callFromRunPaging: boolean)`. `options` is required in this method calls, while `callFromRunPaging` only use in internal code and <strong>should never be set</strong>. 
 
 ## Example
 ::: code-group

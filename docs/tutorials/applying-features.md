@@ -70,7 +70,7 @@ SSPaging provides a method for showing data table range via `paging.rowRange()`.
 ```
 
 ## Reloading Data
-SSPaging provides `runPaging()` method to reload data. This method is also used internally by SSPaging itself. Simply prepare an element like button and attach it into click event. Here is the code for reload button:
+SSPaging provides `reloadData()` method to reload data. This method is also used internally by SSPaging itself. Simply prepare an element like button and attach it into click event. Here is the code for reload button:
 ```vue
 <!-- ReloadButton.vue -->
 <script setup>
@@ -90,7 +90,7 @@ button {
 </style>
 
 <template>
-  <button @click="paging.runPaging()">Reload Pagination!</button>
+  <button @click="paging.reloadData()">Reload Pagination!</button>
 </template>
 ```
 
