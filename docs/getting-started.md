@@ -119,5 +119,31 @@ console.log(rows)
 ```
 :::
 
+## Usage with Options API
+Though SSPaging is designed to work best with Composition API or Pinia, it is still possible to use SSPaging with Options API. For those who do not use build tools, or using Vue as progressive enhancements, using Options API may be a good choice to implement SSPaging. Using SSpaging is simply expose its instance into `setup()`. Here is a complete reference to use SSPaging with Options API:
+::: code-group
+```js [Options API Setup]
+const app = Vue.createApp({
+  setup() {
+    return {
+      paging: SSPaging.usePaging()
+    }
+  },
+  methods: {
+    nav(page) {
+      this.paging.nav(page - 1)
+    }
+  }
+}).mount('#app')
+```
+```html [Template]
+<!-- Access nav() method that executes paging.nav() -->
+<button>{{ nav(1) }}</button>
+
+<!-- Access directly to SSPaging -->
+<p>{{ paging.rowRange() }}</p>
+```
+:::
+
 ## Example Method
 In this documentation, we will use [Single-File Components (SFC)](https://vuejs.org/guide/scaling-up/sfc.html) for all examples. If you do not familiar with SFCs, you can still implement from the example by splitting the code in a separate HTML and JS files. Also for CDN installation, you do not need the import statement since SSPaging and all Vue-related features are automatically available.

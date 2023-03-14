@@ -12,8 +12,10 @@ SSPaging has been used in variety of projects, from small to large. It has been 
 While SSPaging is a powerful server-side pagination, it has some limitations as follow:
 - ### Server-side dependant
 SSPaging is a server-side pagination, so it will not work without connection to server. All features are rely on server connection to run.
-- ### Usage scope
-SSPaging only works with Vue.js through the Composition API that needs Vue >3.0 or forcing you to use Pinia if you want to use it in Vue 2. For Vue 3 users, SSPaging works well with Composition API and Pinia. Current version of SSPaging also does not support Vuex. Though the Vuex version is still used in my project, but it is just for migration process.
+- ### Requires more steps 
+SSPaging is a low-level pagination library that requires more steps to implement than higher level pagination library since each function should be placed one by one into template. Though the current version has [built-in pagination components](builtin-components/intro), they do not cover all features in SSPaging.
+## Compatibilty
+SSPaging works best with Vue.js version >3.0 since it supports both Composition API and Pinia. For version before 3.0, you need Vue >2.7 that has support of Composition API. If your app is using Vue <2.7, you also need to install the composition api: `@vue/composition-api`. SSPaging also does not support Vuex that has been deprecated by Vue team.
 
 ## URL Pattern
 SSPaging has 2 options for providing URL to get the data. The first option is following SSPaging URL pattern, and the second option is using your own URL pattern.<br/>
@@ -27,3 +29,5 @@ We recommend you to use the URL pattern from SSPaging, so you do not have to thi
 
 ## Response Format
 SSPaging accepts response in JSON format with `container` and `totalRows` as key for the response. `container` holds data from server that will be stored in `paging.state.data` in Composition API or `paging.data` in Pinia, while `totalRows` holds the total number of data that will be used by `paging.state.totalRows` in Composition API  or `paging.totalRows` in Pinia. Your response should match this format or SSPaging cannot process your data.
+
+
