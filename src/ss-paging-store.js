@@ -15,8 +15,8 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.3.0-alpha.5
- * @url         https://wolestech.com
+ * @version     2.3.0-beta.1
+ * @url         https://lib.actudent.com/ss-paging
  */
 
 import { defineStore } from 'pinia'

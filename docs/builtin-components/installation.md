@@ -3,7 +3,7 @@ If you use build tool, pagination components has been included with SSPaging aft
 
 If you do not use build tool, pagination components should be imported in your script tag and can be accessed via `SSComponents` object.
 ```html
-<script src="https://unpkg.com/ss-paging-vue@2.3.0-alpha.5/components/dist/ss-components.prod.js"></script>
+<script src="https://unpkg.com/ss-paging-vue@2.3.0-beta.1/components/dist/ss-components.prod.js"></script>
 ```
 
 ## Requirements
@@ -16,7 +16,7 @@ SSPaging components relies on Material Icons to define its icon. You have to inc
 - ### Components Stylesheet
 Pagination components' stylesheet should be imported manually in your HTML header:
 ```html
-<link rel="stylesheet" href="https://unpkg.com/ss-paging-vue@2.3.0-alpha.5/components/dist/style.css">
+<link rel="stylesheet" href="https://unpkg.com/ss-paging-vue@2.3.0-beta.1/components/dist/style.css">
 ```
 
 ## Local Usage
