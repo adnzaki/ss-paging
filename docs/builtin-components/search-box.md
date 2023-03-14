@@ -9,7 +9,7 @@
 | `modelValue`   | `Any`           | None       | Yes      | A query to be passed to search parameter                          |
 | `placeholder`  | `String`        | None       | No       | A placeholder for input element                                   |
 | `icon`         | `String`        | `'search'` | No       | Optional icon. Only two icons are available: `search` and `arrow` |
-| `custom-class` | `String\|Array` | None       | No       | Custom class for input element                                    |
+| `customClass` | `String\|Array` | None       | No       | Custom class for input element                                    |
 
 ## Example
 Below is the complete example of how to use `SearchBox` component, assuming you have `paging` as SSPaging instance:
