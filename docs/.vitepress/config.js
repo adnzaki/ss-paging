@@ -49,7 +49,7 @@ export default {
       { icon: 'github', link: 'https://github.com/adnzaki/ss-paging-vue' }
     ],
     nav: [
-      { text: 'v2.3.0-beta.1', link: 'https://www.npmjs.com/package/ss-paging-vue' }
+      { text: 'v2.3.0', link: 'https://www.npmjs.com/package/ss-paging-vue' }
     ]
   }
 }
