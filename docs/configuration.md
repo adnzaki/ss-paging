@@ -73,7 +73,7 @@ By default, SSPaging requires token-based authentication (like JSON Web Tokens a
 This option is used to store your token.
 
 ### `mode`: string
-The mode you want to use for the request with `fetch()` method, e.g., cors, no-cors, or same-origin. Default is `cors`. If you set `useAuth` option to `false`, you do not have to set this option.
+The mode you want to use for the request with `fetch()` method, e.g., `cors`, `no-cors`, or `same-origin`. Default is `cors`. If you set `useAuth` option to `false`, you do not have to set this option.
 
 ### `beforeRequest`: function
 You can run something before the request sent by defining your function in this option.
