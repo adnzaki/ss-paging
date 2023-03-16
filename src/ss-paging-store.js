@@ -15,7 +15,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     2.3.0
+ * @version     2.3.0-stable
  * @url         https://lib.actudent.com/ss-paging
  */
 

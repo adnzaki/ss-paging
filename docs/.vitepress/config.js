@@ -49,7 +49,7 @@ export default {
       { icon: 'github', link: 'https://github.com/adnzaki/ss-paging-vue' }
     ],
     nav: [
-      { text: 'Changelog v2.3.0', link: 'https://github.com/adnzaki/ss-paging/releases/tag/v2.3.0' }
+      { text: 'Changelog v2.3.0-stable', link: 'https://github.com/adnzaki/ss-paging/releases/tag/v2.3.0-stable' }
     ]
   }
 }
