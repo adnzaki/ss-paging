@@ -262,20 +262,22 @@ export const usePagingStore = defineStore('paging', {
         options.beforeRequest()
       }
 
-      let fetchOptions = {
-        method: 'GET',
-        mode: options.cors === undefined ? 'cors' : options.cors, // CORS must be default
-        headers: {
-          Authorization: options.token ?? ''
-        }
-      }
+      let fetchOptions = {}
       
       // we always use authentication for getting data by default
       // but it can be turned off for some purposes
       // Eg: Getting public data
-      if(!options.useAuth) {
+      if(options.useAuth === false) {
         fetchOptions = { method: 'GET' }
         this.useAuth = options.useAuth
+      } else {
+        fetchOptions = {
+          method: 'GET',
+          mode: options.mode === undefined ? 'cors' : options.mode, // CORS must be default
+          headers: {
+            Authorization: options.token ?? ''
+          }
+        }
       }
 
       fetch(requestURL, fetchOptions)
