@@ -1,6 +1,6 @@
 {
   "name": "ss-paging-vue",
-  "version": "2.3.0-stable",
+  "version": "3.0.0-alpha.2",
   "description": "SSPaging: A Full Server-side pagination library for Vue.js",
   "main": "index.js",
   "directories": {},
@@ -9,7 +9,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "paging:build": "rollup src/ss-paging-esm.js --file dist/ss-paging.dist.js --format iife --name SSPaging --globals vue:Vue"
+    "paging:build": "rollup --config --bundleConfigAsCjs"
   },
   "repository": {
     "type": "git",
@@ -28,10 +28,12 @@
   },
   "homepage": "https://github.com/adnzaki/ss-paging#readme",
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.0.0",
     "vitepress": "^1.0.0-alpha.54",
     "vue": "^3.2.47"
   },
   "dependencies": {
-    "pinia": "^2.0.33"
+    "pinia": "^2.0.33",
+    "tslib": "^2.5.0"
   }
 }

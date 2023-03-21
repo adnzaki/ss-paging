@@ -17,7 +17,6 @@
  * @version     3.0.0-alpha.1
  * @url         https://lib.actudent.com/ss-paging
  */
-import { defineStore } from 'pinia' 
 import { ref, reactive, computed } from 'vue'
 import { StateInterface } from './interface/state'
 import { OptionsInterface } from './interface/config'
@@ -319,20 +318,21 @@ function create(settings: Settings) {
   }
 
   // generate startLink...
-  if (settings.linkNum > countLink || settings.linkNum < 1) {
-    startLink = 1
-  } else {
-    if(typeof settings.linkNum === 'number') {
+  if(typeof settings.linkNum === 'number') {
+    if (settings.linkNum > countLink || settings.linkNum < 1) {
+      startLink = 1
+    } else {
       if (settings.linkNum % 2 !== 0) {
         startLink = settings.linkNum - 1
       } else {
         startLink = settings.linkNum
       }
+      startLink = activePage.value - (startLink / 2)
+      if (startLink < 1) {
+        startLink = 1
+      }
     }
-    startLink = activePage.value - (startLink / 2)
-    if (startLink < 1) {
-      startLink = 1
-    }
+
   }
 
   // generate pagination link....
@@ -455,6 +455,4 @@ function usePaging() {
   }
 }
 
-const usePagingStore = defineStore('paging', () => usePaging())
-
-export { usePaging, usePagingStore }
+export { usePaging }
