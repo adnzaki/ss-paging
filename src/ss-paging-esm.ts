@@ -7,9 +7,6 @@
  * 
  * SSPaging does not provide any template or view, but you
  * can learn how to create it with the examples provided
- * 
- * This version is a composable version of SSPaging. You can use
- * this version without state management but requires Composition API.
  *
  * @package     Pagination
  * @author      Adnan Zaki
@@ -18,8 +15,7 @@
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'
-import { StateInterface } from './interface/state'
-import { OptionsInterface } from './interface/config'
+import { StateInterface, OptionsInterface } from './types'
 
 const beforeRequest = ref(null)
 const afterRequest = ref(null)

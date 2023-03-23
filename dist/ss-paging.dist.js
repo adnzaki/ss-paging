@@ -11,9 +11,6 @@ var SSPaging = (function (exports, vue) {
     * SSPaging does not provide any template or view, but you
     * can learn how to create it with the examples provided
     *
-    * This version is a composable version of SSPaging. You can use
-    * this version without state management but requires Composition API.
-    *
     * @package     Pagination
     * @author      Adnan Zaki
     * @type        Libraries
