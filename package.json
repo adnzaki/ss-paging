@@ -1,9 +1,16 @@
 {
   "name": "ss-paging-vue",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.6",
   "description": "SSPaging: A Full Server-side pagination library for Vue.js",
   "main": "index.js",
   "directories": {},
+  "files": [
+    "components/*",
+    "dist/*",
+    "src/*",
+    "module.d.ts"
+  ],
+  "types": "module.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vitepress dev docs",
@@ -26,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/adnzaki/ss-paging/issues"
   },
-  "homepage": "https://github.com/adnzaki/ss-paging#readme",
+  "homepage": "https://lib.actudent.com/ss-paging",
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.0.0",
     "vitepress": "^1.0.0-alpha.54",
