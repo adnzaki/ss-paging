@@ -1,4 +1,2 @@
-import { usePaging } from "./src/ss-paging-esm";
-import { usePagingStore } from "./src/ss-paging-store";
-
-export { usePaging, usePagingStore }
+export { usePaging } from "./src/ss-paging-esm";
+export { usePagingStore } from './src/ss-paging-store'

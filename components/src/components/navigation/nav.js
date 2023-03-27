@@ -1,15 +1,11 @@
-import { h, defineComponent, ref, watch, onMounted } from "vue";
-import { getPaging, iconSet } from "../helpers";
+import { h, defineComponent, toRefs, watch, onMounted } from "vue";
+import { iconSet } from "../helpers";
 
 export default defineComponent({
   props: {
     paging: {
       type: Object,
       required: true
-    },
-    useStore: {
-      type: Boolean,
-      default: false
     },
     modelValue: {
       required: true
@@ -32,7 +28,7 @@ export default defineComponent({
       pageLinks,
       first, prev,
       next, last
-    } = getPaging(props.useStore, props.paging)
+    } = toRefs(props.paging.state)
 
     const resetModelValue = () => {
       if(props.paging.activePage.value === 1) {

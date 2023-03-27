@@ -3,6 +3,7 @@ import { usePaging } from '../../../index';
 import { onMounted, ref } from 'vue';
 
 const paging = usePaging()
+
 const limit = 2
 paging.state.rows = limit
 
@@ -25,14 +26,11 @@ onMounted(() => {
     linkNum: 3,
     activeClass: 'active',
     useAuth: false,
-    // beforeRequest: () => {
-    //   showTable.value = false
-    // },
+    beforeRequest: () => {
+      console.log(paging.state)
+    },
     afterRequest: () => {
-      // console.log(paging.state.pageLinks)
-    //   setTimeout(() => {
-    //     showTable.value = true
-    //  }, 1000);
+      console.log(paging.state)
     }
   })
 })
@@ -49,7 +47,7 @@ onMounted(() => {
     </sp-searchbox>
   </div>
   <sp-navigation
-    :paging="paging" v-model="current"
+    :paging="paging" v-model="current" use-input
     >
   </sp-navigation>  
 

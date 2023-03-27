@@ -7,10 +7,6 @@ export default defineComponent({
       type: Object,
       required: true
     },
-    useStore: {
-      type: Boolean,
-      default: false
-    },
     modelValue: {
       required: true
     },
