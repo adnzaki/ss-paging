@@ -1,15 +1,11 @@
 import { h, defineComponent, ref, onMounted } from "vue";
-import { setPagingState, largePadding } from "../helpers";
+import { largePadding } from "../helpers";
 
 export default defineComponent({  
   props: {
     paging: {
       type: Object,
       required: true
-    },
-    useStore: {
-      type: Boolean,
-      default: false
     },
     label: {
       type: String,
@@ -122,11 +118,8 @@ export default defineComponent({
         key,
         style: props.large ? largePadding : '',
         onClick(event) {
-          setPagingState(props.useStore, {
-            paging,
-            property: 'rows',
-            value: row
-          })
+
+          props.paging.state.rows = row
 
           label.value = `${row} ${props.rowLabel}`
           paging.showPerPage()

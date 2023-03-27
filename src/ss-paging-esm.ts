@@ -11,7 +11,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-alpha.1
+ * @version     3.0.0-alpha.7
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'
@@ -64,8 +64,8 @@ const pagingStates: StateInterface = {
 const store = reactive(pagingStates)
 
 /**
-   * Method for giving a disabled state on pagination buttons
-   */
+ * Method for giving a disabled state on pagination buttons
+ */
 function isDisabled(page: number): string {
   if ((page + 1) === activePage.value) {
     return store.disabledClass
@@ -93,6 +93,7 @@ function nav(page: number): void {
   store.offset = page
   runPaging()
 }
+
 /**
  * Search data based on parameters in the search box
  */
@@ -104,6 +105,7 @@ function filter(): void {
     runPaging()
   }, timeout);
 }
+
 /**
  * Refresh data
  * 
@@ -113,6 +115,7 @@ function reloadData(): void {
   store.offset = (activePage.value - 1)
   runPaging()
 }
+
 /**
  * Method for sorting data based on table's field
  */
@@ -128,6 +131,7 @@ function sortData(orderBy: string): void {
   store.orderBy = orderBy
   runPaging()
 }
+
 /**
  * Option to show number of data per page
  * 
@@ -138,6 +142,7 @@ function showPerPage(): void {
   store.offset = 0
   runPaging()
 }
+
 /**
  * Method for excecuting getData() based on current state
  * like limit, offset, filter, etc.
@@ -175,7 +180,9 @@ function runPaging(): void {
     }
   }, true)
 }
-
+/**
+ * Get data from the server with several configuration options
+ */
 function getData(options: OptionsInterface, callFromRunPaging = false): void {
   store.token = options.token
   store.pagingLang = options.lang
@@ -434,7 +441,7 @@ function rowRange(): string {
 
 function usePaging() {
   return {
-    state: reactive(pagingStates),
+    state: store,
     isDisabled,
     onSearchChanged,
     nav,

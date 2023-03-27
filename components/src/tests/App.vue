@@ -1,17 +1,16 @@
 <script setup>
-import { usePaging, usePagingStore } from '../../../index';
+import { usePaging } from '../../../index';
 import { onMounted, ref } from 'vue';
 
 const paging = usePaging()
-const pagingStore = usePagingStore()
 
 const limit = 2
-pagingStore.state.rows = limit
+paging.state.rows = limit
 
 const current = ref(1)
 
 onMounted(() => {
-  pagingStore.getData({
+  paging.getData({
     lang: 'english',
     limit,
     offset: current.value - 1,
@@ -28,10 +27,10 @@ onMounted(() => {
     activeClass: 'active',
     useAuth: false,
     beforeRequest: () => {
-      console.log(pagingStore.state)
+      console.log(paging.state)
     },
     afterRequest: () => {
-      console.log(pagingStore.state)
+      console.log(paging.state)
     }
   })
 })
@@ -40,21 +39,21 @@ onMounted(() => {
 
 <template>
   <div style="width: 250px; box-sizing: border-box;">
-    <sp-select :selected="limit" row-label="baris" :paging="pagingStore"></sp-select>
+    <sp-select :selected="limit" row-label="baris" :paging="paging"></sp-select>
     <p></p>
     <sp-searchbox placeholder="Search for institution name..." 
-      :paging="pagingStore"
-      v-model="pagingStore.state.search">
+      :paging="paging"
+      v-model="paging.state.search">
     </sp-searchbox>
   </div>
   <sp-navigation
-    :paging="pagingStore" v-model="current"
+    :paging="paging" v-model="current" use-input
     >
   </sp-navigation>  
 
   <!-- result example -->
-  <p>Current active page: {{ pagingStore.activePage }}</p>
+  <p>Current active page: {{ paging.activePage }}</p>
   <ul>
-    <li v-for="(item, index) in pagingStore.state.data" :key="index">{{ item.name }}</li>
+    <li v-for="(item, index) in paging.state.data" :key="index">{{ item.name }}</li>
   </ul>
 </template>
