@@ -19,6 +19,15 @@ SSPaging can be installed using NPM:
 ```
 npm install ss-paging-vue
 ```
+
+### Unreleased Version
+You can also install the unreleased version of SSPaging by adding the `next` tag.
+```
+npm install ss-paging-vue@next
+```
+Note that installing unreleased version potentially breakdown your code or throw an error, especially for Pinia users that should add `state` to call SSPaging property like `paging.rows` into `paging.state.rows`. 
+
+## Basic Usage
 After it is installed, you can import the composables or Pinia version of SSPaging (choose one depend on your need!).
 ```javascript
 import { usePaging, usePagingStore } from 'ss-paging-vue'
@@ -31,7 +40,7 @@ const paging = usePagingStore()
 ```
 For use without build tool, you can include SSPaging via CDN:
 ```html
-<script src="https://unpkg.com/ss-paging-vue@2.3.0-stable/dist/ss-paging.dist.js"></script>
+<script src="https://unpkg.com/ss-paging-vue@latest/dist/ss-paging.dist.js"></script>
 ```
 ```javascript
 // in your JS file
