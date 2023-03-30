@@ -1,8 +1,8 @@
 <script setup>
-import { usePaging } from '../../../index';
+import { usePaging, usePagingStore } from '../../../index';
 import { onMounted, ref } from 'vue';
 
-const paging = usePaging()
+const paging = usePagingStore()
 
 const limit = 2
 paging.state.rows = limit
@@ -26,6 +26,7 @@ onMounted(() => {
     // linkNum: 3,
     activeClass: 'active',
     useAuth: false,
+    debug: true,
     // beforeRequest: () => {
     //   console.log(paging.state)
     // },
@@ -54,6 +55,7 @@ onMounted(() => {
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
   <ul>
-    <li v-for="(item, index) in paging.state.data" :key="index"> {{ paging.dataFrom.value + index }} - {{ item.name }}</li>
+    <li v-for="(item, index) in paging.state.data" :key="index"> {{ paging.itemNumber(index) }} - {{ item.name }}</li>
   </ul>
+  <p>{{ paging.rowRange() }}</p>
 </template>

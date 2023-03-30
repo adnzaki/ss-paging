@@ -11,7 +11,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-alpha.7
+ * @version     3.0.0-alpha.12
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'
@@ -27,6 +27,7 @@ const pagingStates: StateInterface = {
   orderBy: '', searchBy: '', sort: 'ASC', whereClause: null,
   url: '', ascendingSort: false, linkNum: false, rows: 10, // custom limit
   token: '', useAuth: true, mode: 'cors',
+  debug: false,
 
   // Delay runPaging() on search filter
   // Useful when you use v-on:keyup directive,
@@ -172,6 +173,7 @@ function runPaging(): void {
       timeout: store.delay.timeout
     },
     useAuth: store.useAuth,
+    debug: store.debug,
     beforeRequest: () => {
       if(beforeRequest.value !== null) beforeRequest.value()
     },
@@ -179,6 +181,9 @@ function runPaging(): void {
       if(afterRequest.value !== null) afterRequest.value()
     }
   }, true)
+
+  console.clear()
+  console.info('If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.')
 }
 /**
  * Get data from the server with several configuration options
@@ -186,6 +191,7 @@ function runPaging(): void {
 function getData(options: OptionsInterface, callFromRunPaging = false): void {
   store.token = options.token
   store.pagingLang = options.lang
+  store.debug = options.debug
 
   let requestURL: string
   if(options.rawUrl === undefined) {
@@ -282,6 +288,13 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
 
         options.afterRequest()
       }
+
+      if(store.debug) {
+        console.info('Reactive state:')
+        console.log(store)
+        console.info('Below are options you have provided:')
+        console.log(options)
+      }
     })
     .catch((error) => {
       console.error('Error:', error)
@@ -353,6 +366,14 @@ function create(settings: Settings) {
   // generate previous and next page links
   settings.start === (store.last -= 1) ? store.next = settings.start : store.next = settings.start + 1
   settings.start === store.first ? store.prev = settings.start : store.prev = settings.start - 1
+
+  if(store.debug) {
+    console.info('Settings for generating pagination:')
+    console.log(settings)
+    console.info('Total possible links (if shown): ' + countLink)
+    console.info('Start link: ' + startLink)
+    console.info('If startLink value never change, it may caused linkNum is hidden')
+  }
 }
 /**
  * Method for marking active link
@@ -386,14 +407,11 @@ const activePage = computed(() => {
 const dataTo = computed(() => {
   let currentPage = store.offset / store.limit,
     range: number
-  if (store.pageLinks.length === 0) {
-    range = 0
+
+  if (currentPage === store.last) {
+    range = store.totalRows
   } else {
-    if (currentPage === store.last) {
-      range = store.totalRows
-    } else {
-      range = store.offset + store.limit
-    }
+    range = store.offset + store.limit
   }
 
   return range
@@ -405,14 +423,11 @@ const dataTo = computed(() => {
  */
 const dataFrom = computed(() => {
   let from: number
-  if (store.pageLinks.length === 0) {
-    from = 0
+
+  if (store.offset === 0) {
+    from = 1
   } else {
-    if (store.offset === 0) {
-      from = 1
-    } else {
-      from = store.offset + 1
-    }
+    from = store.offset + 1
   }
 
   return from

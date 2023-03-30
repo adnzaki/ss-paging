@@ -49,6 +49,7 @@ export interface StateInterface {
     }
   },
   pagingLang: string,
+  debug: boolean
 }
 
 export interface OptionsInterface {
@@ -76,6 +77,7 @@ export interface OptionsInterface {
   },
   useAuth?: boolean,
   mode?: string,
+  debug?: boolean,
   beforeRequest?: () => void,
   afterRequest?: () => void
 }
