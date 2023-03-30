@@ -23,15 +23,15 @@ onMounted(() => {
       active: true,
       timeout: 500
     },
-    linkNum: 3,
+    // linkNum: 3,
     activeClass: 'active',
     useAuth: false,
-    beforeRequest: () => {
-      console.log(paging.state)
-    },
-    afterRequest: () => {
-      console.log(paging.state)
-    }
+    // beforeRequest: () => {
+    //   console.log(paging.state)
+    // },
+    // afterRequest: () => {
+    //   console.log(paging.state)
+    // }
   })
 })
 
@@ -54,6 +54,6 @@ onMounted(() => {
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
   <ul>
-    <li v-for="(item, index) in paging.state.data" :key="index">{{ item.name }}</li>
+    <li v-for="(item, index) in paging.state.data" :key="index"> {{ paging.dataFrom.value + index }} - {{ item.name }}</li>
   </ul>
 </template>

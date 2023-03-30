@@ -335,7 +335,8 @@ function create(settings: Settings) {
         startLink = 1
       }
     }
-
+  } else {
+    startLink = 1
   }
 
   // generate pagination link....
@@ -454,7 +455,9 @@ function usePaging() {
     activeLink,
     activePage,
     itemNumber,
-    rowRange
+    rowRange,
+    dataFrom,
+    dataTo,
   }
 }
 
