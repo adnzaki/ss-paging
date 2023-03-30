@@ -182,8 +182,10 @@ function runPaging(): void {
     }
   }, true)
 
-  console.clear()
-  console.info('If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.')
+  if(store.debug) {
+    console.clear()
+    console.info('If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.')
+  }
 }
 /**
  * Get data from the server with several configuration options
