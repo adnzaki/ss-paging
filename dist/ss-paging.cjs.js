@@ -1,5 +1,7 @@
-import { ref, reactive, computed } from 'vue';
-import { defineStore } from 'pinia';
+'use strict';
+
+var vue = require('vue');
+var pinia = require('pinia');
 
 /**
  * Smartscore Pagination (SSPaging)
@@ -17,8 +19,8 @@ import { defineStore } from 'pinia';
  * @version     3.0.0-alpha.20
  * @url         https://lib.actudent.com/ss-paging
  */
-var beforeRequest = ref(null);
-var afterRequest = ref(null);
+var beforeRequest = vue.ref(null);
+var afterRequest = vue.ref(null);
 var pagingStates = {
     pageLinks: [], limit: 10, offset: 0, prev: 0,
     next: 0, first: 0, last: 0, setStart: 0, totalRows: 0,
@@ -58,7 +60,7 @@ var pagingStates = {
     },
     pagingLang: 'english',
 };
-var store = reactive(pagingStates);
+var store = vue.reactive(pagingStates);
 /**
  * Method for giving a disabled state on pagination buttons
  */
@@ -364,14 +366,14 @@ function itemNumber(index) {
 /**
  * Get active page
  */
-var activePage = computed(function () {
+var activePage = vue.computed(function () {
     return ((store.offset / store.limit) + 1);
 });
 /**
  * Get the last data range
  *
  */
-var dataTo = computed(function () {
+var dataTo = vue.computed(function () {
     var currentPage = store.offset / store.limit;
     var range;
     if (currentPage === store.last) {
@@ -386,7 +388,7 @@ var dataTo = computed(function () {
  * Get the first data range
  *
  */
-var dataFrom = computed(function () {
+var dataFrom = vue.computed(function () {
     var from;
     if (store.offset === 0) {
         from = 1;
@@ -435,6 +437,7 @@ function usePaging() {
     };
 }
 
-var usePagingStore = defineStore('sspaging', function () { return usePaging(); });
+var usePagingStore = pinia.defineStore('sspaging', function () { return usePaging(); });
 
-export { usePaging, usePagingStore };
+exports.usePaging = usePaging;
+exports.usePagingStore = usePagingStore;

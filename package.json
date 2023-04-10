@@ -1,6 +1,6 @@
 {
   "name": "ss-paging-vue",
-  "version": "3.0.0-alpha.12",
+  "version": "3.0.0-alpha.20",
   "description": "SSPaging: A Full Server-side pagination library for Vue.js",
   "main": "index.js",
   "directories": {},
@@ -12,6 +12,7 @@
     "module.d.ts",
     "README.md"
   ],
+  "type": "module",
   "types": "module.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -38,6 +39,10 @@
   "homepage": "https://lib.actudent.com/ss-paging",
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.38.0",
+    "typescript": "^5.0.4",
     "vitepress": "^1.0.0-alpha.54",
     "vue": "^3.2.47"
   },

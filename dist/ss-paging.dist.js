@@ -1,4 +1,4 @@
-var SSPaging = (function (exports, vue) {
+var SSPaging = (function (exports, vue, pinia) {
    'use strict';
 
    /**
@@ -14,7 +14,7 @@ var SSPaging = (function (exports, vue) {
     * @package     Pagination
     * @author      Adnan Zaki
     * @type        Libraries
-    * @version     3.0.0-alpha.1
+    * @version     3.0.0-alpha.20
     * @url         https://lib.actudent.com/ss-paging
     */
    var beforeRequest = vue.ref(null);
@@ -27,6 +27,7 @@ var SSPaging = (function (exports, vue) {
        orderBy: '', searchBy: '', sort: 'ASC', whereClause: null,
        url: '', ascendingSort: false, linkNum: false, rows: 10,
        token: '', useAuth: true, mode: 'cors',
+       debug: false,
        // Delay runPaging() on search filter
        // Useful when you use v-on:keyup directive,
        // if set to true, it won't send any request to server
@@ -59,8 +60,8 @@ var SSPaging = (function (exports, vue) {
    };
    var store = vue.reactive(pagingStates);
    /**
-      * Method for giving a disabled state on pagination buttons
-      */
+    * Method for giving a disabled state on pagination buttons
+    */
    function isDisabled(page) {
        if ((page + 1) === activePage.value) {
            return store.disabledClass;
@@ -162,6 +163,7 @@ var SSPaging = (function (exports, vue) {
                timeout: store.delay.timeout
            },
            useAuth: store.useAuth,
+           debug: store.debug,
            beforeRequest: function () {
                if (beforeRequest.value !== null)
                    beforeRequest.value();
@@ -171,12 +173,20 @@ var SSPaging = (function (exports, vue) {
                    afterRequest.value();
            }
        }, true);
+       if (store.debug) {
+           console.clear();
+           console.info('If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.');
+       }
    }
+   /**
+    * Get data from the server with several configuration options
+    */
    function getData(options, callFromRunPaging) {
        var _a;
        if (callFromRunPaging === void 0) { callFromRunPaging = false; }
        store.token = options.token;
        store.pagingLang = options.lang;
+       store.debug = options.debug;
        var requestURL;
        if (options.rawUrl === undefined) {
            store.url = options.url;
@@ -262,6 +272,12 @@ var SSPaging = (function (exports, vue) {
                }
                options.afterRequest();
            }
+           if (store.debug) {
+               console.info('Reactive state:');
+               console.log(store);
+               console.info('Below are options you have provided:');
+               console.log(options);
+           }
        })
            .catch(function (error) {
            console.error('Error:', error);
@@ -304,6 +320,9 @@ var SSPaging = (function (exports, vue) {
                }
            }
        }
+       else {
+           startLink = 1;
+       }
        // generate pagination link....
        for (var i = startLink; i <= countLink; i++) {
            store.pageLinks.push(i);
@@ -316,6 +335,13 @@ var SSPaging = (function (exports, vue) {
        // generate previous and next page links
        settings.start === (store.last -= 1) ? store.next = settings.start : store.next = settings.start + 1;
        settings.start === store.first ? store.prev = settings.start : store.prev = settings.start - 1;
+       if (store.debug) {
+           console.info('Settings for generating pagination:');
+           console.log(settings);
+           console.info('Total possible links (if shown): ' + countLink);
+           console.info('Start link: ' + startLink);
+           console.info('If startLink value never change, it may caused linkNum is hidden');
+       }
    }
    /**
     * Method for marking active link
@@ -346,17 +372,13 @@ var SSPaging = (function (exports, vue) {
     *
     */
    var dataTo = vue.computed(function () {
-       var currentPage = store.offset / store.limit, range;
-       if (store.pageLinks.length === 0) {
-           range = 0;
+       var currentPage = store.offset / store.limit;
+       var range;
+       if (currentPage === store.last) {
+           range = store.totalRows;
        }
        else {
-           if (currentPage === store.last) {
-               range = store.totalRows;
-           }
-           else {
-               range = store.offset + store.limit;
-           }
+           range = store.offset + store.limit;
        }
        return range;
    });
@@ -366,16 +388,11 @@ var SSPaging = (function (exports, vue) {
     */
    var dataFrom = vue.computed(function () {
        var from;
-       if (store.pageLinks.length === 0) {
-           from = 0;
+       if (store.offset === 0) {
+           from = 1;
        }
        else {
-           if (store.offset === 0) {
-               from = 1;
-           }
-           else {
-               from = store.offset + 1;
-           }
+           from = store.offset + 1;
        }
        return from;
    });
@@ -399,7 +416,7 @@ var SSPaging = (function (exports, vue) {
    }
    function usePaging() {
        return {
-           state: vue.reactive(pagingStates),
+           state: store,
            isDisabled: isDisabled,
            onSearchChanged: onSearchChanged,
            nav: nav,
@@ -412,12 +429,17 @@ var SSPaging = (function (exports, vue) {
            activeLink: activeLink,
            activePage: activePage,
            itemNumber: itemNumber,
-           rowRange: rowRange
+           rowRange: rowRange,
+           dataFrom: dataFrom,
+           dataTo: dataTo,
        };
    }
 
+   var usePagingStore = pinia.defineStore('sspaging', function () { return usePaging(); });
+
    exports.usePaging = usePaging;
+   exports.usePagingStore = usePagingStore;
 
    return exports;
 
-})({}, Vue);
+})({}, Vue, pinia);

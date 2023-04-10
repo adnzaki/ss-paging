@@ -1,5 +1,9 @@
 {
-  "include": ["*"],
+  "include": [
+    "src",
+    "index.ts",
+    "module.d.ts"
+  ],
   "exclude": ["dist"],
   "compilerOptions": {
     "outDir": "dist",

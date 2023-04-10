@@ -11,7 +11,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-alpha.12
+ * @version     3.0.0-alpha.20
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'
@@ -212,7 +212,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     let searchParam: string
     store.search === '' ? searchParam = '' : searchParam = '/' + store.search
 
-    let baseURL = `${options.url}${store.limit}/${store.offset}/${store.orderBy}/${store.searchBy}/${store.sort}`
+    const baseURL = `${options.url}${store.limit}/${store.offset}/${store.orderBy}/${store.searchBy}/${store.sort}`
 
     if(options.where === undefined || options.where === false) {
       requestURL = `${baseURL}${searchParam}`
@@ -407,8 +407,8 @@ const activePage = computed(() => {
  * 
  */
 const dataTo = computed(() => {
-  let currentPage = store.offset / store.limit,
-    range: number
+  const currentPage = store.offset / store.limit
+  let range: number
 
   if (currentPage === store.last) {
     range = store.totalRows
