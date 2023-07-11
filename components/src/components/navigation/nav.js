@@ -1,4 +1,4 @@
-import { h, defineComponent, toRefs, watch, onMounted } from "vue";
+import { h, defineComponent, toRefs, watch, onMounted, computed } from "vue";
 import { iconSet } from "../helpers";
 
 export default defineComponent({
@@ -38,6 +38,13 @@ export default defineComponent({
 
     // for build tool version
     watch(pageLinks, resetModelValue)
+
+    const activePage = computed(() => props.paging.activePage)
+
+    // when paging.activePage changed, update the modelValue
+    watch(activePage, () => {
+      emit('update:modelValue', activePage.value)
+    })
 
     // for CDN version
     onMounted(resetModelValue)
