@@ -8,6 +8,7 @@ const limit = 2
 paging.state.rows = limit
 
 const current = ref(1)
+const showList = ref(true)
 
 onMounted(() => {
   paging.getData({
@@ -18,7 +19,7 @@ onMounted(() => {
     searchBy: 'institution_name',
     sort: 'ASC',
     search: '',
-    url: `https://yesstudyabroad.actudent.com/admin/institute/get-data/all/all/none/none/null/`,
+    url: `https://yesstudyabroad.com/public/admin/institute/get-data/all/all/none/none/null/`,
     autoReset: {
       active: true,
       timeout: 500
@@ -27,12 +28,14 @@ onMounted(() => {
     activeClass: 'active',
     useAuth: false,
     debug: true,
-    // beforeRequest: () => {
-    //   console.log(paging.state)
-    // },
-    // afterRequest: () => {
-    //   console.log(paging.state)
-    // }
+    beforeRequest: () => {
+      showList.value = false
+    },
+    afterRequest: () => {
+      setTimeout(() => {
+        showList.value = true        
+      }, 300);
+    }
   })
 })
 
@@ -54,8 +57,9 @@ onMounted(() => {
 
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
-  <ul>
+  <ul v-if="showList">
     <li v-for="(item, index) in paging.state.data" :key="index"> {{ paging.itemNumber(index) }} - {{ item.name }}</li>
   </ul>
+  <p v-else><i>Loading...</i></p>
   <p>{{ paging.rowRange() }}</p>
 </template>
