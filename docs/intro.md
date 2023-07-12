@@ -26,6 +26,6 @@ If you would like to use your own URL, you can set it in `getData` method that w
 We recommend you to use the URL pattern from SSPaging, so you do not have to think how to match SSPaging needs.
 
 ## Response Format
-SSPaging accepts response in JSON format with `container` and `totalRows` as key for the response. `container` holds data from server that will be stored in `paging.state.data` in Composition API or `paging.data` in Pinia, while `totalRows` holds the total number of data that will be used by `paging.state.totalRows` in Composition API  or `paging.totalRows` in Pinia. Your response should match this format or SSPaging cannot process your data.
+SSPaging accepts response in JSON format with `container` and `totalRows` as key for the response. `container` holds data from server that will be stored in `paging.state.data`, while `totalRows` holds the total number of data that will be used by `paging.state.totalRows`. Your response should match this format or SSPaging cannot process your data.
 
 

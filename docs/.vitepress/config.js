@@ -12,6 +12,7 @@ export default {
         text: 'Introduction', 
         items: [
           { text: 'What is SSPaging?', link: '/intro' },
+          { text: 'What\'s New', link: '/whats-new' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Configuration', link: '/configuration' },
           { text: 'Navigation', link: '/navigation' },
@@ -49,7 +50,7 @@ export default {
       { icon: 'github', link: 'https://github.com/adnzaki/ss-paging-vue' }
     ],
     nav: [
-      { text: 'Changelog v2.3.0-stable', link: 'https://github.com/adnzaki/ss-paging/releases/tag/v2.3.0-stable' }
+      { text: 'Changelog v3.0.0-beta.2', link: 'https://github.com/adnzaki/ss-paging/releases/tag/3.0.0-beta.2' }
     ]
   }
 }
