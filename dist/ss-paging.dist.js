@@ -14,7 +14,7 @@ var SSPaging = (function (exports, vue, pinia) {
     * @package     Pagination
     * @author      Adnan Zaki
     * @type        Libraries
-    * @version     3.0.0-beta.1
+    * @version     3.0.0-beta.2
     * @url         https://lib.actudent.com/ss-paging
     */
    var beforeRequest = vue.ref(null);
