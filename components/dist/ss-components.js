@@ -1,14 +1,6 @@
 var SSComponents = (function (exports, vue) {
   'use strict';
 
-  const setPagingState = (useStore, { paging, property, value }) => {
-    useStore ? paging[property] = value : paging.state[property] = value;
-  };
-
-  const getPaging = (useStore, paging) => {
-    return useStore ? vue.toRefs(paging) : vue.toRefs(paging.state)
-  };
-
   const largePadding = { padding: '10px 15px' };
 
   const iconSet = 'material-icons-round';
@@ -18,10 +10,6 @@ var SSComponents = (function (exports, vue) {
       paging: {
         type: Object,
         required: true
-      },
-      useStore: {
-        type: Boolean,
-        default: false
       },
       label: {
         type: String,
@@ -134,11 +122,8 @@ var SSComponents = (function (exports, vue) {
           key,
           style: props.large ? largePadding : '',
           onClick(event) {
-            setPagingState(props.useStore, {
-              paging,
-              property: 'rows',
-              value: row
-            });
+
+            props.paging.state.rows = row;
 
             label.value = `${row} ${props.rowLabel}`;
             paging.showPerPage();
@@ -178,10 +163,6 @@ var SSComponents = (function (exports, vue) {
         type: Object,
         required: true
       },
-      useStore: {
-        type: Boolean,
-        default: false
-      },
       modelValue: {
         required: true
       },
@@ -203,7 +184,7 @@ var SSComponents = (function (exports, vue) {
         pageLinks,
         first, prev,
         next, last
-      } = getPaging(props.useStore, props.paging);
+      } = vue.toRefs(props.paging.state);
 
       const resetModelValue = () => {
         if(props.paging.activePage.value === 1) {
@@ -213,6 +194,13 @@ var SSComponents = (function (exports, vue) {
 
       // for build tool version
       vue.watch(pageLinks, resetModelValue);
+
+      const activePage = vue.computed(() => props.paging.activePage);
+
+      // when paging.activePage changed, update the modelValue
+      vue.watch(activePage, () => {
+        emit('update:modelValue', activePage.value);
+      });
 
       // for CDN version
       vue.onMounted(resetModelValue);
@@ -294,10 +282,6 @@ var SSComponents = (function (exports, vue) {
       paging: {
         type: Object,
         required: true
-      },
-      useStore: {
-        type: Boolean,
-        default: false
       },
       modelValue: {
         required: true
