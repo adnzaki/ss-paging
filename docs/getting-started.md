@@ -18,7 +18,7 @@ const paging = usePagingStore()
 ```
 For use without build tool, you can include SSPaging via CDN:
 ```html
-<script src="https://unpkg.com/ss-paging-vue@2.3.0-stable/dist/ss-paging.dist.js"></script>
+<script src="https://unpkg.com/ss-paging-vue@latest/dist/ss-paging.dist.js"></script>
 ```
 ```javascript
 // in your JS file

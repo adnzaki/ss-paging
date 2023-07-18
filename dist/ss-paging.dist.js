@@ -14,7 +14,7 @@ var SSPaging = (function (exports, vue, pinia) {
     * @package     Pagination
     * @author      Adnan Zaki
     * @type        Libraries
-    * @version     3.0.0-beta.2
+    * @version     3.0.0-beta.3
     * @url         https://lib.actudent.com/ss-paging
     */
    var beforeRequest = vue.ref(null);
@@ -256,14 +256,15 @@ var SSPaging = (function (exports, vue, pinia) {
        fetch(requestURL, fetchOptions)
            .then(function (response) { return response.json(); })
            .then(function (res) {
-           var _a, _b, _c;
+           var _a, _b, _c, _d;
            store.data = res.container;
            create({
                rows: res.totalRows,
                start: options.offset,
                linkNum: (_a = options.linkNum) !== null && _a !== void 0 ? _a : store.linkNum,
                activeClass: (_b = options.activeClass) !== null && _b !== void 0 ? _b : store.activeClass,
-               linkClass: (_c = options.linkClass) !== null && _c !== void 0 ? _c : store.linkClass
+               linkClass: (_c = options.linkClass) !== null && _c !== void 0 ? _c : store.linkClass,
+               disabledClass: (_d = options.disabledClass) !== null && _d !== void 0 ? _d : store.disabledClass
            });
            // do something after the request success
            if (options.afterRequest !== undefined) {
@@ -290,6 +291,7 @@ var SSPaging = (function (exports, vue, pinia) {
        store.totalRows = settings.rows;
        store.activeClass = settings.activeClass;
        store.linkClass = settings.linkClass;
+       store.disabledClass = settings.disabledClass;
        store.linkNum = settings.linkNum;
        // reset links
        store.pageLinks = [];
