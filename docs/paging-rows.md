@@ -36,7 +36,7 @@ const paging = usePagingStore()
 </script>
 
 <template>
-  <select v-model="paging.rows" @change="paging.showPerPage()">
+  <select v-model="paging.state.rows" @change="paging.showPerPage()">
     <option disabled value="">Please select one</option>
     <option>10</option>
     <option>25</option>

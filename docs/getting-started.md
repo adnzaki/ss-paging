@@ -29,8 +29,7 @@ const paging = SSPaging.usePaging()
 The main method of SSPaging is `getData()`, it uses `fetch()` in the background to send request and get the response from server. This method is the main actor of SSPaging, since it will get the data, set and save options and run the pagination generator. SSPaging consists of two arguments: `(options: object, callFromRunPaging: boolean)`. `options` is required in this method calls, while `callFromRunPaging` only use in internal code and <strong>should never be set</strong>. 
 
 ## Example
-::: code-group
-```js{14,27} [Composition API]
+```js{14,27}
 const limit = 5
 paging.state.rows = limit
 paging.getData({
@@ -67,60 +66,17 @@ paging.getData({
 })
 
 ```
-```js{14,27} [Pinia]
-const limit = 5
-paging.rows = limit
-paging.getData({
-  lang: 'indonesia',
-  limit,
-  offset: 0,
-  orderBy: 'name',
-  searchBy: 'name', // or array ['name', 'email']
-  sort: 'ASC',
-  search: '',
-  url: `http://localhost/my-project/get-data/`,
+::: tip
+You can also destructure the state using Vue's `toRefs` as below:
 
-  // if you use your own URL pattern
-  // rawUrl: `http://localhost/my-project/get-data/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` 
-  autoReset: {
-    active: true,
-    timeout: 500
-  },
-  delay: {
-    active: true,
-    timeout: 200
-  },
-  linkNum: 3,
-  linkClass: 'page-item',
-  activeClass: 'active',
-  useAuth: false, // if you do not use token-based authentication or using session
-  // token: yourToken, // do not set useAuth if you use token-based authentication
-  beforeRequest: () => {
-    // do something
-  },
-  afterRequest: () => {
-    // do something
-  }
-})
-
-```
-:::
-As you can see on the example above, the difference between Composition API and Pinia version is the way to access the state. In Pinia, you get access the state with `paging.rows`, while in the Composition API you you get access to state with `paging.state.rows`. Both versions can be destructured using Vue's `toRefs` as below:
-::: code-group
-```js [Composition API]
+```js
 const { rows } = toRefs(paging.state)
 
 console.log(rows)
 ```
-```js [Pinia]
-const { rows } = toRefs(paging)
-
-console.log(rows)
-```
 :::
-
 ## Usage with Options API
-Though SSPaging is designed to work best with Composition API or Pinia, it is still possible to use SSPaging with Options API. For those who do not use build tools, or using Vue as progressive enhancements, using Options API may be a good choice to implement SSPaging. Using SSpaging is simply expose its instance into `setup()`. Here is a complete reference to use SSPaging with Options API:
+Though SSPaging is designed to work best with Composition API or Pinia, it is still possible to use SSPaging with Options API. For those who do not use build tools, or using Vue as progressive enhancements, using Options API may be a good choice to implement SSPaging. To use SSpaging is simply expose its instance into `setup()` hook. Here is a complete reference to use SSPaging with Options API:
 ::: code-group
 ```js [Options API Setup]
 const app = Vue.createApp({
@@ -146,4 +102,4 @@ const app = Vue.createApp({
 :::
 
 ## Example Method
-In this documentation, we will use [Single-File Components (SFC)](https://vuejs.org/guide/scaling-up/sfc.html) for all examples. If you do not familiar with SFCs, you can still implement from the example by splitting the code in a separate HTML and JS files. Also for CDN installation, you do not need the import statement since SSPaging and all Vue-related features are automatically available.
+In this documentation, we will use [Single-File Components (SFC)](https://vuejs.org/guide/scaling-up/sfc.html) for all examples. If you do not familiar with SFCs, you can still implement from the example by splitting the code in a separate HTML and JS files. Also for CDN installation, you **do not need** the import statement since SSPaging and all Vue-related features are automatically available.

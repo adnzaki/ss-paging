@@ -17,7 +17,7 @@ onMounted(() => {
     searchBy: 'institution_name',
     sort: 'ASC',
     search: '',
-    url: `https://yesstudyabroad.actudent.com/admin/institute/get-data/all/all/none/none/null/`,
+    url: `https://yesstudyabroad.com/public/admin/institute/get-data/all/all/none/none/null/`,
     autoReset: {
       active: true,
       timeout: 500

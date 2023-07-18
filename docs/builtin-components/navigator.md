@@ -6,7 +6,6 @@
 | Name                    | Type            | Default | Required | Description                                          |
 |-------------------------|-----------------|---------|----------|------------------------------------------------------|
 | `paging`                | `Object`        | None    | Yes      | SSPaging instance                                    |
-| `useStore`              | `Boolean`       | `false` | No       | Set to `true` if using Pinia store                   |
 | `modelValue`            | `Any`           | None    | Yes      | Page number binded to Navigator component            |
 | `useInput`              | `Boolean`       | `false` | No       | whether to use text input to go to the specific page |
 | `dark`                  | `Boolean`       | `false` | No       | Set to `true` to activate dark style                 |
@@ -19,7 +18,6 @@ Below is the complete example of how to use `Navigator` component, assuming you 
 ```html
 <navigator 
   :paging="paging" 
-  use-store
   v-model="currentPage"
   use-input
   dark

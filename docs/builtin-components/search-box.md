@@ -5,7 +5,6 @@
 | Name           | Type            | Default    | Required | Description                                                       |
 |----------------|-----------------|------------|----------|-------------------------------------------------------------------|
 | `paging`       | `Object`        | None       | Yes      | **SSPaging instance**                                             |
-| `useStore`     | `Boolean`       | `false`    | No       | Set to `true` if using Pinia store                                |
 | `modelValue`   | `Any`           | None       | Yes      | A query to be passed to search parameter                          |
 | `placeholder`  | `String`        | None       | No       | A placeholder for input element                                   |
 | `icon`         | `String`        | `'search'` | No       | Optional icon. Only two icons are available: `search` and `arrow` |

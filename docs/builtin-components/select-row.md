@@ -6,7 +6,6 @@
 | Name                | Type            | Default                  | Required | Description                                             |
 |---------------------|-----------------|--------------------------|----------|---------------------------------------------------------|
 | `paging`            | `Object`        | None                     | Yes      | SSPaging instance                                       |
-| `useStore`          | `Boolean`       | `false`                  | No       | Set to `true` if using Pinia store                      |
 | `label`             | `String`        | "Choose Option"          | No       | Text label if there is no selected row                  |
 | `rowLabel`          | `String`        | "rows"                   | No       | Row label                                               |
 | `options`           | `Array`         | `[10, 25, 50, 100, 250]` | No       | Row options to be selected in `showPerPage()`           |
@@ -29,7 +28,6 @@ Below is the complete example of how to use `SelectRow` component, assuming you 
   custom-select-class="custom-select"
   :custom-option-class="['custom-option-1', 'custom-option-2']"
   dark
-  use-store
 ></select-row>
 ```
 Note that above is just an example, you do not have to define them all and must match on your needs. You can try out this component [here](https://playcode.io/1293181).

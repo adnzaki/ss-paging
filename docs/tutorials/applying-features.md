@@ -4,7 +4,7 @@ import ReloadButton from '../components/ReloadButton.vue'
 </script>
 
 # Applying Features
-After preprared all necessary components, it's time to apply all SSPaging features so we will know how SSPaging works in real case. To apply SSPaging into our components, we need to get real data so we will make a request to https://yesstudyabroad.actudent.com to get public institution list from it. That website also uses SSPaging so the URL has matched our need.
+After preprared all necessary components, it's time to apply all SSPaging features so we will know how SSPaging works in real case. To apply SSPaging into our components, we need to get real data so we will make a request to https://yesstudyabroad.com to get public institution list from it. That website also uses SSPaging so the URL has matched our need.
 
 ## Getting Data
 The first thing we have to do to apply SSPaging is getting data. Let's add SSPaging `getData()` method into `DataTable.vue`:
@@ -22,7 +22,7 @@ onMounted(() => {
     searchBy: 'institution_name',
     sort: 'ASC',
     search: '',
-    url: `https://yesstudyabroad.actudent.com/admin/institute/get-data/all/all/none/none/null/`,
+    url: `https://yesstudyabroad.com/public/admin/institute/get-data/all/all/none/none/null/`,
     autoReset: {
       active: true,
       timeout: 500
@@ -43,11 +43,11 @@ onMounted(() => {
 
 ```
 ::: info
-Note that `/all/all/none/none/null/` is additional part of the URL that used to filter data. You do not have to follow this URL pattern.
+Note that `/all/all/none/none/null/` is additional part of the URL that used to filter data. You do not have to follow this URL pattern in your case.
 :::
 
 ## Rows Numbering
-In previous example, we get rows number from `index + 1`. It is good enough for most cases, but this method will not continue numbering on the next page, so the row number will back to 1 if we navigate to the next page. The good news is SSPaging provides built-in method to provide continous rows numbering. We can get access to this method by calling `paging.itemNumber(index)`. The only difference between Composition API and Pinia version is just the method type. In Composition API version, it is a regular method, while in Pinia version is a getter. Both have the same functionality and will automatically detect which is the right number for its index.<br/>
+In previous example, we get rows number from `index + 1`. It is good enough for most cases, but this method will not continue numbering on the next page, so the row number will back to 1 if we navigate to the next page. The good news is SSPaging provides built-in method to provide continous rows numbering. We can get access to this method by calling `paging.itemNumber(index)`. <br/>
 Let's modify `DataTable.vue` to give it continous numbering:
 ```html
 <!-- DataTable.vue -->

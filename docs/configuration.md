@@ -30,14 +30,9 @@ This option is a part of SSPaging URL pattern. This is your main URL as describe
 
 ### `rawUrl`: string
 This option will override all options that included in SSPaging URL pattern. You can use this option if you do not want to follow SSPaging URL pattern. This option requires change the `limit` state in order to generate correct pagination as follow:
-::: code-group
-```js [Composition API]
+```js 
 paging.state.limit = 5
 ```
-```js [Pinia]
-paging.limit = 5
-```
-:::
 
 ### `linkNum`: number
 The number of page links you want to provide to users. (Eg. 1,2,3...)
@@ -47,6 +42,9 @@ The class style of pagination item. It is optional, use only if you want to dyna
 
 ### `activeClass`: string
 Current active page class style (for link number only)
+
+### `disabledClass`: string <Badge type="tip" text="New in v3.x" />
+Set class for disabled link
 
 ### `autoReset`: object
 This option allows you to automatically reset search to the default data if it meets the specified timeout.
@@ -75,30 +73,29 @@ This option is used to store your token.
 ### `mode`: string
 The mode you want to use for the request with `fetch()` method, e.g., `cors`, `no-cors`, or `same-origin`. Default is `cors`. If you set `useAuth` option to `false`, you do not have to set this option.
 
+### `debug`: boolean <Badge type="tip" text="New in v3.x" />
+Set to `true` to activate console debugging.
+
 ### `beforeRequest`: function
 You can run something before the request sent by defining your function in this option.
 
 ### `afterRequest`: function
 You can also run something after the request success by defining your function in this option.
 
-::: tip
-Current version of SSPaging does not have option for disabled class. Since it is named `'disabled'` inside internal property, you should have to define your disabled class as 'disabled' as well.
-:::
 
 
 ## API References
 Here is a complete API references you can use from SSPaging which we will cover later on this guide:
-| Method                      | Target     | Description                                                                                    |
-|-----------------------------|------------|------------------------------------------------------------------------------------------------|
-| `isDisabled(page: int)`     | Navigation | Determine whether a first/prev/next/last link should be disabled or not                        |
-| `onSearchChanged()`         | Search     | Method to run after search parameter has changed                                               |
-| `nav(page: int)`            | Navigation | Run pagination to the given page                                                               |
-| `filter()`                  | Search     | Search data based on search parameter                                                          |
-| `sortData(orderBy: string)` | Table      | Run pagination to apply sorting data on the server                                             |
-| `showPerPage()`             | Dropdown   | Change per page data based on selected row                                                     |
-| `reloadData()`              | Table      | Reload data based on settings stored in SSPaging                                               |
-| `activeLink(link: int)`     | Navigation | Determine whether a number link is currently active or not                                     |
-| `itemNumber(index: int)`    | Table      | Show an item number based on its order on the data                                             |
-| `activePage`                | -          | Get current active page. It is a computed property in Composition API and is a getter in Pinia |
-| `rowRange()` / `rowRange`   | -          | Show the range of current active data. It is a function in Composition API and as a getter in Pinia |
-
+| Method                      | Target     | Description                                                             |
+|-----------------------------|------------|-------------------------------------------------------------------------|
+| `isDisabled(page: int)`     | Navigation | Determine whether a first/prev/next/last link should be disabled or not |
+| `onSearchChanged()`         | Search     | Method to run after search parameter has changed                        |
+| `nav(page: int)`            | Navigation | Run pagination to the given page                                        |
+| `filter()`                  | Search     | Search data based on search parameter                                   |
+| `sortData(orderBy: string)` | Table      | Run pagination to apply sorting data on the server                      |
+| `showPerPage()`             | Dropdown   | Change per page data based on selected row                              |
+| `reloadData()`              | Table      | Reload data based on settings stored in SSPaging                        |
+| `activeLink(link: int)`     | Navigation | Determine whether a number link is currently active or not              |
+| `itemNumber(index: int)`    | Table      | Show an item number based on its order on the data                      |
+| `activePage`                | -          | Get current active page                                                 |
+| `rowRange()`                | -          | Show the range of current active data                                   |

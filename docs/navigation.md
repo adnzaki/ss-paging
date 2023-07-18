@@ -26,7 +26,7 @@ import { toRefs } from 'vue'
 import { usePagingStore } from 'ss-paging-vue'
 
 const paging = usePagingStore()
-const { first, prev, next, last } = toRefs(paging)
+const { first, prev, next, last } = toRefs(paging.state)
 
 paging.nav(first) // go to the first page
 paging.nav(prev) // go to the previous page

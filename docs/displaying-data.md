@@ -34,7 +34,7 @@ const {
   prev, 
   next, 
   last 
-} = toRefs(paging)
+} = toRefs(paging.state)
 </script>
 
 <template>
