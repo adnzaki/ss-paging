@@ -279,7 +279,8 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
         start: options.offset,
         linkNum: options.linkNum ?? store.linkNum,
         activeClass: options.activeClass ?? store.activeClass,
-        linkClass: options.linkClass ?? store.linkClass
+        linkClass: options.linkClass ?? store.linkClass,
+        disabledClass: options.disabledClass ?? store.disabledClass
       })
 
       // do something after the request success
@@ -308,7 +309,8 @@ type Settings = {
   start: number,
   linkNum: boolean | number,
   activeClass: string,
-  linkClass: string
+  linkClass: string,
+  disabledClass: string
 }
 
 /**
@@ -318,6 +320,7 @@ function create(settings: Settings) {
   store.totalRows = settings.rows
   store.activeClass = settings.activeClass
   store.linkClass = settings.linkClass
+  store.disabledClass = settings.disabledClass
   store.linkNum = settings.linkNum
 
   // reset links

@@ -67,6 +67,7 @@ export interface OptionsInterface {
   linkNum?: number | boolean,
   activeClass?: string,
   linkClass?: string,
+  disabledClass?: string,
   autoReset?: {
     active: boolean,
     timeout: number
