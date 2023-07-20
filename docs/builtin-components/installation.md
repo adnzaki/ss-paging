@@ -46,8 +46,8 @@ app.component('search-box', SearchBox)
 app.mount('#app')
 ```
 ```js [Build tool]
-const { SelectRow, Navigator, SearchBox } from 'ss-paging-vue/components'
-const { createApp } from 'vue'
+import { SelectRow, Navigator, SearchBox } from 'ss-paging-vue/components'
+import { createApp } from 'vue'
 
 const app = createApp({})
 app.component('select-row', SelectRow)
