@@ -3,8 +3,10 @@
     <img width="100" src="https://lib.actudent.com/ss-paging/sspaging-logo.png" alt="SSPaging logo">
   </a>
 </p>
-
 <p align="center">
+  <a href="https://github.com/adnzaki/ss-paging/actions/workflows/codeql.yml">
+    <img alt="CodeQL" src="https://github.com/adnzaki/ss-paging/actions/workflows/codeql.yml/badge.svg">
+  </a>   
   <img alt="npm" src="https://img.shields.io/npm/dt/ss-paging-vue">
   <img alt="npm" src="https://img.shields.io/npm/v/ss-paging-vue">
   <img alt="SSPaging License" src="https://img.shields.io/npm/l/ss-paging-vue">
