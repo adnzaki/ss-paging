@@ -9,5 +9,8 @@ Version 3 provides debugging via browser console. Make it easy to see options or
 <br />
 ![Debug Console 2](./img/debug-console2.png)
 
+## New state: `rawResponse`
+
+One of the challenges in using SSPaging in previous versions was its inability to provide a complete response from the server. This meant that if you wanted to include additional data while loading pagination data, you had to create a new route and make another request from your Vue.js code. In the current version, we've added a new state called `rawResponse`, which allows you to access the full response from the server.
 ## Bug Fixes and Improvements
 Version 3, as in commonly major updates provides some bug fixes and improvements for both SSPaging core and components.

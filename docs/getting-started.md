@@ -43,7 +43,6 @@ paging.getData({
   url: `http://localhost/my-project/get-data/`,
 
   // if you use your own URL pattern
-  // rawUrl: `http://localhost/my-project/get-data/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` 
   autoReset: {
     active: true,
     timeout: 500

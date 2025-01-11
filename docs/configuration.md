@@ -28,12 +28,6 @@ This option is a part of SSPaging URL pattern. It accepts your search query para
 ### `url`: string 
 This option is a part of SSPaging URL pattern. This is your main URL as described in SSPaging URL pattern, it can be customized depend on your needs.
 
-### `rawUrl`: string
-This option will override all options that included in SSPaging URL pattern. You can use this option if you do not want to follow SSPaging URL pattern. This option requires change the `limit` state in order to generate correct pagination as follow:
-```js 
-paging.state.limit = 5
-```
-
 ### `linkNum`: number
 The number of page links you want to provide to users. (Eg. 1,2,3...)
 
@@ -80,7 +74,7 @@ Set to `true` to activate console debugging.
 You can run something before the request sent by defining your function in this option.
 
 ### `afterRequest`: function
-You can also run something after the request success by defining your function in this option.
+You can also execute a function after a successful request by defining it in this option. 
 
 
 
