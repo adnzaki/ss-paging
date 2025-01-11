@@ -27,7 +27,7 @@ const pagingStates: StateInterface = {
   orderBy: '', searchBy: '', sort: 'ASC', whereClause: null,
   url: '', ascendingSort: false, linkNum: false, rows: 10, // custom limit
   token: '', useAuth: true, mode: 'cors',
-  debug: false,
+  debug: false, rawResponse: [],
 
   // Delay runPaging() on search filter
   // Useful when you use v-on:keyup directive,
@@ -196,33 +196,28 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   store.debug = options.debug
 
   let requestURL: string
-  if(options.rawUrl === undefined) {
-    store.url = options.url
-    store.limit = options.limit
-    store.offset = options.offset * options.limit
-    store.orderBy = options.orderBy
+  store.url = options.url
+  store.limit = options.limit
+  store.offset = options.offset * options.limit
+  store.orderBy = options.orderBy
 
-    // options.searchBy could be a string or array
-    typeof options.searchBy === 'string' ?
-      store.searchBy = options.searchBy :
-      store.searchBy = options.searchBy.join('-')
+  // options.searchBy could be a string or array
+  typeof options.searchBy === 'string' ?
+    store.searchBy = options.searchBy :
+    store.searchBy = options.searchBy.join('-')
 
-    store.sort = options.sort
-    store.search = options.search
-    let searchParam: string
-    store.search === '' ? searchParam = '' : searchParam = '/' + store.search
+  store.sort = options.sort
+  store.search = options.search
+  let searchParam: string
+  store.search === '' ? searchParam = '' : searchParam = '/' + store.search
 
-    const baseURL = `${options.url}${store.limit}/${store.offset}/${store.orderBy}/${store.searchBy}/${store.sort}`
+  const baseURL = `${options.url}${store.limit}/${store.offset}/${store.orderBy}/${store.searchBy}/${store.sort}`
 
-    if(options.where === undefined || options.where === false) {
-      requestURL = `${baseURL}${searchParam}`
-      store.whereClause = false
-    } else {
-      requestURL = `${baseURL}/${store.whereClause}${searchParam}`
-    }
+  if(options.where === undefined || options.where === false) {
+    requestURL = `${baseURL}${searchParam}`
+    store.whereClause = false
   } else {
-    store.url = options.rawUrl
-    requestURL = options.rawUrl
+    requestURL = `${baseURL}/${store.whereClause}${searchParam}`
   }
 
   if (options.autoReset !== undefined) {
@@ -273,6 +268,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   fetch(requestURL, fetchOptions)
     .then(response => response.json())
     .then(res => {
+      store.rawResponse = res
       store.data = res.container
       create({
         rows: res.totalRows,

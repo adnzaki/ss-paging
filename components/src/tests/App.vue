@@ -1,10 +1,10 @@
 <script setup>
-import { usePagingStore } from '../../../index';
+import { usePagingStore } from '../../../index.ts';
 import { onMounted, ref } from 'vue';
 
 const paging = usePagingStore()
 
-const limit = 2
+const limit = 25
 paging.state.rows = limit
 
 const current = ref(1)
@@ -15,11 +15,11 @@ onMounted(() => {
     lang: 'english',
     limit,
     offset: current.value - 1,
-    orderBy: 'institution_name',
-    searchBy: 'institution_name',
+    orderBy: 'name',
+    searchBy: 'name',
     sort: 'ASC',
     search: '',
-    url: `https://yesstudyabroad.com/public/admin/institute/get-data/all/all/none/none/null/`,
+    url: `http://localhost/ss-paging-api-example/public/customer/get-data/`,
     autoReset: {
       active: true,
       timeout: 500
@@ -33,7 +33,8 @@ onMounted(() => {
     },
     afterRequest: () => {
       setTimeout(() => {
-        showList.value = true        
+        showList.value = true   
+        console.log('Full response: ', paging.state.rawResponse)     
       }, 300);
     }
   })
@@ -45,7 +46,7 @@ onMounted(() => {
   <div style="width: 250px; box-sizing: border-box;">
     <sp-select :selected="limit" row-label="baris" :paging="paging"></sp-select>
     <p></p>
-    <sp-searchbox placeholder="Search for institution name..." 
+    <sp-searchbox placeholder="Search for customer name..." 
       :paging="paging"
       v-model="paging.state.search">
     </sp-searchbox>
@@ -62,4 +63,10 @@ onMounted(() => {
   </ul>
   <p v-else><i>Loading...</i></p>
   <p>{{ paging.rowRange() }}</p>
+  <h4>Full response from server:</h4>
+  <div style="background-color: #400040; padding: 20px; color: aliceblue; border-radius: 10px; word-wrap: break-word; width: 90%;">
+    <pre>
+      {{ paging.state.rawResponse }}
+    </pre>
+  </div>
 </template>
