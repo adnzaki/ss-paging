@@ -279,7 +279,6 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     optionHeaders.set('limit', state.limit.toString())
     optionHeaders.set('offset', state.offset.toString())
     optionHeaders.set('orderBy', state.orderBy)
-    optionHeaders.set('searchBy', state.searchBy)
     optionHeaders.set('sort', state.sort)
   }
 

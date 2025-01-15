@@ -4,21 +4,21 @@ export default {
   input: 'index.ts',
   output: [
     {
-      file: 'dist/ss-paging.dist.js',
+      file: 'dist/ss-paging.dist.js', // Sesuai dengan tsconfig outDir
       format: 'iife',
       name: 'SSPaging',
       globals: {
-        vue:'Vue'
-      }
+        vue: 'Vue',
+      },
     },
     {
-      file: 'dist/ss-paging.cjs.js',
+      file: 'dist/ss-paging.cjs.js', // Masih dalam folder dist
       format: 'cjs',
     },
     {
-      file: 'index.js',
+      file: 'dist/index.js', // Tempatkan di dalam dist
       format: 'es',
     },
   ],
-  plugins: [typescript()]
+  plugins: [typescript()],
 }

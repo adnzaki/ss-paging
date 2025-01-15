@@ -1,7 +1,5 @@
-'use strict';
-
-var vue = require('vue');
-var pinia = require('pinia');
+import { ref, reactive, computed } from 'vue';
+import { defineStore } from 'pinia';
 
 /**
  * Smartscore Pagination (SSPaging)
@@ -19,9 +17,9 @@ var pinia = require('pinia');
  * @version     3.0.0-beta.4
  * @url         https://lib.actudent.com/ss-paging
  */
-const beforeRequest = vue.ref(null);
-const afterRequest = vue.ref(null);
-const state = vue.reactive({
+const beforeRequest = ref(null);
+const afterRequest = ref(null);
+const state = reactive({
     pageLinks: [],
     prev: 0,
     next: 0,
@@ -384,14 +382,14 @@ function itemNumber(index) {
 /**
  * Get active page
  */
-const activePage = vue.computed(() => {
+const activePage = computed(() => {
     return state.offset / state.limit + 1;
 });
 /**
  * Get the last data range
  *
  */
-const dataTo = vue.computed(() => {
+const dataTo = computed(() => {
     const currentPage = state.offset / state.limit;
     let range;
     if (currentPage === state.last) {
@@ -406,7 +404,7 @@ const dataTo = vue.computed(() => {
  * Get the first data range
  *
  */
-const dataFrom = vue.computed(() => {
+const dataFrom = computed(() => {
     let from;
     if (state.offset === 0) {
         from = 1;
@@ -459,7 +457,6 @@ function usePaging() {
     };
 }
 
-const usePagingStore = pinia.defineStore('sspaging', () => usePaging());
+const usePagingStore = defineStore('sspaging', () => usePaging());
 
-exports.usePaging = usePaging;
-exports.usePagingStore = usePagingStore;
+export { usePaging, usePagingStore };
