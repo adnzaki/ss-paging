@@ -1,31 +1,35 @@
 # Installation
-If you use build tool, pagination components has been included with SSPaging after its installation. So, you only have to import them into your project. Nevertheless, some requirements are needed for styling the components. <br>
 
-If you do not use build tool, pagination components should be imported in your script tag and can be accessed via `SSComponents` object.
+If you use a build tool, pagination components are included with SSPaging after installation. Simply import them into your project. However, you need to meet some styling requirements.
+
+If you're not using a build tool, import the pagination components via the `SSComponents` object in your script tag:
 ```html
 <script src="https://unpkg.com/ss-paging-vue@latest/components/dist/ss-components.prod.js"></script>
 ```
 
 ## Requirements
-- ### Material Icons
-SSPaging components relies on Material Icons to define its icon. You have to include <strong>rounded type</strong> of Material Icons in order to make icons visible.
+
+- ### Material Icons  
+SSPaging components rely on Material Icons (rounded type) for icons. Include the following link to display the icons:
 ```html
 <!-- https://material.io/resources/icons/?style=round -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
 ```
-- ### Components Stylesheet
-Pagination components' stylesheet should be imported manually in your HTML header:
+
+- ### Components Stylesheet  
+Import the pagination components' stylesheet manually in your HTML header:
 ```html
 <link rel="stylesheet" href="https://unpkg.com/ss-paging-vue@latest/components/dist/style.css">
 ```
 
 ## Local Usage
-Pagination components can be used locally via `ss-paging-vue/components` by importing them into your components:
+
+For local usage with a build tool, import the components into your Vue files:
 ```vue
 <script setup>
 import { SelectRow, Navigator, SearchBox } from 'ss-paging-vue/components'
-
 </script>
+
 <template>
   <select-row></select-row>
   <navigator></navigator>
@@ -34,7 +38,9 @@ import { SelectRow, Navigator, SearchBox } from 'ss-paging-vue/components'
 ```
 
 ## Global Usage
-For use without build tool, you can only use pagination components globally. Nevertheless, this method can also be used with build tool. This is how to define pagination components:
+
+If not using a build tool, pagination components can only be used globally. However, this method also works with a build tool. Here's how to define and register the components:
+
 ::: code-group
 ```javascript [Non-Build tool]
 const { SelectRow, Navigator, SearchBox } = SSComponents
@@ -57,7 +63,7 @@ app.mount('#app')
 ```
 :::
 
-And in your HTML file:
+Then in your HTML file:
 ```html
 <select-row></select-row>
 <navigator></navigator>

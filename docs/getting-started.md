@@ -54,7 +54,7 @@ paging.getData({
   linkNum: 3,
   linkClass: 'page-item',
   activeClass: 'active',
-  useAuth: false, // if you do not use token-based authentication or using session
+  // useHeader: true // If enabled (set to true), it will send limit, offset, orderBy, and sort as request headers.
   // token: yourToken, // do not set useAuth if you use token-based authentication
   beforeRequest: () => {
     // do something
@@ -75,7 +75,8 @@ console.log(rows)
 ```
 :::
 ## Usage with Options API
-Though SSPaging is designed to work best with Composition API or Pinia, it is still possible to use SSPaging with Options API. For those who do not use build tools, or using Vue as progressive enhancements, using Options API may be a good choice to implement SSPaging. To use SSpaging is simply expose its instance into `setup()` hook. Here is a complete reference to use SSPaging with Options API:
+Although SSPaging is designed to work best with the Composition API or Pinia, it can still be used with the Options API. For those who don't use build tools or are utilizing Vue for progressive enhancement, the Options API can be a good choice for implementing SSPaging. To use SSPaging, simply expose its instance within the `setup()` hook. Below is a complete reference for using SSPaging with the Options API.
+
 ::: code-group
 ```js [Options API Setup]
 const app = Vue.createApp({
@@ -100,5 +101,5 @@ const app = Vue.createApp({
 ```
 :::
 
-## Example Method
-In this documentation, we will use [Single-File Components (SFC)](https://vuejs.org/guide/scaling-up/sfc.html) for all examples. If you do not familiar with SFCs, you can still implement from the example by splitting the code in a separate HTML and JS files. Also for CDN installation, you **do not need** the import statement since SSPaging and all Vue-related features are automatically available.
+## Example Method  
+This documentation uses [Single-File Components (SFC)](https://vuejs.org/guide/scaling-up/sfc.html) for all examples. If you're not familiar with SFCs, you can implement the example by splitting the code into separate HTML and JS files. For CDN installation, you **do not need** the import statement, as SSPaging and all Vue-related features are automatically available.

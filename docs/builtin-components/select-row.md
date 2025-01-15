@@ -1,28 +1,31 @@
 # SelectRow
 
-`<SelectRow />` is a dropdown-like component that handles showing per page task. It covers `paging.showPerPage()` implementation in the background. There are some props available to be passed to this component, though only one of them is required.
+`<SelectRow />` is a dropdown-like component that handles the "show per page" functionality. It internally implements `paging.showPerPage()`. Several props are available for this component, but only one is required.
 
 ## Props
+
 | Name                | Type            | Default                  | Required | Description                                             |
 |---------------------|-----------------|--------------------------|----------|---------------------------------------------------------|
 | `paging`            | `Object`        | None                     | Yes      | SSPaging instance                                       |
-| `label`             | `String`        | "Choose Option"          | No       | Text label if there is no selected row                  |
+| `label`             | `String`        | "Choose Option"          | No       | Text label if no row is selected                        |
 | `rowLabel`          | `String`        | "rows"                   | No       | Row label                                               |
-| `options`           | `Array`         | `[10, 25, 50, 100, 250]` | No       | Row options to be selected in `showPerPage()`           |
-| `selected`          | `Number\|Null`  | `null`                   | No       | Pre-selected row. Use this to set default selected row. |
-| `large`             | `Boolean`       | `false`                  | No       | Set to `true` to use larger dropdown size                        |
-| `customSelectClass` | `String\|Array` | None                     | No       | Custom class to change default select class             |
-| `customOptionClass` | `String\|Array` | None                     | No       | Custom class to change default select option class      |
-| `dark`              | `Boolean`       | `false`                  | No       | Set to `true` to activate dark style                    |
+| `options`           | `Array`         | `[10, 25, 50, 100, 250]` | No       | Row options for `showPerPage()`                         |
+| `selected`          | `Number\|Null`  | `null`                   | No       | Pre-selected row. Use this to set the default selection |
+| `large`             | `Boolean`       | `false`                  | No       | Set to `true` for a larger dropdown size                |
+| `customSelectClass` | `String\|Array` | None                     | No       | Custom class to modify the default select class         |
+| `customOptionClass` | `String\|Array` | None                     | No       | Custom class for modifying the select option class      |
+| `dark`              | `Boolean`       | `false`                  | No       | Set to `true` for dark mode style                       |
 
 ## Example
-Below is the complete example of how to use `SelectRow` component, assuming you have `paging` as SSPaging instance:
+
+Below is an example of using the `SelectRow` component, assuming `paging` is your SSPaging instance:
+
 ```html
 <select-row 
   :paging="paging"
   label="Choose row"
   row-label="baris" 
-  :options="[10,20,30,40,50]"
+  :options="[10, 20, 30, 40, 50]"
   :selected="20" 
   large
   custom-select-class="custom-select"
@@ -30,8 +33,9 @@ Below is the complete example of how to use `SelectRow` component, assuming you 
   dark
 ></select-row>
 ```
-Note that above is just an example, you do not have to define them all and must match on your needs. You can try out this component [here](https://playcode.io/1293181).
+
+Note that this is just an example. You don’t need to define all props, only those that fit your needs. You can try out this component [here](https://playcode.io/1293181).
 
 ::: info
-The look of component may different depend on your template style or your own CSS.
+The appearance of the component may differ depending on your template or custom CSS.
 :::

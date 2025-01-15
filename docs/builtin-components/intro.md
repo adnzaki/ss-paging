@@ -1,20 +1,37 @@
 # Pagination Components Introduction
 
-SSPaging provides pagination components that is a higher level layer of the library. It provides ready-to-use components to work with SSPaging in very simple way. These components offer nearly zero configuration to run pagination and seamlessly integrated with SSPaging core functionality.
+SSPaging provides a set of pagination components that serve as a higher-level layer on top of the library. These components offer a simple and ready-to-use solution for integrating pagination with SSPaging, requiring minimal configuration. They are seamlessly integrated with the core functionality of SSPaging.
 
 ## Features
-Pagination components offer almost all elements that needed by SSPaging with the following features:
+
+Pagination components offer almost all the elements needed by SSPaging, with the following key features:
+
 - ### Integrated
-All SSPaging components are fully integrated, so you do not need to worry about how to handle pagination. 
-- ### Unlimited
-SSPaging components can have multiple instance since it uses props to connect to your SSPaging instance. It means you can use the same SSPaging components more than one in the same page even with different instance.
-- ### Nearly Zero Config
-Since pagination components have been designed to work as best as possible with SSPaging, they need almost no configuration.
+  All SSPaging components are fully integrated, meaning you don’t need to worry about handling pagination logic. The components work together effortlessly out-of-the-box.
+  
+- ### Unlimited Instances
+  SSPaging components can be used in multiple instances on the same page, as they rely on props to connect to the corresponding SSPaging instance. This means you can use the same components more than once, even with different instances.
+  
+- ### Nearly Zero Configuration
+  Pagination components are designed to work optimally with SSPaging, requiring very little configuration. They are ready to go as soon as you include them in your project.
+  
 - ### Customizable
-All SSPaging components provides fully customizable CSS classes. Extending, customizing or even redesigning are definitely possible!
+  All SSPaging components provide fully customizable CSS classes, allowing you to extend, customize, or even redesign them as needed.
 
-## How-it-works
-SSPaging components can be used locally via module or globally via `app.component()` option. For use without build tool, you can only use global version of the components.
+## How It Works
 
-## Available components
-SSPaging provides three components you can use in your project. They are `SelectRow`, `Navigator` and `SearchBox`. We do not provide table as it is a very flexible element that should be customized with your data. Also, using SSPaging in a table only needs basic `v-for` loop and does not have any special treatment.
+SSPaging components can be used locally via a module or globally using the `app.component()` option. If you're not using a build tool, you can only use the global version of the components.
+
+## Available Components
+
+SSPaging provides three core components that you can use in your project:
+
+- `SelectRow`  
+- `Navigator`  
+- `SearchBox`
+
+Note that we do not provide a table component, as it is a highly flexible element that should be customized to fit your specific data. Using SSPaging with a table typically only requires a basic `v-for` loop and does not need any special handling.
+
+---
+
+This revision makes the explanation more clear and concise while maintaining all key points.

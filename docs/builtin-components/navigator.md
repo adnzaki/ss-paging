@@ -1,20 +1,23 @@
 # Navigator
 
-`<Navigator />` is a couple of navigation links that handles page navigation. It covers `paging.nav()` implementation including utility functions like `paging.activeLink()`, `paging.isDisabled()` and displaying page links in the background. There are some props available to be passed, but only two of them are required:
+`<Navigator />` is a navigation component that handles page navigation with links. It implements `paging.nav()`, including utility functions like `paging.activeLink()`, `paging.isDisabled()`, and page link rendering. There are several props available, but only two are required.
 
 ## Props
+
 | Name                    | Type            | Default | Required | Description                                          |
 |-------------------------|-----------------|---------|----------|------------------------------------------------------|
 | `paging`                | `Object`        | None    | Yes      | SSPaging instance                                    |
-| `modelValue`            | `Any`           | None    | Yes      | Page number binded to Navigator component            |
-| `useInput`              | `Boolean`       | `false` | No       | whether to use text input to go to the specific page |
-| `dark`                  | `Boolean`       | `false` | No       | Set to `true` to activate dark style                 |
-| `customNavigationClass` | `String\|Array` | None    | No       | Apply custom class to page navigation                |
-| `customInputClass`      | `String\|Array` | None    | No       | Apply custom class to page number input              |
-| `customNumlinkClass`    | `String\|Array` | None    | No       | Apply custom class to page number links              |
+| `modelValue`            | `Any`           | None    | Yes      | Page number bound to the Navigator component         |
+| `useInput`              | `Boolean`       | `false` | No       | Set to `true` to use a text input for page navigation|
+| `dark`                  | `Boolean`       | `false` | No       | Set to `true` to enable dark mode style              |
+| `customNavigationClass` | `String\|Array` | None    | No       | Custom class for page navigation                     |
+| `customInputClass`      | `String\|Array` | None    | No       | Custom class for the page number input              |
+| `customNumlinkClass`    | `String\|Array` | None    | No       | Custom class for page number links                   |
 
 ## Example
-Below is the complete example of how to use `Navigator` component, assuming you have `paging` as SSPaging instance:
+
+Here’s an example of using the `Navigator` component, assuming `paging` is your SSPaging instance:
+
 ```html
 <navigator 
   :paging="paging" 
@@ -26,7 +29,9 @@ Below is the complete example of how to use `Navigator` component, assuming you 
   custom-numlink-class="custom-numlink"
 ></navigator>
 ```
-Note that above is just an example, you do not have to define them all and must match on your needs. You can try out this component [here](https://playcode.io/1293219).
+
+Note that this is just an example. You don’t need to define all props, only those that suit your needs. You can try out this component [here](https://playcode.io/1293219).
+
 ::: tip
-If you find some styles do not displayed as expected, it may caused by your template styling or your own CSS. To fix this, you can apply custom classes to the component as in the example.
+If some styles are not displaying as expected, it may be caused by your template styling or custom CSS. You can resolve this by applying custom classes as shown in the example.
 :::

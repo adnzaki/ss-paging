@@ -4,47 +4,97 @@ import ReloadButton from '../components/ReloadButton.vue'
 </script>
 
 # Applying Features
-After preprared all necessary components, it's time to apply all SSPaging features so we will know how SSPaging works in real case. To apply SSPaging into our components, we need to get real data so we will make a request to https://yesstudyabroad.com to get public institution list from it. That website also uses SSPaging so the URL has matched our need.
+After preprared all necessary components, it's time to apply all SSPaging features so we will know how SSPaging works in real case. To apply SSPaging into our components, we need to get real data so we will make a request to https://lib.actudent.com/ss-paging-api-example to get dummy data from it.
 
 ## Getting Data
 The first thing we have to do to apply SSPaging is getting data. Let's add SSPaging `getData()` method into `DataTable.vue`:
-```js
+::: code-group
+```js [Using default URL pattern]
 // DataTable.vue
+import { toRefs, onMounted, ref, inject } from 'vue';
+
+const paging = inject('paging')
+const { data } = toRefs(paging.state)
+const showTable = ref(false)
+const current = ref(1)
+
 onMounted(() => {
-  const limit = 10
+  const limit = 25
   paging.state.rows = limit
 
   paging.getData({
     lang: 'english',
     limit,
-    offset: 0,
-    orderBy: 'institution_name',
-    searchBy: 'institution_name',
+    offset: current.value - 1,
+    orderBy: 'name',
+    searchBy: 'name',
     sort: 'ASC',
     search: '',
-    url: `https://yesstudyabroad.com/public/admin/institute/get-data/all/all/none/none/null/`,
+    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-data/`,
     autoReset: {
       active: true,
       timeout: 500
     },
-    linkNum: 3,
+    // linkNum: 3,
     activeClass: 'active',
-    useAuth: false,
+    debug: true,
     beforeRequest: () => {
       showTable.value = false
     },
     afterRequest: () => {
       setTimeout(() => {
-        showTable.value = true
-     }, 1000);
+        showTable.value = true   
+        console.log('Full response: ', paging.state.rawResponse)     
+      }, 300);
     }
   })
 })
 
 ```
-::: info
-Note that `/all/all/none/none/null/` is additional part of the URL that used to filter data. You do not have to follow this URL pattern in your case.
+```js{20} [Using HTTP header]
+// DataTable.vue
+import { toRefs, onMounted, ref, inject } from 'vue';
+
+const paging = inject('paging')
+const { data } = toRefs(paging.state)
+const showTable = ref(false)
+const current = ref(1)
+onMounted(() => {
+  const limit = 25
+  paging.state.rows = limit
+
+  paging.getData({
+    lang: 'english',
+    limit,
+    offset: current.value - 1,
+    orderBy: 'name',
+    searchBy: 'name',
+    sort: 'ASC',
+    search: '',
+    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-customer`,
+    autoReset: {
+      active: true,
+      timeout: 500
+    },
+    useHeader: true // [!code ++]
+    // linkNum: 3,
+    activeClass: 'active',
+    debug: true,
+    beforeRequest: () => {
+      showTable.value = false
+    },
+    afterRequest: () => {
+      setTimeout(() => {
+        showTable.value = true   
+        console.log('Full response: ', paging.state.rawResponse)     
+      }, 300);
+    }
+  })
+})
+
+```
 :::
+
 
 ## Rows Numbering
 In previous example, we get rows number from `index + 1`. It is good enough for most cases, but this method will not continue numbering on the next page, so the row number will back to 1 if we navigate to the next page. The good news is SSPaging provides built-in method to provide continous rows numbering. We can get access to this method by calling `paging.itemNumber(index)`. <br/>
@@ -56,9 +106,9 @@ Let's modify `DataTable.vue` to give it continous numbering:
     <td>{{ index + 1 }}</td> // [!code --]
     <td>{{ paging.itemNumber(index) }}</td> // [!code ++]
     <td>{{ item.name }}</td>
-    <td>{{ item.category }}</td>
-    <td>{{ item.province }}</td>
-    <td>{{ item.city }}</td>
+    <td>{{ item.email }}</td>
+    <td>{{ item.phone }}</td>
+    <td>{{ item.address }}</td>
   </tr>
 </tbody>
 ```

@@ -1,10 +1,11 @@
 # Prerequisites
-Before jump into the tutorials, here we explain what are required to follow the steps.
+Before diving into the tutorial, here are the requirements to follow the steps:
 
 ## Single-File Components
-This tutorial requires knowledge about Single-File Components (SFCs), if you do not familiar with it, you may follow the tutorials by skipping the SFCs part.
+This tutorial assumes you have knowledge of Single-File Components (SFCs). If you're not familiar with them, you can still follow along by skipping the SFC-specific parts.
 
 ## Composition API
-SSPaging built to work best with Composition API. Using Options API is still possible, but it still requires **[setup() function](https://vuejs.org/api/composition-api-setup.html)** to work.
+SSPaging is designed to work best with the Composition API. While using the Options API is still possible, it will require the **[setup() function](https://vuejs.org/api/composition-api-setup.html)** to function properly.
+
 ## Reusable Components
-In this tutorial, we try to give examples as clear as possible. With the power of SFCs, it is possible to create reusable pagination components to be used in real case project.
+In this tutorial, we aim to provide clear examples. With the power of SFCs, you can create reusable pagination components for use in real-world projects.

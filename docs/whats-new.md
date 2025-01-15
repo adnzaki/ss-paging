@@ -1,16 +1,23 @@
 # New in version 3.x
-## Fully-typed Core
-SSPaging core functionality has been rewritten using Typescript, meaning it now provides code completion and better error detection.
-## Unified Version
-In version 2, the Composition API and Pinia version are separated source code and have different way to access the state. In version 3, both version now share the same source code. The Pinia version gets the same way as Composition API to work. This change affect the way to access SSPaging state in Pinia from (for example) `paging.rows` into `paging.state.rows`. With this change, SSPaging will have more consistent source code and faster updates release.
-## Console Debugging
-Version 3 provides debugging via browser console. Make it easy to see options or settings that have been provided and how SSPaging processing data in the background. With this simple feature, you can see what is happening when working with SSPaging. To activate this feature, you have to set `debug` option in `getData()` to `true`.<br /><br />
-![Debug Console](./img/debug-console.png)
-<br />
+
+## Fully-typed Core  
+The core functionality of SSPaging has been rewritten using TypeScript, offering better code completion and error detection.
+
+## Unified Version  
+In version 2, the Composition API and Pinia versions had separate source codes and different methods for accessing the state. In version 3, both versions now share the same source code. The Pinia version now works the same way as the Composition API. This change affects how you access SSPaging state in Pinia, for example, changing from `paging.rows` to `paging.state.rows`. This unification results in a more consistent source code and faster updates.
+
+## Console Debugging  
+Version 3 introduces debugging via the browser console, making it easier to view the options or settings provided and see how SSPaging processes data in the background. With this feature, you can observe what’s happening while working with SSPaging. To enable debugging, simply set the `debug` option in `getData()` to `true`.  
+<br />  
+![Debug Console](./img/debug-console.png)  
+<br />  
 ![Debug Console 2](./img/debug-console2.png)
 
-## New state: `rawResponse`
+## New state: `rawResponse`  
+One of the challenges in previous versions of SSPaging was its inability to provide a complete response from the server. This meant that if you needed to include additional data while loading pagination data, you had to create a new route and make another request from your Vue.js code. In the current version, we've introduced a new state called `rawResponse`, which allows you to access the full response from the server.
 
-One of the challenges in using SSPaging in previous versions was its inability to provide a complete response from the server. This meant that if you wanted to include additional data while loading pagination data, you had to create a new route and make another request from your Vue.js code. In the current version, we've added a new state called `rawResponse`, which allows you to access the full response from the server.
-## Bug Fixes and Improvements
-Version 3, as in commonly major updates provides some bug fixes and improvements for both SSPaging core and components.
+## HTTP Header Options  
+You can now pass options such as `limit`, `offset`, `orderBy`, and `sort` through HTTP request headers. This allows you to simplify your URL pattern by removing these options from the URL and instead passing them in the request headers. This improvement makes the URL cleaner and more flexible while maintaining the same pagination functionality.
+
+## Bug Fixes and Improvements  
+As expected with major updates, version 3 includes various bug fixes and improvements for both the SSPaging core and its components.

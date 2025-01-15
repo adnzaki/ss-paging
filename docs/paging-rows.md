@@ -1,14 +1,15 @@
 # Pagination Rows
-SSPaging supports custom rows to decide how many data should be displayed to user. It is done with combination of `limit` and `rows` state and `showPerPage()` method.
+SSPaging supports custom rows to control how many items should be displayed to the user. This is achieved by combining the `limit` and `rows` state along with the `showPerPage()` method.
 
 ## The Flow
-- The first step, user will choose one of some rows option. 
-- Then the value of the selected option will be binded to `rows` state. 
-- Then `limit` state will have the same value as `rows`, 
-- and in the last step, `data` will be refreshed with those options.
+- First, the user selects one of the row options.
+- The selected option's value is bound to the `rows` state.
+- Then, the `limit` state is updated to match the `rows` value.
+- Finally, the `data` is refreshed with the new settings.
 
 ## Usage
-After reading the flow of pagination rows selection, let us create a full template that covers it:
+Based on the flow described above, here's how you can create a complete template to implement pagination row selection:
+
 ::: code-group
 ```vue [Composition API]
 <script setup>
@@ -48,4 +49,3 @@ const paging = usePagingStore()
 ```
 
 :::
-

@@ -1,8 +1,8 @@
 # Search
-Basically, SSPaging does not provide any search functionality within the data. Since SSPaging is depend on server connection, searching is done on the server and the result sent to client. SSPaging only receive query from user and forward it to server to be processed.
+SSPaging does not provide built-in search functionality within the data. Since SSPaging relies on server connection, searching is performed on the server side, and the results are sent to the client. SSPaging only receives the user's query and forwards it to the server for processing.
 
-## `filter()` method
-SSPaging provides `filter()` to handle searching on server-side. SSPaging takes search query from user and store it in `search` state. When you set `searchBy` option in `getData()`, it will be used to determine which field in database to be used in search query. In order to make `filter()` works, it needs an input from user that binded to `search` state. 
+## `filter()` Method
+SSPaging provides the `filter()` method to handle server-side searching. SSPaging captures the search query from the user and stores it in the `search` state. When you set the `searchBy` option in `getData()`, it determines which database field to use for the search query. For `filter()` to work, you need an input element bound to the `search` state.
 
 ## Usage
 ::: code-group
@@ -33,4 +33,4 @@ const paging = usePagingStore()
 </template>
 ```
 :::
-As you can see above, searching data in SSPaging is very simple. Simply call the `filter()` method and bind the `search` state, and searching is done in the background.
+As shown above, searching data in SSPaging is simple. Just call the `filter()` method and bind the `search` state, and the search will be performed in the background.

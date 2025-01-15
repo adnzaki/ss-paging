@@ -1,17 +1,21 @@
 # SearchBox
-`SearchBox />` component handles searching data task for you. It covers `paging.filter()` and `paging.onSearchChanged()` implementation in the background. Some props also available for you to match your needs, but only two of them are required.
+
+`<SearchBox />` is a component designed to handle data searching. It implements `paging.filter()` and `paging.onSearchChanged()` in the background. A few props are available to customize its functionality, but only two are required.
 
 ## Props
+
 | Name           | Type            | Default    | Required | Description                                                       |
 |----------------|-----------------|------------|----------|-------------------------------------------------------------------|
 | `paging`       | `Object`        | None       | Yes      | **SSPaging instance**                                             |
-| `modelValue`   | `Any`           | None       | Yes      | A query to be passed to search parameter                          |
-| `placeholder`  | `String`        | None       | No       | A placeholder for input element                                   |
-| `icon`         | `String`        | `'search'` | No       | Optional icon. Only two icons are available: `search` and `arrow` |
-| `customClass` | `String\|Array` | None       | No       | Custom class for input element                                    |
+| `modelValue`   | `Any`           | None       | Yes      | A query value for searching                                      |
+| `placeholder`  | `String`        | None       | No       | Placeholder text for the input field                              |
+| `icon`         | `String`        | `'search'` | No       | Optional icon: `search` or `arrow`                                |
+| `customClass`  | `String\|Array` | None       | No       | Custom class for the input field                                  |
 
 ## Example
-Below is the complete example of how to use `SearchBox` component, assuming you have `paging` as SSPaging instance:
+
+Here’s how to use the `SearchBox` component, assuming `paging` is your SSPaging instance:
+
 ```html
 <search-box 
   :paging="paging" 
@@ -21,4 +25,5 @@ Below is the complete example of how to use `SearchBox` component, assuming you 
   custom-class="custom-input-1"
 ></search-box>
 ```
-Note that above is just an example, you do not have to define them all and must match on your needs. You can try out this component [here](https://playcode.io/1293364).
+
+This is just an example. You don’t need to define all props, only those that fit your needs. You can try out this component [here](https://playcode.io/1293364).

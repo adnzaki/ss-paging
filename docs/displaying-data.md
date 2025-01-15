@@ -1,7 +1,8 @@
 # Displaying Data
-SSPaging stores pagination data inside `data` state. It will be refreshed everytime request to server is made. In this section, we will guide you to create a simple HTML table and pagination links that enough to work with SSPaging. Before create those components, let us create the main template layout:
+SSPaging stores pagination data inside the `data` state, which is refreshed every time a request is made to the server. In this section, we will guide you through creating a simple HTML table and pagination links that work with SSPaging. First, let’s set up the main template layout:
+
 ::: code-group
-```vue [Composition API] 
+```vue [Composition API]
 <script setup>
 import { toRefs } from 'vue'
 import { usePaging } from 'ss-paging-vue'
@@ -21,7 +22,7 @@ const {
   <!-- Content goes here -->
 </template>
 ```
-```vue [Pinia] 
+```vue [Pinia]
 <script setup>
 import { toRefs } from 'vue'
 import { usePagingStore } from 'ss-paging-vue'
@@ -41,12 +42,11 @@ const {
   <!-- Content goes here -->
 </template>
 ```
-
 :::
 
-
 ## Table
-Now let us create a table that contains data items. Assumes that we have data contains a list of names.
+Now, let's create a table that displays data items. Assume we have a data list containing names.
+
 ```html
 <!-- Data Table -->
 <table>
@@ -66,7 +66,8 @@ Now let us create a table that contains data items. Assumes that we have data co
 ```
 
 ## Pagination Item
-Creating page navigation is as simple as create a HTML list element. You may add some classes to that element to get a better view.
+Creating page navigation is simple using an HTML list element. You can add classes to enhance the appearance.
+
 ```html
 <!-- Pagination Items and Navigation -->
 <ul>

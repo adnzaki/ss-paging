@@ -1,20 +1,11 @@
-<script setup>
-import SSPaging from '../components/SSPaging.vue'
-import DataTable from '../components/DataTable.vue'
-import RowSelection from '../components/RowSelection.vue'
-import SearchBox from '../components/SearchBox.vue'
-import Navigation from '../components/Navigation.vue'
-import PagingTable from '../components/paging-table.vue'
-import PagingRowSelect from '../components/paging-row-select.vue'
-import PagingSearch from '../components/paging-search.vue'
-import PagingNavigation from '../components/paging-navigation.vue'
-</script>
-
 # Preparing Template
-In this tutorial, we will learn step by step how to create template for our complete pagination that consists of row selection, search box, data table and navigation. In our template, we will use composables version of SSPaging.
+
+In this tutorial, we'll guide you step by step on how to create a template for your complete pagination system, which includes row selection, a search box, a data table, and navigation. We'll use the composable version of SSPaging for this example.
 
 ## Main Component
-The first component to be created is our main component named `SSPaging.vue`. This component will wrap up all necessary components in SSPaging by providing the `paging` object to be injected. Let's fill out with this code.
+
+The first component we need is the main component called `SSPaging.vue`. This component will wrap all the necessary SSPaging components and provide the `paging` object, which will be injected into child components. Here's how you can set it up:
+
 ```vue
 <script setup>
 import { provide } from 'vue';
@@ -50,19 +41,21 @@ provide('paging', paging)
 </style>
 
 <template>
+  <!-- All child components will go here -->
 </template>
 ```
 
 ## Data Table
-This component will be used to display our data to user. Now, create a file named `DataTable.vue`. Fill `DataTable.vue` with this code:
+
+The `DataTable.vue` component will be used to display the data to the user. Create a file named `DataTable.vue` and add the following code:
+
 ```vue [DataTable.vue]
 <script setup>
-import { toRefs, onMounted, ref, inject } from 'vue';
+import { toRefs, ref, inject } from 'vue';
 
 const paging = inject('paging')
 const { data } = toRefs(paging.state)
 const showTable = ref(true)
-
 </script>
 
 <style scoped>
@@ -76,21 +69,19 @@ const showTable = ref(true)
     <thead>
       <tr>
         <th>#</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Province</th>
-        <th>City</th>
+         <th @click="paging.sortData('institution_name')" class="cursor-pointer">Name ^</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(item, index) in data" :key="index">
         <td>{{ index + 1 }}</td>
-        <th @click="paging.sortData('institution_name')" class="cursor-pointer">
-          Name ^
-        </th>
-        <td>{{ item.category }}</td>
-        <td>{{ item.province }}</td>
-        <td>{{ item.city }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.address }}</td>
       </tr>
     </tbody>
   </table>
@@ -98,26 +89,29 @@ const showTable = ref(true)
 </template>
 ```
 
-Here we inject `paging` from main component `SSPaging` and add a loading indicator when getting data is in progress. The template will look like this if we have got the data:
-<PagingTable></PagingTable>
+In this example, we inject `paging` from the main component and add a loading indicator. The template will show the data if it's successfully loaded.
 
 ::: info
-Note that in name header, we add `paging.sortData()` to sort data, while `institution_name` is field name in the database.
+In the name header, we add `paging.sortData()` to sort the data. The `'institution_name'` is the field name in the database.
 :::
 
 ## Row Selection
-Row selection is an important part of pagination. It allows users to choose their prefered rows of data to be displayed. In this example, we will create options with 10, 25, 50, 100 and 250 rows. Let's create a file named `RowSelection.vue` and fill with this code:
+
+The row selection component allows users to choose how many rows of data to display. For this example, we offer options of 10, 25, 50, 100, and 250 rows. Create a file named `RowSelection.vue` and add this code:
+
 ```vue
 <script setup>
 import { inject } from 'vue';
 
 const paging = inject('paging')
 </script>
+
 <style scoped>
 select {
   padding: 10px 50px;
 }
 </style>
+
 <template>
   <select v-model="paging.state.rows" @change="paging.showPerPage()">
     <option value="10">10 rows</option>
@@ -127,18 +121,18 @@ select {
     <option value="250">250 rows</option>
   </select>
 </template>
-
-
 ```
-Now we have a component like this:
-<PagingRowSelect></PagingRowSelect>
+
+This component binds the selected value to `paging.state.rows` and triggers `paging.showPerPage()` when the value changes.
 
 ::: info
-The select value is binded to `paging.state.rows`, and whenever the value changes, it will trigger `paging.showPerPage()` to run.
-::: 
+The select value is bound to `paging.state.rows`, and when it changes, the `paging.showPerPage()` method is called.
+:::
 
 ## Search Box
-To handle user's query search, we need a single text input that binded to `paging.state.search`. Whenever users hit enter, it executes `paging.filter()` method. Let's create a file named `SearchBox.vue` and fill with this code:
+
+To allow users to search for specific data, we create a search box. The search box is bound to `paging.state.search`. When the user submits the form, it triggers `paging.filter()`. Create a file named `SearchBox.vue` with the following code:
+
 ```vue
 <script setup>
 import { inject, watch, computed } from 'vue';
@@ -147,6 +141,7 @@ const paging = inject('paging')
 const search = computed(() => paging.state.search)
 watch(search, () => paging.onSearchChanged())
 </script>
+
 <style scoped>
 form input {
   padding: 5px;
@@ -162,27 +157,23 @@ form input {
   </form>
 </template>
 ```
-Now we have a template like this:
-<PagingSearch></PagingSearch>
+
+This search box will automatically reset the data table when `paging.state.search` is empty.
+
 ::: info
-In our search box, we enable auto reset function if `paging.state.search` is empty. In this case we will watch `paging.state.search` and `paging.onSearchChanged()` will automatically reset data table to its default if `paging.state.search` is empty.
+If `paging.state.search` is empty, `paging.onSearchChanged()` is triggered to reset the data table to its default state.
 :::
 
 ## Navigation
-The last component of pagination we have to have to create is navigation. To create a fully functional navigation, we need some CSS styles applied to it. Let's create a file named `Navigation.vue` and fill with this code:
+
+The navigation component provides the user with pagination controls such as "First", "Prev", "Next", and "Last" links. It also displays page numbers. Create a file named `Navigation.vue` and add this code:
+
 ```vue
 <script setup>
 import { toRefs, inject } from 'vue';
 
 const paging = inject('paging')
-const { 
-  numLinks, 
-  pageLinks,
-  first,
-  prev,
-  next,
-  last
-} = toRefs(paging.state)
+const { numLinks, pageLinks, first, prev, next, last } = toRefs(paging.state)
 </script>
 
 <style scoped>
@@ -235,9 +226,11 @@ ul li a.disabled:hover {
   </ul>
 </template>
 ```
-And now we have a basic navigation component like this:
-<PagingNavigation></PagingNavigation>
+
+This navigation component provides functional pagination controls with proper styling.
 
 ::: info
-The link numbers does not appear and all the links are currently disabled because we have not wrap up the components together.
-::: 
+The links for page numbers are not visible yet, and all links are currently disabled because we haven't wrapped the components together yet.
+:::
+
+Now you're ready to integrate these components into your main template, allowing you to display a fully functional pagination system!
