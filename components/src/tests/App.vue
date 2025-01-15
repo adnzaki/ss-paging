@@ -17,16 +17,17 @@ onMounted(() => {
     offset: current.value - 1,
     orderBy: 'name',
     searchBy: 'name',
-    sort: 'ASC',
+    sort: 'DESC',
     search: '',
-    url: `http://localhost/ss-paging-api-example/public/customer/get-data/`,
+    // url: `http://localhost/ss-paging-api-example/public/customer/get-data/`,
+    url: `http://localhost/ss-paging-api-example/public/customer/get-customer`,
+    useHeader: true,
     autoReset: {
       active: true,
       timeout: 500
     },
     // linkNum: 3,
     activeClass: 'active',
-    useAuth: false,
     debug: true,
     beforeRequest: () => {
       showList.value = false
