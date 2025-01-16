@@ -49,4 +49,4 @@ export declare const usePagingStore: import("pinia").StoreDefinition<"sspaging",
     isDisabled: (page: number) => string;
     showPerPage: () => void;
     onSearchChanged: () => void;
-}, "filter" | "nav" | "getData" | "rowRange" | "sortData" | "runPaging" | "reloadData" | "itemNumber" | "activeLink" | "isDisabled" | "showPerPage" | "onSearchChanged">>;
+}, "nav" | "filter" | "getData" | "rowRange" | "sortData" | "runPaging" | "reloadData" | "itemNumber" | "activeLink" | "isDisabled" | "showPerPage" | "onSearchChanged">>;

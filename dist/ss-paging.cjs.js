@@ -16,12 +16,12 @@ var pinia = require('pinia');
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-beta.4
+ * @version     3.0.0-rc.1
  * @url         https://lib.actudent.com/ss-paging
  */
-const beforeRequest = vue.ref(null);
-const afterRequest = vue.ref(null);
-const state = vue.reactive({
+var beforeRequest = vue.ref(null);
+var afterRequest = vue.ref(null);
+var state = vue.reactive({
     pageLinks: [],
     prev: 0,
     next: 0,
@@ -55,16 +55,10 @@ const state = vue.reactive({
     // Useful when you use v-on:keyup directive,
     // if set to true, it won't send any request to server
     // directly when user is typing keywords
-    delay: {
-        active: false,
-        timeout: 500,
-    },
+    delay: 0,
     // auto reset data to its default
     // if search input is empty string
-    autoReset: {
-        active: false,
-        timeout: 3000,
-    },
+    autoReset: 0,
     sentences: {
         indonesia: {
             noData: 'Tidak ada data yang ditampilkan',
@@ -96,11 +90,11 @@ function isDisabled(page) {
  * Call this function inside watcher
  */
 function onSearchChanged() {
-    if (state.search === '' && state.autoReset.active) {
-        setTimeout(() => {
+    if (state.search === '' && state.autoReset > 0) {
+        setTimeout(function () {
             state.offset = 0;
             runPaging();
-        }, state.autoReset.timeout);
+        }, state.autoReset);
     }
 }
 /**
@@ -114,12 +108,10 @@ function nav(page) {
  * Search data based on parameters in the search box
  */
 function filter() {
-    let timeout;
-    state.delay.active ? (timeout = state.delay.timeout) : (timeout = 0);
-    setTimeout(() => {
+    setTimeout(function () {
         state.offset = 0;
         runPaging();
-    }, timeout);
+    }, state.delay);
 }
 /**
  * Refresh data
@@ -164,35 +156,29 @@ function showPerPage() {
  */
 function runPaging() {
     getData({
+        url: state.url,
+        sort: state.sort,
         token: state.token,
-        lang: state.pagingLang,
         limit: state.limit,
         offset: state.offset,
+        search: state.search,
         orderBy: state.orderBy,
         searchBy: state.searchBy,
-        sort: state.sort,
-        where: state.whereClause,
-        search: state.search,
-        url: state.url,
+        lang: state.pagingLang,
         linkNum: state.linkNum,
+        where: state.whereClause,
         mode: state.mode,
-        activeClass: state.activeClass,
         linkClass: state.linkClass,
         useHeader: state.useHeader,
-        autoReset: {
-            active: state.autoReset.active,
-            timeout: state.autoReset.timeout,
-        },
-        delay: {
-            active: state.delay.active,
-            timeout: state.delay.timeout,
-        },
+        autoReset: state.autoReset,
+        activeClass: state.activeClass,
+        delay: state.delay,
         debug: state.debug,
-        beforeRequest: () => {
+        beforeRequest: function () {
             if (beforeRequest.value !== null)
                 beforeRequest.value();
         },
-        afterRequest: () => {
+        afterRequest: function () {
             if (afterRequest.value !== null)
                 afterRequest.value();
         },
@@ -205,10 +191,22 @@ function runPaging() {
 /**
  * Get data from the server with several configuration options
  */
-function getData(options, callFromRunPaging = false) {
+function getData(options, callFromRunPaging) {
+    if (callFromRunPaging === undefined) { callFromRunPaging = false; }
     state.token = options.token;
     state.pagingLang = options.lang;
     state.debug = options.debug;
+    var url = options.url, limit = options.limit, offset = options.offset, orderBy = options.orderBy, searchBy = options.searchBy, sort = options.sort, search = options.search;
+    if (url === undefined ||
+        limit === undefined ||
+        offset === undefined ||
+        orderBy === undefined ||
+        searchBy === undefined ||
+        sort === undefined ||
+        search === undefined) {
+        console.error('[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options');
+        return;
+    }
     state.url = options.url;
     state.limit = options.limit;
     state.offset = options.offset * options.limit;
@@ -220,45 +218,41 @@ function getData(options, callFromRunPaging = false) {
         : (state.searchBy = options.searchBy.join('-'));
     state.sort = options.sort;
     state.search = options.search;
-    let searchParam;
-    state.search === '' ? searchParam = '' : searchParam = '/' + state.search;
-    let baseURL = options.url;
+    var searchParam;
+    state.search === '' ? (searchParam = '') : (searchParam = '/' + state.search);
+    var baseURL = options.url;
     // if not using header, then we need to add limit, offset, orderBy, searchBy, sort
     if (options.useHeader) {
-        baseURL = `${baseURL}/${state.searchBy}`;
+        baseURL = "".concat(baseURL, "/").concat(state.searchBy);
     }
     else {
-        baseURL = `${baseURL}${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`;
+        baseURL = "".concat(baseURL).concat(state.limit, "/").concat(state.offset, "/").concat(state.orderBy, "/").concat(state.searchBy, "/").concat(state.sort);
     }
-    let requestURL = `${baseURL}${searchParam}`;
+    var requestURL = "".concat(baseURL).concat(searchParam);
     if (options.autoReset !== undefined) {
-        state.autoReset.active = options.autoReset.active;
-        if (options.autoReset.timeout !== undefined) {
-            state.autoReset.timeout = options.autoReset.timeout;
-        }
+        state.autoReset = options.autoReset;
     }
     if (options.delay !== undefined) {
-        state.delay.active = options.delay.active;
-        if (options.delay.timeout !== undefined) {
-            state.delay.timeout = options.delay.timeout;
-        }
+        state.delay = options.delay;
     }
     // do something before the request sent
     if (options.beforeRequest !== undefined) {
         if (!callFromRunPaging) {
-            beforeRequest.value = () => options.beforeRequest();
+            beforeRequest.value = function () { return options.beforeRequest(); };
         }
         options.beforeRequest();
     }
-    let optionHeaders = new Headers();
-    optionHeaders.set('Authorization', options.token ?? '');
+    var optionHeaders = new Headers();
+    if (options.token !== undefined) {
+        optionHeaders.set('Authorization', options.token);
+    }
     if (options.useHeader) {
         optionHeaders.set('limit', state.limit.toString());
         optionHeaders.set('offset', state.offset.toString());
         optionHeaders.set('orderBy', state.orderBy);
         optionHeaders.set('sort', state.sort);
     }
-    const fetchOptions = {
+    var fetchOptions = {
         method: 'GET',
         mode: options.mode === undefined ? 'cors' : options.mode, // CORS must be default
         headers: optionHeaders,
@@ -268,22 +262,23 @@ function getData(options, callFromRunPaging = false) {
     }
     console.log(optionHeaders.get('limit'));
     fetch(requestURL, fetchOptions)
-        .then((response) => response.json())
-        .then((res) => {
+        .then(function (response) { return response.json(); })
+        .then(function (res) {
+        var _a, _b, _c, _d;
         state.rawResponse = res;
         state.data = res.container;
         create({
             rows: res.totalRows,
             start: options.offset,
-            linkNum: options.linkNum ?? state.linkNum,
-            activeClass: options.activeClass ?? state.activeClass,
-            linkClass: options.linkClass ?? state.linkClass,
-            disabledClass: options.disabledClass ?? state.disabledClass,
+            linkNum: (_a = options.linkNum) !== null && _a !== undefined ? _a : state.linkNum,
+            activeClass: (_b = options.activeClass) !== null && _b !== undefined ? _b : state.activeClass,
+            linkClass: (_c = options.linkClass) !== null && _c !== undefined ? _c : state.linkClass,
+            disabledClass: (_d = options.disabledClass) !== null && _d !== undefined ? _d : state.disabledClass,
         });
         // do something after the request success
         if (options.afterRequest !== undefined) {
             if (!callFromRunPaging) {
-                afterRequest.value = () => options.afterRequest();
+                afterRequest.value = function () { return options.afterRequest(); };
             }
             options.afterRequest();
         }
@@ -294,7 +289,7 @@ function getData(options, callFromRunPaging = false) {
             console.log(options);
         }
     })
-        .catch((error) => {
+        .catch(function (error) {
         console.error('Error:', error);
     });
 }
@@ -310,10 +305,10 @@ function create(settings) {
     // reset links
     state.pageLinks = [];
     // count the number of pages needed by pagination link
-    let countLink = settings.rows / state.limit;
+    var countLink = settings.rows / state.limit;
     countLink = Math.ceil(countLink);
     // define the first link
-    let startLink;
+    var startLink;
     // check whether to use link number of not
     if (settings.linkNum === false) {
         state.numLinks = false;
@@ -340,7 +335,7 @@ function create(settings) {
         startLink = 1;
     }
     // generate pagination link....
-    for (let i = startLink; i <= countLink; i++) {
+    for (var i = startLink; i <= countLink; i++) {
         state.pageLinks.push(i);
         if (state.pageLinks.length === settings.linkNum) {
             break;
@@ -384,16 +379,16 @@ function itemNumber(index) {
 /**
  * Get active page
  */
-const activePage = vue.computed(() => {
+var activePage = vue.computed(function () {
     return state.offset / state.limit + 1;
 });
 /**
  * Get the last data range
  *
  */
-const dataTo = vue.computed(() => {
-    const currentPage = state.offset / state.limit;
-    let range;
+var dataTo = vue.computed(function () {
+    var currentPage = state.offset / state.limit;
+    var range;
     if (currentPage === state.last) {
         range = state.totalRows;
     }
@@ -406,8 +401,8 @@ const dataTo = vue.computed(() => {
  * Get the first data range
  *
  */
-const dataFrom = vue.computed(() => {
-    let from;
+var dataFrom = vue.computed(function () {
+    var from;
     if (state.offset === 0) {
         from = 1;
     }
@@ -429,37 +424,35 @@ function rowRange() {
     }
     else {
         state.showPaging = true;
-        let returnedText = 'Unable to load rows range.';
+        var returnedText = 'Unable to load rows range.';
         if (state.sentences[state.pagingLang] !== undefined) {
-            returnedText = `${state.sentences[state.pagingLang].showRows} ${dataFrom.value} - 
-                      ${dataTo.value} ${state.sentences[state.pagingLang].from} ${state.totalRows} 
-                      ${state.sentences[state.pagingLang].rows}`;
+            returnedText = "".concat(state.sentences[state.pagingLang].showRows, " ").concat(dataFrom.value, " - \n                      ").concat(dataTo.value, " ").concat(state.sentences[state.pagingLang].from, " ").concat(state.totalRows, " \n                      ").concat(state.sentences[state.pagingLang].rows);
         }
         return returnedText;
     }
 }
 function usePaging() {
     return {
-        state,
-        dataTo,
-        dataFrom,
-        activePage,
-        nav,
-        filter,
-        getData,
-        rowRange,
-        sortData,
-        runPaging,
-        reloadData,
-        itemNumber,
-        activeLink,
-        isDisabled,
-        showPerPage,
-        onSearchChanged,
+        state: state,
+        dataTo: dataTo,
+        dataFrom: dataFrom,
+        activePage: activePage,
+        nav: nav,
+        filter: filter,
+        getData: getData,
+        rowRange: rowRange,
+        sortData: sortData,
+        runPaging: runPaging,
+        reloadData: reloadData,
+        itemNumber: itemNumber,
+        activeLink: activeLink,
+        isDisabled: isDisabled,
+        showPerPage: showPerPage,
+        onSearchChanged: onSearchChanged,
     };
 }
 
-const usePagingStore = pinia.defineStore('sspaging', () => usePaging());
+var usePagingStore = pinia.defineStore('sspaging', function () { return usePaging(); });
 
 exports.usePaging = usePaging;
 exports.usePagingStore = usePagingStore;

@@ -11,7 +11,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-beta.4
+ * @version     3.0.0-rc.1
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'

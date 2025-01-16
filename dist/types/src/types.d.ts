@@ -25,14 +25,8 @@ export interface StateInterface {
     linkNum: number | boolean;
     rows: number;
     token: string;
-    delay: {
-        active: boolean;
-        timeout: number;
-    };
-    autoReset: {
-        active: boolean;
-        timeout: number;
-    };
+    delay: number;
+    autoReset: number;
     useHeader: boolean;
     mode: 'cors' | 'same-origin' | 'no-cors';
     sentences: {
@@ -55,27 +49,21 @@ export interface StateInterface {
 export interface OptionsInterface {
     token?: string;
     lang?: string;
-    limit?: number;
-    offset?: number;
-    orderBy?: string;
-    searchBy?: string | string[];
-    sort?: string;
+    limit: number;
+    offset: number;
+    orderBy: string;
+    searchBy: string | string[];
+    sort: string;
     where?: string | boolean | null;
-    search?: string;
-    url?: string;
+    search: string;
+    url: string;
     linkNum?: number | boolean;
     activeClass?: string;
     linkClass?: string;
     disabledClass?: string;
     useHeader?: boolean;
-    autoReset?: {
-        active: boolean;
-        timeout: number;
-    };
-    delay?: {
-        active: boolean;
-        timeout: number;
-    };
+    autoReset?: number;
+    delay?: number;
     mode?: 'cors' | 'same-origin' | 'no-cors';
     debug?: boolean;
     beforeRequest?: () => void;
