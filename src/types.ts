@@ -25,14 +25,8 @@ export interface StateInterface {
   linkNum: number | boolean
   rows: number // custom limit
   token: string
-  delay: {
-    active: boolean
-    timeout: number
-  }
-  autoReset: {
-    active: boolean
-    timeout: number
-  }
+  delay: number,
+  autoReset: number,
   useHeader: boolean
   mode: 'cors' | 'same-origin' | 'no-cors',
   sentences: {
@@ -69,14 +63,8 @@ export interface OptionsInterface {
   linkClass?: string
   disabledClass?: string
   useHeader?: boolean
-  autoReset?: {
-    active: boolean
-    timeout: number
-  }
-  delay?: {
-    active: boolean
-    timeout: number
-  }
+  autoReset?: number
+  delay?: number
   mode?: 'cors' | 'same-origin' | 'no-cors',
   debug?: boolean
   beforeRequest?: () => void

@@ -22,10 +22,7 @@ onMounted(() => {
     // url: `http://localhost/ss-paging-api-example/public/customer/get-data/`,
     url: `http://localhost/ss-paging-api-example/public/customer/get-customer`,
     useHeader: true,
-    autoReset: {
-      active: true,
-      timeout: 500
-    },
+    autoReset: 500,
     // linkNum: 3,
     activeClass: 'active',
     debug: true,

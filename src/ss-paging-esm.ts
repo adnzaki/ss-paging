@@ -54,17 +54,11 @@ const state: StateInterface = reactive({
   // Useful when you use v-on:keyup directive,
   // if set to true, it won't send any request to server
   // directly when user is typing keywords
-  delay: {
-    active: false,
-    timeout: 500,
-  },
+  delay: 0,
 
   // auto reset data to its default
   // if search input is empty string
-  autoReset: {
-    active: false,
-    timeout: 3000,
-  },
+  autoReset: 0,
 
   sentences: {
     indonesia: {
@@ -98,11 +92,11 @@ function isDisabled(page: number): string {
  * Call this function inside watcher
  */
 function onSearchChanged(): void {
-  if (state.search === '' && state.autoReset.active) {
+  if (state.search === '' && state.autoReset > 0) {
     setTimeout(() => {
       state.offset = 0
       runPaging()
-    }, state.autoReset.timeout)
+    }, state.autoReset)
   }
 }
 
@@ -118,12 +112,10 @@ function nav(page: number): void {
  * Search data based on parameters in the search box
  */
 function filter(): void {
-  let timeout: number
-  state.delay.active ? (timeout = state.delay.timeout) : (timeout = 0)
   setTimeout(() => {
     state.offset = 0
     runPaging()
-  }, timeout)
+  }, state.delay)
 }
 
 /**
@@ -172,29 +164,23 @@ function showPerPage(): void {
 function runPaging(): void {
   getData(
     {
+      url: state.url,
+      sort: state.sort,
       token: state.token,
-      lang: state.pagingLang,
       limit: state.limit,
       offset: state.offset,
+      search: state.search,
       orderBy: state.orderBy,
       searchBy: state.searchBy,
-      sort: state.sort,
-      where: state.whereClause,
-      search: state.search,
-      url: state.url,
+      lang: state.pagingLang,
       linkNum: state.linkNum,
+      where: state.whereClause,
       mode: state.mode,
-      activeClass: state.activeClass,
       linkClass: state.linkClass,
       useHeader: state.useHeader,
-      autoReset: {
-        active: state.autoReset.active,
-        timeout: state.autoReset.timeout,
-      },
-      delay: {
-        active: state.delay.active,
-        timeout: state.delay.timeout,
-      },
+      autoReset: state.autoReset,
+      activeClass: state.activeClass,
+      delay: state.delay,
       debug: state.debug,
       beforeRequest: () => {
         if (beforeRequest.value !== null) beforeRequest.value()
@@ -221,6 +207,23 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   state.pagingLang = options.lang
   state.debug = options.debug
 
+  const { url, limit, offset, orderBy, searchBy, sort, search } = options
+
+  if (
+    url === undefined ||
+    limit === undefined ||
+    offset === undefined ||
+    orderBy === undefined ||
+    searchBy === undefined ||
+    sort === undefined ||
+    search === undefined
+  ) {
+    console.error(
+      '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options'
+    )
+    return
+  }
+
   state.url = options.url
   state.limit = options.limit
   state.offset = options.offset * options.limit
@@ -235,31 +238,25 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   state.sort = options.sort
   state.search = options.search
   let searchParam: string
-  state.search === '' ? searchParam = '' : searchParam = '/' + state.search
+  state.search === '' ? (searchParam = '') : (searchParam = '/' + state.search)
 
   let baseURL: string = options.url
 
   // if not using header, then we need to add limit, offset, orderBy, searchBy, sort
-  if(options.useHeader) {
+  if (options.useHeader) {
     baseURL = `${baseURL}/${state.searchBy}`
   } else {
-    baseURL = `${baseURL}${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`  
+    baseURL = `${baseURL}${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`
   }
 
   let requestURL: string = `${baseURL}${searchParam}`
 
   if (options.autoReset !== undefined) {
-    state.autoReset.active = options.autoReset.active
-    if (options.autoReset.timeout !== undefined) {
-      state.autoReset.timeout = options.autoReset.timeout
-    }
+    state.autoReset = options.autoReset
   }
 
   if (options.delay !== undefined) {
-    state.delay.active = options.delay.active
-    if (options.delay.timeout !== undefined) {
-      state.delay.timeout = options.delay.timeout
-    }
+    state.delay = options.delay
   }
 
   // do something before the request sent
@@ -273,7 +270,9 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
 
   let optionHeaders: Headers = new Headers()
 
-  optionHeaders.set('Authorization', options.token ?? '')
+  if (options.token !== undefined) {
+    optionHeaders.set('Authorization', options.token)
+  }
 
   if (options.useHeader) {
     optionHeaders.set('limit', state.limit.toString())
