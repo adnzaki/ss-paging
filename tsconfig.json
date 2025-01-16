@@ -5,9 +5,5 @@
     "outDir": "./dist", // Lokasi file hasil kompilasi
     "declaration": true,
     "declarationDir": "./dist/types", // Lokasi file deklarasi
-    "module": "ESNext",
-    "target": "ESNext",
-    "esModuleInterop": true,
-    "strict": true
   }
 }
