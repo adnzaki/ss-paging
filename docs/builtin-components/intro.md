@@ -32,6 +32,3 @@ SSPaging provides three core components that you can use in your project:
 
 Note that we do not provide a table component, as it is a highly flexible element that should be customized to fit your specific data. Using SSPaging with a table typically only requires a basic `v-for` loop and does not need any special handling.
 
----
-
-This revision makes the explanation more clear and concise while maintaining all key points.

@@ -69,7 +69,7 @@ const showTable = ref(true)
     <thead>
       <tr>
         <th>#</th>
-         <th @click="paging.sortData('institution_name')" class="cursor-pointer">Name ^</th>
+         <th @click="paging.sortData('name')" class="cursor-pointer">Name ^</th>
         <th>Email</th>
         <th>Phone</th>
         <th>Address</th>
@@ -92,7 +92,7 @@ const showTable = ref(true)
 In this example, we inject `paging` from the main component and add a loading indicator. The template will show the data if it's successfully loaded.
 
 ::: info
-In the name header, we add `paging.sortData()` to sort the data. The `'institution_name'` is the field name in the database.
+In the name header, we add `paging.sortData()` to sort the data. The `'name'` is the field name in the database.
 :::
 
 ## Row Selection

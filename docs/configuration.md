@@ -1,7 +1,3 @@
-Here is the full revised text with the default language set to English:
-
----
-
 # Configuration
 There are several configurations available in SSPaging through the `getData()` method as described before. Now, let us dive into deeper part of SSPaging configuration.
 
