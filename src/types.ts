@@ -56,14 +56,14 @@ export interface StateInterface {
 export interface OptionsInterface {
   token?: string
   lang?: string
-  limit?: number
-  offset?: number
-  orderBy?: string
-  searchBy?: string | string[]
-  sort?: string
+  limit: number
+  offset: number
+  orderBy: string
+  searchBy: string | string[]
+  sort: string
   where?: string | boolean | null
-  search?: string
-  url?: string
+  search: string
+  url: string
   linkNum?: number | boolean
   activeClass?: string
   linkClass?: string
