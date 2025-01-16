@@ -29,7 +29,7 @@ const paging = SSPaging.usePaging()
 The main method of SSPaging is `getData()`, it uses `fetch()` in the background to send request and get the response from server. This method is the main actor of SSPaging, since it will get the data, set and save options and run the pagination generator. SSPaging consists of two arguments: `(options: object, callFromRunPaging: boolean)`. `options` is required in this method calls, while `callFromRunPaging` only use in internal code and <strong>should never be set</strong>. 
 
 ## Example
-```js{14,27}
+```js
 const limit = 5
 paging.state.rows = limit
 paging.getData({
@@ -43,14 +43,8 @@ paging.getData({
   url: `http://localhost/my-project/get-data/`,
 
   // if you use your own URL pattern
-  autoReset: {
-    active: true,
-    timeout: 500
-  },
-  delay: {
-    active: true,
-    timeout: 200
-  },
+  autoReset: 500,
+  delay: 200,
   linkNum: 3,
   linkClass: 'page-item',
   activeClass: 'active',

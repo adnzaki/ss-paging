@@ -43,27 +43,17 @@ Set class for disabled links.
 ### `useHeader`: boolean <Badge type="tip" text="New in v3.x" />
 Set to `true` if you want to pass `limit`, `offset`, `orderBy`, and `sort` as request headers.
 
-### `autoReset`: object
+### `autoReset`: number
 This option allows you to automatically reset search to the default data if it meets the specified timeout.
 
-- #### `active`: boolean
-Option to activate the `autoReset` option.
-- #### `timeout`: number
-Option to set the timeout before `autoReset` runs.
-
-### `delay`: object
+### `delay`: number
 By activating this option, SSPaging will delay search after the query has been submitted within the specified timeout.
-
-- #### `active`: boolean
-Option to activate the `delay` option.
-- #### `timeout`: number
-Option to set the waiting time before SSPaging's filter function runs.
 
 ### `token`: string
 This option is used to store your token.
 
 ### `mode`: string
-The mode you want to use for the request with the `fetch()` method, e.g., `cors`, `no-cors`, or `same-origin`. Default is `cors`. If you set the `useAuth` option to `false`, you do not have to set this option.
+The mode you want to use for the request with the `fetch()` method, e.g., `cors`, `no-cors`, or `same-origin`. Default is `cors`.
 
 ### `debug`: boolean <Badge type="tip" text="New in v3.x" />
 Set to `true` to activate console debugging.

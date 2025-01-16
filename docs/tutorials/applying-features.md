@@ -31,10 +31,7 @@ onMounted(() => {
     sort: 'ASC',
     search: '',
     url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-data/`,
-    autoReset: {
-      active: true,
-      timeout: 500
-    },
+    autoReset: 500,
     // linkNum: 3,
     activeClass: 'active',
     debug: true,
@@ -72,10 +69,7 @@ onMounted(() => {
     sort: 'ASC',
     search: '',
     url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-customer`,
-    autoReset: {
-      active: true,
-      timeout: 500
-    },
+    autoReset: 500,
     useHeader: true // [!code ++]
     // linkNum: 3,
     activeClass: 'active',
