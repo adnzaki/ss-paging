@@ -42,7 +42,6 @@ paging.getData({
   search: '',
   url: `http://localhost/my-project/get-data/`,
 
-  // if you use your own URL pattern
   autoReset: 500,
   delay: 200,
   linkNum: 3,
