@@ -16,7 +16,7 @@ var pinia = require('pinia');
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-rc.1
+ * @version     3.0.0-rc.2
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = vue.ref(null);
