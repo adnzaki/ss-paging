@@ -1,5 +1,5 @@
 <script setup>
-import { usePagingStore } from '../../../index.ts';
+import { usePagingStore } from '../../../src/ss-paging-store';
 import { onMounted, ref } from 'vue';
 
 const paging = usePagingStore()
