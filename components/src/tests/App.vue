@@ -38,6 +38,18 @@ onMounted(() => {
   })
 })
 
+const tableColumns = [
+  { key: 'id', label: 'ID' },
+  { key: 'name', label: 'Name', sortable: true },
+  { key: 'email', label: 'Email', sortable: true },
+  { key: 'phone', label: 'Phone' },
+]
+
+const selected = ref([])
+const onSelected = () => {
+  console.log('selected: ', selected.value)
+}
+
 </script>
 
 <template>
@@ -49,17 +61,32 @@ onMounted(() => {
       v-model="paging.state.search">
     </sp-searchbox>
   </div>
+  
+  <!-- result example -->
+  <p>Current active page: {{ paging.activePage }}</p>
+  <sp-table 
+    :paging="paging" 
+    :fields="tableColumns" 
+    v-model="selected" 
+    @update:model-value="onSelected">
+    <template #actionHeader>
+      <th style="width: 200px !important;">Action</th>
+    </template>
+    <template #actionBody>
+      <td>
+        <button class="action-button">Edit</button> &nbsp; 
+        <button class="delete-button">Hapus</button>
+      </td>
+    </template>
+  </sp-table>
   <sp-navigation
     :paging="paging" v-model="current" use-input
     >
   </sp-navigation>  
-
-  <!-- result example -->
-  <p>Current active page: {{ paging.activePage }}</p>
-  <ul v-if="showList">
+  <!-- <ul v-if="showList">
     <li v-for="(item, index) in paging.state.data" :key="index"> {{ paging.itemNumber(index) }} - {{ item.name }}</li>
   </ul>
-  <p v-else><i>Loading...</i></p>
+  <p v-else><i>Loading...</i></p> -->
   <p>{{ paging.rowRange() }}</p>
   <h4>Full response from server:</h4>
   <div style="background-color: #400040; padding: 20px; color: aliceblue; border-radius: 10px; word-wrap: break-word; width: 90%;">
