@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src", "index.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
     "outDir": "./dist", // Lokasi file hasil kompilasi

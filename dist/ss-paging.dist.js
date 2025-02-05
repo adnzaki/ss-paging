@@ -14,7 +14,7 @@ var SSPaging = (function (exports, vue, pinia) {
      * @package     Pagination
      * @author      Adnan Zaki
      * @type        Libraries
-     * @version     3.0.0-rc.2
+     * @version     3.0.0-rc.3
      * @url         https://lib.actudent.com/ss-paging
      */
     var beforeRequest = vue.ref(null);
@@ -258,7 +258,6 @@ var SSPaging = (function (exports, vue, pinia) {
         if (options.mode !== undefined) {
             state.mode = options.mode;
         }
-        console.log(optionHeaders.get('limit'));
         fetch(requestURL, fetchOptions)
             .then(function (response) { return response.json(); })
             .then(function (res) {

@@ -14,7 +14,7 @@ import { defineStore } from 'pinia';
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-rc.2
+ * @version     3.0.0-rc.3
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = ref(null);
@@ -258,7 +258,6 @@ function getData(options, callFromRunPaging) {
     if (options.mode !== undefined) {
         state.mode = options.mode;
     }
-    console.log(optionHeaders.get('limit'));
     fetch(requestURL, fetchOptions)
         .then(function (response) { return response.json(); })
         .then(function (res) {

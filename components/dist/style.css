@@ -136,4 +136,120 @@
 }.sp-searchbox-icon {
   margin-left: -30px;
   color: var(--sp-grey-color);
+}.sp-table {
+  border-collapse: collapse;
+  width: 100%;
+  border: solid 1px var(--sp-default-border-color);
+}.sp-text-bold {
+  font-weight: bold;
+}.sp-table td,
+.sp-table th {
+  border: solid 1px var(--sp-default-border-color);
+  padding: 8px;
+}.sp-table thead th span.material-icons-round {
+  margin-left: 5px;
+  position: absolute;
+}/* .sp-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+} */.sp-table tbody tr:hover {
+  background-color: #ddd;
+}.sp-table.dark {
+  background-color: var(--sp-dark);
+  color: #fff;
+}.sp-table .sp-checkbox {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.2s;
+}.sp-table .sp-checkbox:checked {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+}.sp-table .sp-checkbox:checked::after {
+  content: '✔';
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}.sp-table .cursor-pointer {
+  cursor: pointer;
+}.sp-table .text-center {
+  text-align: center;
+}/* Gabungan untuk Action Button dan Delete Button */.sp-table .action-button,
+.sp-table .delete-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  /* Sesuaikan padding untuk ukuran font yang lebih kecil */
+  font-size: 12px;
+  /* Update font-size ke 12px */
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* Smooth transition untuk semua properti */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}@media (max-width: 768px) {
+  .sp-table .action-button,
+  .sp-table .delete-button {
+    margin-bottom: 5px;
+  }
+
+  .sp-table tbody tr:hover {
+    background-color: #f6f2f2 !important;
+  }
+}.sp-table .action-button:active,
+.sp-table .delete-button:active {
+  transform: scale(0.96);
+}/* Action Button (Biru Solid) */.sp-table .action-button {
+  background-color: #4e73df;
+  /* Biru solid */
+}.sp-table .action-button:hover {
+  background: #1d59d6;
+  /* Gradasi biru yang lebih halus */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}/* Delete Button (Merah Solid) */.sp-table .delete-button {
+  background-color: #dc2626;
+  /* Merah solid */
+}.sp-table .delete-button:hover {
+  background: #b91c1c;
+  /* Gradasi merah yang lebih halus */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}.sp-table ul {
+  padding: 0;
+  border-top: solid 1px var(--sp-default-border-color);
+}.sp-list {
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: solid 1px var(--sp-default-border-color);
+  /* border-top: solid 1px var(--sp-default-border-color); */
+  border-right: solid 1px var(--sp-default-border-color);
+  border-left: solid 1px var(--sp-default-border-color);
+}.sp-td-expand {
+  position: relative;
+  padding-top: 10px;
+}.sp-td-expand span.material-icons-round {
+  position: absolute;
+  margin-top: 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}.sp-td-expand span.material-icons-round:hover {
+  background-color: #ccc;
+}.sp-td-expand span.title {
+  padding-left: 30px;
 }

@@ -5,6 +5,216 @@ var SSComponents = (function (exports, vue) {
 
   const iconSet = 'material-icons-round';
 
+  var table = vue.defineComponent({
+    props: {
+      paging: {
+        type: Object,
+        required: true,
+      },
+      sortIcon: {
+        type: String,
+        default: 'sort',
+      },
+      fields: {
+        type: Array,
+        required: true,
+      },
+      rowKey: {
+        type: String,
+        default: 'id',
+      },
+      selection: {
+        type: Boolean,
+        default: false,
+      },
+      modelValue: Array,
+      tableClass: [String, Array],
+      tbodyClass: [String, Array],  
+      theadClass: [String, Array],
+      trClass: [String, Array],
+      thClass: [String, Array],
+      tdClass: [String, Array],
+    },
+    emits: ['update:modelValue'],
+    setup(props, { emit, slots }) {
+      const { data } = vue.toRefs(props.paging.state);
+      const selectedItems = vue.ref(props.modelValue || []);
+
+      const allSelected = vue.computed(() => {
+        return (
+          data.value.length > 0 &&
+          data.value.every((item) => selectedItems.value.includes(item.id))
+        )
+      });
+
+      const updateSelection = () => {
+        emit('update:modelValue', selectedItems.value);
+      };
+
+      const toggleSelection = (id) => {
+        const index = selectedItems.value.indexOf(id);
+        if (index === -1) {
+          selectedItems.value.push(id); // add to list
+        } else {
+          selectedItems.value.splice(index, 1); // remove from list
+        }
+
+        updateSelection();
+      };
+
+      // Toggle select all
+      const toggleSelectAll = () => {
+        if (allSelected.value) {
+          selectedItems.value = []; // Unselect all
+        } else {
+          selectedItems.value = data.value.map((item) => item[props.rowKey]); // Select all
+        }
+
+        updateSelection();
+      };
+
+      vue.watch(data, () => {
+        selectedItems.value = [];
+      });
+
+      const checkAll = () => {
+        return vue.h('input', {
+          class: 'sp-checkbox',
+          type: 'checkbox',
+          checked: allSelected.value,
+          onChange: toggleSelectAll,
+        })
+      };
+
+      const checkItem = (id) => {
+        return vue.h('input', {
+          class: 'sp-checkbox',
+          type: 'checkbox',
+          checked: selectedItems.value.includes(id),
+          onChange: () => toggleSelection(id),
+        })
+      };
+
+      const actionHeader = () => {
+        return slots.actionHeader ? slots.actionHeader() : ''
+      };
+
+      const actionBody = () => {
+        return slots.actionBody
+          ? isDesktop()
+            ? vue.h('td', null, slots.actionBody())
+            : slots.actionBody()
+          : ''
+      };
+
+      const isDesktop = () => {
+        return window.innerWidth >= 768
+      };
+
+      const tableHeader = (field) => {
+        return vue.h(
+          'th',
+          {
+            class: [props.thClass, field.sortable ? 'cursor-pointer' : ''],
+            onClick: () => {
+              if (field.sortable) props.paging.sortData(field.key);
+            },
+          },
+          [
+            field.label,
+            field.sortable ? vue.h('span', { class: iconSet }, props.sortIcon) : '',
+          ]
+        )
+      };
+
+      // CHANGED: New state for tracking expanded rows
+      const expandedRows = vue.ref([]);
+
+      const expandTitle = (rowId) => {
+        const isExpanded = expandedRows.value.includes(rowId);
+        return vue.h(
+          'span',
+          {
+            class: iconSet,
+            onClick: () => {
+              // Toggle the expansion state for this row
+              if (isExpanded) {
+                expandedRows.value = expandedRows.value.filter(
+                  (id) => id !== rowId
+                );
+              } else {
+                expandedRows.value.push(rowId);
+              }
+            },
+            style: { cursor: 'pointer' }, // Optional: make clickable appear as such
+          },
+          isExpanded ? 'expand_less' : 'expand_more'
+        )
+      };
+
+      const table = () =>
+        vue.h('table', { class: ['sp-table', props.tableClass] }, [
+          vue.h('thead', { class: props.theadClass }, [
+            vue.h('tr', { class: props.trClass }, [
+              // Checkbox for "Select All"
+              props.selection
+                ? vue.h('th', { class: props.thClass }, checkAll())
+                : '',
+
+              // Column headers
+              isDesktop()
+                ? props.fields.map((field) => tableHeader(field))
+                : tableHeader(props.fields[0]),
+              isDesktop() ? actionHeader() : '',
+            ]),
+          ]),
+          vue.h('tbody', { class: props.tbodyClass }, [
+            data.value.map((item) =>
+              vue.h('tr', { class: props.trClass }, [
+                // Checkbox for selecting item
+                props.selection
+                  ? vue.h(
+                      'td',
+                      { class: [props.tdClass, 'text-center'] },
+                      checkItem(item[props.rowKey])
+                    )
+                  : '',
+                isDesktop()
+                  ? props.fields.map(
+                      (field) =>
+                        vue.h('td', { class: props.tdClass }, item[field.key] || '-') // Using key from fields
+                    )
+                  : vue.h('td', { class: [props.tdClass, 'sp-td-expand'] }, [
+                      expandTitle(item[props.rowKey]),
+                      vue.h(
+                        'span',
+                        { class: 'title' },
+                        item[props.fields[0].key] || '-'
+                      ),
+                      expandedRows.value.includes(item[props.rowKey]) ? vue.h('ul', null, [
+                        props.fields.map((field, index) => {
+                          return index > 0
+                            ? vue.h(
+                                'li',
+                                { class: 'sp-list' },
+                                item[field.key] || '-'
+                              )
+                            : null
+                        }),
+                      ]) : null,
+                      !expandedRows.value.includes(item[props.rowKey]) ? vue.h('p', null) : null,
+                      !isDesktop() ? actionBody() : '',
+                    ]),
+                isDesktop() ? actionBody() : '',
+              ])
+            ),
+          ]),
+        ]);
+
+      return () => table()
+    },
+  });
+
   var select = vue.defineComponent({  
     props: {
       paging: {
@@ -334,6 +544,7 @@ var SSComponents = (function (exports, vue) {
   exports.Navigator = nav;
   exports.SearchBox = searchbox;
   exports.SelectRow = select;
+  exports.Table = table;
 
   return exports;
 
