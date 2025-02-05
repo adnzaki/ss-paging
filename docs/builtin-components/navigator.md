@@ -18,7 +18,7 @@
 
 Here’s an example of using the `Navigator` component, assuming `paging` is your SSPaging instance:
 
-```html
+```vue-html
 <navigator 
   :paging="paging" 
   v-model="currentPage"

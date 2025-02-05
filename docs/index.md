@@ -17,10 +17,13 @@ hero:
       text: View on GitHub
       link: https://github.com/adnzaki/ss-paging-vue
 features:
-  - title: Powerful
+  - icon: 💪
+    title: Powerful
     details: Powerful server-side pagination library that provides sets of ready-to-use toolkit to work with the server. Has very small size and full of flexibility. 
-  - title: Doubtless
+  - icon: 😎
+    title: Doubtless
     details: Provides a URL pattern that will guide you to create a suitable server-side code that match SSPaging needs. 
-  - title: Progressive
+  - icon: 💫
+    title: Progressive
     details: Incredibly can be embedded everywhere, whether it is your new or existing projects.
 ---

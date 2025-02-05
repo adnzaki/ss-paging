@@ -20,7 +20,7 @@
 
 Below is an example of using the `SelectRow` component, assuming `paging` is your SSPaging instance:
 
-```html
+```vue-html
 <select-row 
   :paging="paging"
   label="Choose row"

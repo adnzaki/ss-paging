@@ -16,7 +16,7 @@
 
 Here’s how to use the `SearchBox` component, assuming `paging` is your SSPaging instance:
 
-```html
+```vue-html
 <search-box 
   :paging="paging" 
   v-model="paging.state.search"

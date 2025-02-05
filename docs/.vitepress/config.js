@@ -3,16 +3,19 @@ export default {
   description: 'A Low-Level Server-side Pagination Library for Vue.js',
   base: '/ss-paging/',
   head: [
-    ['link', { rel: 'icon', type: 'image', href: '/ss-paging/sspaging-logo.png' }]
+    [
+      'link',
+      { rel: 'icon', type: 'image', href: '/ss-paging/sspaging-logo.png' },
+    ],
   ],
   themeConfig: {
     logo: '/sspaging-logo.png',
     sidebar: [
       {
-        text: 'Introduction', 
+        text: 'Introduction',
         items: [
           { text: 'What is SSPaging?', link: '/intro' },
-          { text: 'What\'s New', link: '/whats-new' },
+          { text: "What's New", link: '/whats-new' },
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Configuration', link: '/configuration' },
           { text: 'Navigation', link: '/navigation' },
@@ -28,30 +31,33 @@ export default {
           { text: 'Prerequisites', link: '/tutorials/prerequisites' },
           { text: 'Preparing Template', link: '/tutorials/prepare-template' },
           { text: 'Applying Features', link: '/tutorials/applying-features' },
-        ]
+        ],
       },
       {
         text: 'Pagination Components',
         items: [
           { text: 'Intro to Components', link: '/builtin-components/intro' },
           { text: 'Installation', link: '/builtin-components/installation' },
+          { text: 'Table', link: '/builtin-components/table' },
           { text: 'SelectRow', link: '/builtin-components/select-row' },
           { text: 'Navigator', link: '/builtin-components/navigator' },
           { text: 'SearchBox', link: '/builtin-components/search-box' },
-        ]
-      }
-      
+        ],
+      },
     ],
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2017-present Adnan Zaki'
+      copyright: 'Copyright © 2017-present Adnan Zaki',
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/adnzaki/ss-paging-vue' }
+      { icon: 'github', link: 'https://github.com/adnzaki/ss-paging-vue' },
     ],
     nav: [
-      { text: 'Changelog v3.0.0-rc.2', link: 'https://github.com/adnzaki/ss-paging/releases/tag/3.0.0-rc.2' }
-    ]
-  }
+      {
+        text: 'Changelog v3.0.0-rc.3',
+        link: 'https://github.com/adnzaki/ss-paging/releases/tag/3.0.0-rc.3',
+      },
+    ],
+  },
 }
   
