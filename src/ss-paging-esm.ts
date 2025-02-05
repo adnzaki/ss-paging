@@ -291,8 +291,6 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     state.mode = options.mode
   }
 
-  console.log(optionHeaders.get('limit'))
-
   fetch(requestURL, fetchOptions)
     .then((response) => response.json())
     .then((res) => {
