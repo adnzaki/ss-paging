@@ -4,7 +4,6 @@ import {
   toRefs,
   ref,
   watch,
-  onMounted,
   computed,
 } from 'vue'
 import { iconSet } from '../helpers'
@@ -14,10 +13,6 @@ export default defineComponent({
     paging: {
       type: Object,
       required: true,
-    },
-    dark: {
-      type: Boolean,
-      default: false,
     },
     sortIcon: {
       type: String,
@@ -37,7 +32,7 @@ export default defineComponent({
     },
     modelValue: Array,
     tableClass: [String, Array],
-    tbodyClass: [String, Array],
+    tbodyClass: [String, Array],  
     theadClass: [String, Array],
     trClass: [String, Array],
     thClass: [String, Array],
@@ -108,11 +103,66 @@ export default defineComponent({
     }
 
     const actionBody = () => {
-      return slots.actionBody ? slots.actionBody() : ''
+      return slots.actionBody
+        ? isDesktop()
+          ? h('td', null, slots.actionBody())
+          : slots.actionBody()
+        : ''
     }
 
-    return () =>
-      h('table', { class: ['sp-table', props.dark ? 'dark' : ''] }, [
+    const isDesktop = () => {
+      return window.innerWidth >= 768
+    }
+
+    const tableHeader = (field) => {
+      return h(
+        'th',
+        {
+          class: [props.thClass, field.sortable ? 'cursor-pointer' : ''],
+          onClick: () => {
+            if (field.sortable) props.paging.sortData(field.key)
+          },
+        },
+        [
+          field.label,
+          field.sortable ? h('span', { class: iconSet }, props.sortIcon) : '',
+        ]
+      )
+    }
+
+    // const expandTitle = () => {
+    //   return h('span', {
+    //     class: iconSet
+    //   }, 'expand_more')
+    // }
+
+    // CHANGED: New state for tracking expanded rows
+    const expandedRows = ref([])
+
+    const expandTitle = (rowId) => {
+      const isExpanded = expandedRows.value.includes(rowId)
+      return h(
+        'span',
+        {
+          class: iconSet,
+          onClick: () => {
+            // Toggle the expansion state for this row
+            if (isExpanded) {
+              expandedRows.value = expandedRows.value.filter(
+                (id) => id !== rowId
+              )
+            } else {
+              expandedRows.value.push(rowId)
+            }
+          },
+          style: { cursor: 'pointer' }, // Optional: make clickable appear as such
+        },
+        isExpanded ? 'expand_less' : 'expand_more'
+      )
+    }
+
+    const table = () =>
+      h('table', { class: ['sp-table', props.tableClass] }, [
         h('thead', { class: props.theadClass }, [
           h('tr', { class: props.trClass }, [
             // Checkbox for "Select All"
@@ -121,27 +171,10 @@ export default defineComponent({
               : '',
 
             // Column headers
-            props.fields.map((field) =>
-              h(
-                'th',
-                {
-                  class: [
-                    props.thClass,
-                    field.sortable ? 'cursor-pointer' : '',
-                  ],
-                  onClick: () => {
-                    if (field.sortable) props.paging.sortData(field.key)
-                  },
-                },
-                [
-                  field.label,
-                  field.sortable
-                    ? h('span', { class: iconSet }, props.sortIcon)
-                    : '',
-                ]
-              )
-            ),
-            actionHeader(),
+            isDesktop()
+              ? props.fields.map((field) => tableHeader(field))
+              : tableHeader(props.fields[0]),
+            isDesktop() ? actionHeader() : '',
           ]),
         ]),
         h('tbody', { class: props.tbodyClass }, [
@@ -155,14 +188,38 @@ export default defineComponent({
                     checkItem(item[props.rowKey])
                   )
                 : '',
-              props.fields.map(
-                (field) =>
-                  h('td', { class: props.tdClass }, item[field.key] || '-') // Using key from fields
-              ),
-              actionBody(),
+              isDesktop()
+                ? props.fields.map(
+                    (field) =>
+                      h('td', { class: props.tdClass }, item[field.key] || '-') // Using key from fields
+                  )
+                : h('td', { class: [props.tdClass, 'sp-td-expand'] }, [
+                    expandTitle(item[props.rowKey]),
+                    h(
+                      'span',
+                      { class: 'title' },
+                      item[props.fields[0].key] || '-'
+                    ),
+                    expandedRows.value.includes(item[props.rowKey]) ? h('ul', null, [
+                      props.fields.map((field, index) => {
+                        return index > 0
+                          ? h(
+                              'li',
+                              { class: 'sp-list' },
+                              item[field.key] || '-'
+                            )
+                          : null
+                      }),
+                    ]) : null,
+                    !expandedRows.value.includes(item[props.rowKey]) ? h('p', null) : null,
+                    !isDesktop() ? actionBody() : '',
+                  ]),
+              isDesktop() ? actionBody() : '',
             ])
           ),
         ]),
       ])
+
+    return () => table()
   },
 })

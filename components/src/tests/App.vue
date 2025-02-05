@@ -39,7 +39,6 @@ onMounted(() => {
 })
 
 const tableColumns = [
-  { key: 'id', label: 'ID' },
   { key: 'name', label: 'Name', sortable: true },
   { key: 'email', label: 'Email', sortable: true },
   { key: 'phone', label: 'Phone' },
@@ -48,6 +47,10 @@ const tableColumns = [
 const selected = ref([])
 const onSelected = () => {
   console.log('selected: ', selected.value)
+}
+
+const isDesktop = () => {
+  return window.innerWidth >= 768
 }
 
 </script>
@@ -67,16 +70,15 @@ const onSelected = () => {
   <sp-table 
     :paging="paging" 
     :fields="tableColumns" 
-    v-model="selected" 
+    v-model="selected"
+    selection
     @update:model-value="onSelected">
     <template #actionHeader>
-      <th style="width: 200px !important;">Action</th>
+      <th :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important'} ">Action</th>
     </template>
     <template #actionBody>
-      <td>
-        <button class="action-button">Edit</button> &nbsp; 
-        <button class="delete-button">Hapus</button>
-      </td>
+      <button class="action-button">Edit</button> &nbsp; 
+      <button class="delete-button">Hapus</button>
     </template>
   </sp-table>
   <sp-navigation
