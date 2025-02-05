@@ -130,12 +130,6 @@ export default defineComponent({
       )
     }
 
-    // const expandTitle = () => {
-    //   return h('span', {
-    //     class: iconSet
-    //   }, 'expand_more')
-    // }
-
     // CHANGED: New state for tracking expanded rows
     const expandedRows = ref([])
 
