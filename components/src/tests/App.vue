@@ -74,7 +74,7 @@ const isDesktop = () => {
     selection
     @update:model-value="onSelected">
     <template #actionHeader>
-      <th :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important'} ">Action</th>
+      <th :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important' } ">Action</th>
     </template>
     <template #actionBody>
       <button class="action-button">Edit</button> &nbsp; 
