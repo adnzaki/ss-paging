@@ -3,48 +3,52 @@
     <img width="100" src="https://lib.actudent.com/ss-paging/sspaging-logo.png" alt="SSPaging logo">
   </a>
 </p>
+
 <p align="center">
   <a href="https://github.com/adnzaki/ss-paging/actions/workflows/codeql.yml">
     <img alt="CodeQL" src="https://github.com/adnzaki/ss-paging/actions/workflows/codeql.yml/badge.svg">
   </a>   
   <img alt="npm" src="https://img.shields.io/npm/dt/ss-paging-vue">
   <img alt="npm" src="https://img.shields.io/npm/v/ss-paging-vue">
-  <img alt="SSPaging License" src="https://img.shields.io/npm/l/ss-paging-vue">
+  <img alt="License" src="https://img.shields.io/npm/l/ss-paging-vue">
 </p>
 
 # SSPaging
-SSPaging is a server-side (or a low-level) pagination library for Vue.js. The name was taken from <strong>[Smartscore Pagination](https://smartscore.wolestech.com)</strong> which was a part from past project of SSPaging creator. SSPaging provides sets of ready-to-use functions and properties to create pagination. SSPaging provides some built-in components you can use in your project, but you can also learn how to create your own with the provided examples<br/>
+SSPaging is a lightweight, server-side (or low-level) pagination library for Vue.js. The name originates from **[Smartscore Pagination](https://smartscore.wolestech.com)**, a past project by the creator of SSPaging. It provides ready-to-use functions and properties to simplify pagination handling. SSPaging includes built-in components for quick implementation, but you can also customize your own with the provided examples.
 
 ## Installation
-SSPaging can be installed using NPM:
-```
+Install SSPaging via NPM:
+```sh
 npm install ss-paging-vue
 ```
+
 ## Breaking Changes in v3.x
-In v3.x, SSPaging shares the same codebase for both Composition API and Pinia version. This change affects the way accessing the state. For example, in v2.x you can directly access SSPaging state with `paging.rows` in Pinia version, while in v3.x you should replace it with `paging.state.rows`.
+Starting from v3.x, SSPaging unifies the codebase for both Composition API and Pinia versions. This affects state access methods.  
+- In **v2.x**, Pinia users could access the state directly using `paging.rows`.  
+- In **v3.x**, it must be accessed via `paging.state.rows`.
 
 ## Basic Usage
-After it is installed, you can import the composables or Pinia version of SSPaging (choose one depend on your need!).
+After installation, import the composables or Pinia version of SSPaging (choose based on your needs):
 ```javascript
 import { usePaging, usePagingStore } from 'ss-paging-vue'
 
-// in composables mode
+// Using composables
 const paging = usePaging()
 
-// in Pinia mode
+// Using Pinia
 const paging = usePagingStore()
 ```
-For use without build tool, you can include SSPaging via CDN:
+For usage without a build tool, include SSPaging via CDN:
 ```html
 <script src="https://unpkg.com/ss-paging-vue@latest/dist/ss-paging.dist.js"></script>
 ```
 ```javascript
-// in your JS file
+// In your JS file
 const paging = SSPaging.usePaging()
 ```
+
 ## Documentation
-For complete documentation, please refer to [SSPaging Official Documentation](https://lib.actudent.com/ss-paging/) instead.
+For full documentation, visit the **[SSPaging Official Documentation](https://lib.actudent.com/ss-paging/).**
 
 ## Contribution
-Just create a pull request if you want to add features or fix bugs.
-
+Want to contribute? Feel free to submit a pull request for bug fixes or new features. 🚀
