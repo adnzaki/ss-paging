@@ -24,7 +24,7 @@ SSPaging components can be used locally via a module or globally using the `app.
 
 ## Available Components
 
-SSPaging provides three core components that you can use in your project:
+SSPaging provides four components that you can use in your project:
 
 - `Table`
 - `SelectRow`  
