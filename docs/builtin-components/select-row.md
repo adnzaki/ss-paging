@@ -34,7 +34,7 @@ Below is an example of using the `SelectRow` component, assuming `paging` is you
 ></select-row>
 ```
 
-Note that this is just an example. You don’t need to define all props, only those that fit your needs. You can try out this component [here](https://playcode.io/1293181).
+Note that this is just an example. You don’t need to define all props, only those that fit your needs. You can try out this component [here](https://stackblitz.com/edit/vitejs-vite-mvx7ohax?file=src%2Fcomponents%2FRowsSelection.vue).
 
 ::: info
 The appearance of the component may differ depending on your template or custom CSS.

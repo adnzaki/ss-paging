@@ -17,9 +17,13 @@ SSPaging components rely on Material Icons (rounded type) for icons. Include the
 ```
 
 - ### Components Stylesheet  
-Import the pagination components' stylesheet manually in your HTML header:
+For usage without a build tool, you need to manually import the pagination components' stylesheet in your HTML header:  
 ```html
 <link rel="stylesheet" href="https://unpkg.com/ss-paging-vue@latest/components/dist/style.css">
+```
+If you're using a build tool, you can import the stylesheet directly in your JavaScript or Vue file:  
+```js
+import 'ss-paging-vue/components/style.css';
 ```
 
 ## Local Usage

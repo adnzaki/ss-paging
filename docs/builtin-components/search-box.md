@@ -26,4 +26,4 @@ Here’s how to use the `SearchBox` component, assuming `paging` is your SSPagin
 ></search-box>
 ```
 
-This is just an example. You don’t need to define all props, only those that fit your needs. You can try out this component [here](https://playcode.io/1293364).
+This is just an example. You don’t need to define all props, only those that fit your needs. You can try out this component [here](https://stackblitz.com/edit/vitejs-vite-mvx7ohax?file=src%2Fcomponents%2FSearchData.vue).

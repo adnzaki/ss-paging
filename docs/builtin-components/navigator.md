@@ -30,7 +30,7 @@ Here’s an example of using the `Navigator` component, assuming `paging` is you
 ></navigator>
 ```
 
-Note that this is just an example. You don’t need to define all props, only those that suit your needs. You can try out this component [here](https://playcode.io/1293219).
+Note that this is just an example. You don’t need to define all props, only those that suit your needs. You can try out this component [here](https://stackblitz.com/edit/vitejs-vite-mvx7ohax?file=src%2Fcomponents%2FNavigation.vue).
 
 ::: tip
 If some styles are not displaying as expected, it may be caused by your template styling or custom CSS. You can resolve this by applying custom classes as shown in the example.
