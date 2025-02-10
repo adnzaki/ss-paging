@@ -1,6 +1,6 @@
 <script setup>
 import { provide } from 'vue';
-import { usePaging } from '../../src/ss-paging-esm';
+import { usePaging } from '../../index';
 import DataTable from './DataTable.vue';
 import Navigation from './Navigation.vue';
 import RowSelection from './RowSelection.vue';

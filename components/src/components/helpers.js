@@ -1,5 +1,4 @@
-import { toRefs } from "vue"
-import { usePaging, usePagingStore } from '../../../index';
+import { usePaging, usePagingStore } from '../../../index.ts';
 
 const setPagingState = (useStore, { paging, property, value }) => {
   useStore ? paging[property] = value : paging.state[property] = value

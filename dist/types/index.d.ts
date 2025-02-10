@@ -1,2 +1,2 @@
-export { usePaging } from './src/ss-paging-esm';
-export { usePagingStore } from './src/ss-paging-store';
+export { usePaging } from './src/core';
+export { usePagingStore } from './src/store';

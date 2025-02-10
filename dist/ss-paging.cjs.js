@@ -6,17 +6,17 @@ var pinia = require('pinia');
 /**
  * Smartscore Pagination (SSPaging)
  *
- * SSPaging is a server-side pagination library for Vue.js only
- * SSPaging provides sets of ready-to-use functions and properties
+ * SSPaging is a server-side pagination library for Vue.js
+ * SSPaging provides a set of ready-to-use functions and properties
  * to create pagination.
  *
- * SSPaging does not provide any template or view, but you
- * can learn how to create it with the examples provided
+ * SSPaging also has built-in components which is nearly zero-config
+ * and handle most of the work for you
  *
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0-rc.3
+ * @version     3.0.0
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = vue.ref(null);
