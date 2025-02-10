@@ -1,4 +1,4 @@
 import { defineStore } from 'pinia'
-import { usePaging } from './ss-paging-esm'
+import { usePaging } from './core'
 
 export const usePagingStore = defineStore('sspaging', () => usePaging())
