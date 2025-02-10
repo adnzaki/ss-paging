@@ -1,5 +1,5 @@
 <script setup>
-import { usePagingStore } from '../../../src/ss-paging-store';
+import { usePagingStore } from '../../../index';
 import { onMounted, ref } from 'vue';
 
 const paging = usePagingStore()
@@ -57,10 +57,9 @@ const isDesktop = () => {
 
 <template>
   <div style="width: 250px; box-sizing: border-box;">
-    <sp-select :selected="limit" row-label="baris" :paging="paging"></sp-select>
+    <sp-select :selected="limit" row-label="baris"></sp-select>
     <p></p>
     <sp-searchbox placeholder="Search for customer name..." 
-      :paging="paging"
       v-model="paging.state.search">
     </sp-searchbox>
   </div>
@@ -68,7 +67,6 @@ const isDesktop = () => {
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
   <sp-table 
-    :paging="paging" 
     :fields="tableColumns" 
     v-model="selected"
     selection
@@ -82,7 +80,7 @@ const isDesktop = () => {
     </template>
   </sp-table>
   <sp-navigation
-    :paging="paging" v-model="current" use-input
+    v-model="current" use-input
     >
   </sp-navigation>  
   <!-- <ul v-if="showList">

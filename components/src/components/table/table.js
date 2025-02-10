@@ -6,13 +6,12 @@ import {
   watch,
   computed,
 } from 'vue'
-import { iconSet } from '../helpers'
+import { getPaging, iconSet } from '../helpers'
 
 export default defineComponent({
   props: {
     paging: {
       type: Object,
-      required: true,
     },
     sortIcon: {
       type: String,
@@ -30,9 +29,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    useStore: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: Array,
     tableClass: [String, Array],
-    tbodyClass: [String, Array],  
+    tbodyClass: [String, Array],
     theadClass: [String, Array],
     trClass: [String, Array],
     thClass: [String, Array],
@@ -40,7 +43,8 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
-    const { data } = toRefs(props.paging.state)
+    const paging = getPaging(props.useStore, props.paging)
+    const { data } = toRefs(paging.state)
     const selectedItems = ref(props.modelValue || [])
 
     const allSelected = computed(() => {
@@ -120,7 +124,7 @@ export default defineComponent({
         {
           class: [props.thClass, field.sortable ? 'cursor-pointer' : ''],
           onClick: () => {
-            if (field.sortable) props.paging.sortData(field.key)
+            if (field.sortable) paging.sortData(field.key)
           },
         },
         [
@@ -194,18 +198,22 @@ export default defineComponent({
                       { class: 'title' },
                       item[props.fields[0].key] || '-'
                     ),
-                    expandedRows.value.includes(item[props.rowKey]) ? h('ul', null, [
-                      props.fields.map((field, index) => {
-                        return index > 0
-                          ? h(
-                              'li',
-                              { class: 'sp-list' },
-                              item[field.key] || '-'
-                            )
-                          : null
-                      }),
-                    ]) : null,
-                    !expandedRows.value.includes(item[props.rowKey]) ? h('p', null) : null,
+                    expandedRows.value.includes(item[props.rowKey])
+                      ? h('ul', null, [
+                          props.fields.map((field, index) => {
+                            return index > 0
+                              ? h(
+                                  'li',
+                                  { class: 'sp-list' },
+                                  item[field.key] || '-'
+                                )
+                              : null
+                          }),
+                        ])
+                      : null,
+                    !expandedRows.value.includes(item[props.rowKey])
+                      ? h('p', null)
+                      : null,
                     !isDesktop() ? actionBody() : '',
                   ]),
               isDesktop() ? actionBody() : '',

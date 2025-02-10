@@ -1,11 +1,10 @@
 import { h, defineComponent } from "vue";
-import { iconSet } from "../helpers";
+import { getPaging, iconSet } from "../helpers";
 
 export default defineComponent({
   props: {
     paging: {
       type: Object,
-      required: true
     },
     modelValue: {
       required: true
@@ -18,10 +17,15 @@ export default defineComponent({
       type: String,
       default: 'search'
     },
+    useStore: {
+      type: Boolean,
+      default: false
+    },
     customClass: [String, Array]
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const paging = getPaging(props.useStore, props.paging)
     const icons = {
       search: 'search',
       arrow: 'arrow_forward'
@@ -37,13 +41,13 @@ export default defineComponent({
           onInput(event) {
             if(event.target.value === '') {
               emit('update:modelValue', event.target.value)
-              props.paging.onSearchChanged()
+              paging.onSearchChanged()
             }
           },
           onKeyup(event) {
             if(event.keyCode === 13) {
               emit('update:modelValue', event.target.value)
-              props.paging.filter()
+              paging.filter()
             }
           }
         }),
