@@ -1,27 +1,35 @@
 /* Hero section */
 :root {
-  --vp-c-brand: #d44670;
-  --vp-c-brand-light: #dd5981;
-  --vp-c-brand-lighter: #e26a8e;
+  --vp-c-brand-1: #d44670;
+  --vp-c-brand-2: #dd5981;
+  --vp-c-brand-3: #e26a8e;
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(145deg, #e71655, #e2829f);
+  --vp-home-hero-image-background-image: linear-gradient(
+    -75deg,
+    #c88b9e 50%,
+    #b04d9d 50%
+  );
+  --vp-home-hero-image-filter: blur(90px);
+}
+
+.dark {
   --vp-home-hero-image-background-image: linear-gradient(
     -75deg,
     #b11644 50%,
     #9e2185 50%
   );
-  --vp-home-hero-image-filter: blur(90px);
 }
 
 /* Component: Button */
 :root {
-  --vp-button-brand-border: var(--vp-c-brand-light);
+  --vp-button-brand-border: var(--vp-c-brand-2);
   --vp-button-brand-text: var(--vp-c-white);
   --vp-button-brand-bg: var(--vp-c-brand);
-  --vp-button-brand-hover-border: var(--vp-c-brand-light);
+  --vp-button-brand-hover-border: var(--vp-c-brand-2);
   --vp-button-brand-hover-text: var(--vp-c-white);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-light);
-  --vp-button-brand-active-border: var(--vp-c-brand-light);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: var(--vp-c-brand-2);
   --vp-button-brand-active-text: var(--vp-c-white);
   --vp-button-brand-active-bg: var(--vp-button-brand-bg);
 }
@@ -32,5 +40,32 @@
   over scoped class data attribute.
 */
 .dark .vp-doc a:hover {
-  color: var(--vp-c-brand-lighter);
+  color: var(--vp-c-brand-2);
+}
+
+:root {
+  --feature-bg-light: #f8e5f1; /* Soft pink untuk light mode */
+  --feature-text-light: #470139;
+
+  --feature-bg-dark: #372828; /* Ungu gelap untuk dark mode */
+  --feature-text-dark: white;
+}
+
+.VPFeatures .VPFeature {
+  background-color: var(--feature-bg-light);
+  color: var(--feature-text-light);
+}
+
+.VPFeatures .VPFeature .details {
+  color: var(--feature-text-light);
+}
+
+/* Dark Mode */
+html.dark .VPFeatures .VPFeature {
+  background-color: var(--feature-bg-dark);
+  color: var(--feature-text-dark);
+}
+
+html.dark .VPFeatures .VPFeature .details {
+  color: var(--feature-text-dark);
 }
