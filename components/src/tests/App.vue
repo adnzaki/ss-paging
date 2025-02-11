@@ -23,7 +23,7 @@ onMounted(() => {
     url: `http://localhost/ss-paging-api-example/public/customer/get-customer`,
     useHeader: true,
     autoReset: 500,
-    // linkNum: 3,
+    linkNum: 3,
     activeClass: 'active',
     debug: true,
     beforeRequest: () => {
@@ -57,9 +57,11 @@ const isDesktop = () => {
 
 <template>
   <div style="width: 250px; box-sizing: border-box;">
-    <sp-select :selected="limit" row-label="baris"></sp-select>
+    <sp-select :paging="paging" :selected="limit" row-label="baris"></sp-select>
     <p></p>
-    <sp-searchbox placeholder="Search for customer name..." 
+    <sp-searchbox 
+      :paging="paging"
+      placeholder="Search for customer name..." 
       v-model="paging.state.search">
     </sp-searchbox>
   </div>
@@ -67,6 +69,7 @@ const isDesktop = () => {
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
   <sp-table 
+    :paging="paging"
     :fields="tableColumns" 
     v-model="selected"
     selection
@@ -80,9 +83,15 @@ const isDesktop = () => {
     </template>
   </sp-table>
   <sp-navigation
+    :paging="paging"
     v-model="current" use-input
     >
   </sp-navigation>  
+  <sp-navigation
+    :paging="paging"
+    v-model="current"
+    >
+  </sp-navigation> 
   <!-- <ul v-if="showList">
     <li v-for="(item, index) in paging.state.data" :key="index"> {{ paging.itemNumber(index) }} - {{ item.name }}</li>
   </ul>

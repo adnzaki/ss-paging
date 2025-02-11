@@ -6,12 +6,13 @@ import {
   watch,
   computed,
 } from 'vue'
-import { getPaging, iconSet } from '../helpers'
+import { iconSet } from '../helpers'
 
 export default defineComponent({
   props: {
     paging: {
       type: Object,
+      required: true,
     },
     sortIcon: {
       type: String,
@@ -29,10 +30,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    useStore: {
-      type: Boolean,
-      default: false,
-    },
     modelValue: Array,
     tableClass: [String, Array],
     tbodyClass: [String, Array],
@@ -43,8 +40,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
-    const paging = getPaging(props.useStore, props.paging)
-    const { data } = toRefs(paging.state)
+    const { data } = toRefs(props.paging.state)
     const selectedItems = ref(props.modelValue || [])
 
     const allSelected = computed(() => {
@@ -124,7 +120,7 @@ export default defineComponent({
         {
           class: [props.thClass, field.sortable ? 'cursor-pointer' : ''],
           onClick: () => {
-            if (field.sortable) paging.sortData(field.key)
+            if (field.sortable) props.paging.sortData(field.key)
           },
         },
         [

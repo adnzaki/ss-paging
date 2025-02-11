@@ -1,10 +1,11 @@
 import { h, defineComponent, toRefs, watch, onMounted, computed } from "vue";
-import { getPaging, iconSet } from "../helpers";
+import { iconSet } from "../helpers";
 
 export default defineComponent({
   props: {
     paging: {
       type: Object,
+      required: true,
     },
     modelValue: {
       required: true,
@@ -17,21 +18,16 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    useStore: {
-      type: Boolean,
-      default: false,
-    },
     customNavigationClass: [String, Array],
     customInputClass: [String, Array],
     customNumlinkClass: [String, Array],
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const paging = getPaging(props.useStore, props.paging)
-    const { pageLinks, first, prev, next, last } = toRefs(paging.state)
+    const { pageLinks, first, prev, next, last } = toRefs(props.paging.state)
 
     const resetModelValue = () => {
-      if (paging.activePage.value === 1) {
+      if (props.paging.activePage.value === 1) {
         emit('update:modelValue', 1)
       }
     }
@@ -39,9 +35,9 @@ export default defineComponent({
     // for build tool version
     watch(pageLinks, resetModelValue)
 
-    const activePage = computed(() => paging.activePage)
+    const activePage = computed(() => props.paging.activePage)
 
-    // when paging.activePage changed, update the modelValue
+    // when props.paging.activePage changed, update the modelValue
     watch(activePage, () => {
       emit('update:modelValue', activePage.value)
     })
@@ -59,7 +55,7 @@ export default defineComponent({
           onClick(event) {
             if (goTo !== null) {
               emit('update:modelValue', goTo + 1)
-              paging.nav(goTo)
+              props.paging.nav(goTo)
             }
           },
         },
@@ -78,7 +74,7 @@ export default defineComponent({
           icon
         ),
         target,
-        paging.isDisabled(target),
+        props.paging.isDisabled(target),
         props.dark ? 'dark' : '',
         props.customNavigationClass
       )
@@ -91,7 +87,7 @@ export default defineComponent({
           item,
           item - 1,
           'sp-numlink',
-          paging.activeLink(item),
+          props.paging.activeLink(item),
           props.dark ? 'dark' : '',
           props.customNumlinkClass
         )
@@ -110,7 +106,7 @@ export default defineComponent({
               const targetPage = event.target.value - 1
               if (targetPage <= last.value && targetPage >= 0) {
                 emit('update:modelValue', event.target.value)
-                paging.nav(targetPage)
+                props.paging.nav(targetPage)
               }
             }
           },

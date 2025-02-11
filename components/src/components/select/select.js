@@ -1,10 +1,11 @@
 import { h, defineComponent, ref, onMounted } from "vue";
-import { getPaging, largePadding } from '../helpers'
+import { largePadding } from '../helpers'
 
 export default defineComponent({
   props: {
     paging: {
       type: Object,
+      required: true,
     },
     label: {
       type: String,
@@ -25,10 +26,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    useStore: {
-      type: Boolean,
-      default: false,
-    },
     customSelectClass: [String, Array],
     customOptionClass: [String, Array],
     dark: {
@@ -38,9 +35,6 @@ export default defineComponent({
   },
   emits: ['update:selected'],
   setup(props, { emit }) {
-    // Pagination instance
-    const paging = getPaging(props.useStore, props.paging)
-
     const label = ref(props.label)
     const optionsWidth = ref(0)
 
@@ -121,10 +115,10 @@ export default defineComponent({
         key,
         style: props.large ? largePadding : '',
         onClick(event) {
-          paging.state.rows = row
+          props.paging.state.rows = row
 
           label.value = `${row} ${props.rowLabel}`
-          paging.showPerPage()
+          props.paging.showPerPage()
 
           // allow users to do something after internal operation completed
           emit('update:selected', event, row)
