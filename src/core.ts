@@ -246,7 +246,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   if (options.useHeader) {
     baseURL = `${baseURL}/${state.searchBy}`
   } else {
-    baseURL = `${baseURL}${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`
+    baseURL = `${baseURL}/${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`
   }
 
   let requestURL: string = `${baseURL}${searchParam}`
