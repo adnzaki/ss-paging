@@ -13,6 +13,10 @@
   padding: 8px;
 }
 
+.sp-table td.dark, .sp-table th.dark {
+  border: solid 1px var(--sp-default-dark-border-color);
+}
+
 .sp-table thead th span.material-icons-round {
   margin-left: 5px;
   position: absolute; 
@@ -26,10 +30,14 @@
   background-color: #ddd;
 }
 
-.sp-table.dark {
+.sp-table tbody tr.dark:hover {
+  background-color: #9797977f;
+}
+
+/* .sp-table.dark {
   background-color: var(--sp-dark);
   color: #fff;
-}
+} */
 
 .sp-table .sp-checkbox {
   position: relative;
@@ -43,6 +51,11 @@
   display: inline-block;
   vertical-align: middle;
   transition: all 0.2s;
+}
+
+.sp-table .sp-checkbox.dark {
+  background-color: var(--sp-dark);
+  border-color: var(--sp-default-dark-border-color);
 }
 
 .sp-table .sp-checkbox:checked {

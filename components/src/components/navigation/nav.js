@@ -26,6 +26,8 @@ export default defineComponent({
   setup(props, { emit }) {
     const { pageLinks, first, prev, next, last } = toRefs(props.paging.state)
 
+    const darkMode = computed(() => (props.dark ? 'dark' : ''))
+
     const resetModelValue = () => {
       if (props.paging.activePage.value === 1) {
         emit('update:modelValue', 1)
@@ -44,8 +46,6 @@ export default defineComponent({
 
     // for CDN version
     onMounted(resetModelValue)
-
-    const disableLink = (link) => {}
 
     const createList = (content, goTo, ...customClass) => {
       return h(
@@ -75,7 +75,7 @@ export default defineComponent({
         ),
         target,
         props.paging.isDisabled(target),
-        props.dark ? 'dark' : '',
+        darkMode.value,
         props.customNavigationClass
       )
     }
@@ -88,7 +88,7 @@ export default defineComponent({
           item - 1,
           'sp-numlink',
           props.paging.activeLink(item),
-          props.dark ? 'dark' : '',
+          darkMode.value,
           props.customNumlinkClass
         )
       })
@@ -98,11 +98,11 @@ export default defineComponent({
     const setPage = () => {
       return createList(
         h('input', {
-          class: ['sp-input', props.customInputClass],
+          class: ['sp-input', darkMode.value, props.customInputClass],
           value: props.modelValue,
           onKeyup(event) {
             // when user hit enter
-            if (event.keyCode === 13) {
+            if (event.key === 'Enter') {
               const targetPage = event.target.value - 1
               if (targetPage <= last.value && targetPage >= 0) {
                 emit('update:modelValue', event.target.value)

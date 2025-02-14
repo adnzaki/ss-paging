@@ -9,6 +9,7 @@
 .sp-select.dark {
   background-color: var(--sp-dark);
   color: #fff;
+  border-color: var(--sp-default-dark-border-color);
 }
 
 .sp-select span {

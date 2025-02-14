@@ -13,6 +13,12 @@
   width: 100%;
 }
 
+.sp-searchbox.dark {
+  background-color: var(--sp-dark);
+  color: #fff;
+  border-color: var(--sp-default-dark-border-color);
+}
+
 .sp-searchbox:focus {
   /* border: solid 1px var(--sp-default-border-color) !important; */
   box-shadow: 0 0 0 2px var(--sp-default-border-color);

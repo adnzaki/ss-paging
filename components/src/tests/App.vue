@@ -54,40 +54,68 @@ const isDesktop = () => {
 }
 
 </script>
+<style>
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+</style>
 
 <template>
   <div style="width: 250px; box-sizing: border-box;">
-    <sp-select :paging="paging" :selected="limit" row-label="baris"></sp-select>
+    <sp-select 
+      dark 
+      :paging="paging" 
+      :selected="limit" 
+      row-label="baris"
+      :options="[5,10,15,20,25]"
+    />
     <p></p>
     <sp-searchbox 
       :paging="paging"
       placeholder="Search for customer name..." 
-      v-model="paging.state.search">
+      v-model="paging.state.search" dark>
     </sp-searchbox>
   </div>
   
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
+  <sp-navigation
+    dark
+    :paging="paging"
+    v-model="current" use-input
+    >
+  </sp-navigation>  
   <sp-table 
+    dark
     :paging="paging"
     :fields="tableColumns" 
     v-model="selected"
     selection
     @update:model-value="onSelected">
     <template #actionHeader>
-      <th :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important' } ">Action</th>
+      <th class="dark" :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important' } ">Action</th>
     </template>
     <template #actionBody>
       <button class="action-button">Edit</button> &nbsp; 
       <button class="delete-button">Hapus</button>
     </template>
   </sp-table>
+  
   <sp-navigation
-    :paging="paging"
-    v-model="current" use-input
-    >
-  </sp-navigation>  
-  <sp-navigation
+    dark
     :paging="paging"
     v-model="current"
     >

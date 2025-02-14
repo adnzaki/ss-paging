@@ -1,4 +1,4 @@
-import { h, defineComponent, ref, onMounted } from "vue";
+import { h, defineComponent, ref, onMounted, computed } from "vue";
 import { largePadding } from '../helpers'
 
 export default defineComponent({
@@ -41,6 +41,8 @@ export default defineComponent({
     const listWrapperActive = ref('')
     const activeIcon = ref('')
 
+    const darkMode = computed(() => (props.dark ? 'dark' : ''))
+
     onMounted(() => {
       // hide options if users click outside the select element
       document.addEventListener('click', (event) => {
@@ -72,7 +74,7 @@ export default defineComponent({
     }
 
     const selectClass = () => {
-      const classes = [props.dark ? 'sp-select dark' : 'sp-select']
+      const classes = ['sp-select', darkMode.value]
       if (props.customSelectClass !== undefined) {
         classes.push(props.customSelectClass)
       }
@@ -100,7 +102,7 @@ export default defineComponent({
     }
 
     const optionClass = () => {
-      const classes = [props.dark ? 'dark' : '']
+      const classes = [darkMode.value]
       if (props.customOptionClass !== undefined) {
         classes.push(props.customOptionClass)
       }
@@ -141,7 +143,7 @@ export default defineComponent({
         {
           class: [
             'sp-select-options',
-            props.dark ? 'dark' : '',
+            darkMode.value,
             listWrapperActive.value,
           ],
           style: { width: `${optionsWidth.value}px` },

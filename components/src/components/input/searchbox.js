@@ -18,6 +18,10 @@ export default defineComponent({
       type: String,
       default: 'search'
     },
+    dark: {
+      type: Boolean,
+      default: false
+    },
     customClass: [String, Array]
   },
   emits: ['update:modelValue'],
@@ -32,7 +36,7 @@ export default defineComponent({
       [
         // input element
         h('input', { 
-          class: ['sp-searchbox', props.customClass],
+          class: ['sp-searchbox', props.dark ? 'dark' : '', props.customClass],
           placeholder: props.placeholder,
           onInput(event) {
             if(event.target.value === '') {

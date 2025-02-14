@@ -30,6 +30,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: Array,
     tableClass: [String, Array],
     tbodyClass: [String, Array],
@@ -42,6 +46,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const { data } = toRefs(props.paging.state)
     const selectedItems = ref(props.modelValue || [])
+    const darkMode = computed(() => (props.dark ? 'dark' : ''))
 
     const allSelected = computed(() => {
       return (
@@ -82,7 +87,7 @@ export default defineComponent({
 
     const checkAll = () => {
       return h('input', {
-        class: 'sp-checkbox',
+        class: ['sp-checkbox', darkMode.value],
         type: 'checkbox',
         checked: allSelected.value,
         onChange: toggleSelectAll,
@@ -91,7 +96,7 @@ export default defineComponent({
 
     const checkItem = (id) => {
       return h('input', {
-        class: 'sp-checkbox',
+        class: ['sp-checkbox', darkMode.value],
         type: 'checkbox',
         checked: selectedItems.value.includes(id),
         onChange: () => toggleSelection(id),
@@ -105,7 +110,7 @@ export default defineComponent({
     const actionBody = () => {
       return slots.actionBody
         ? isDesktop()
-          ? h('td', null, slots.actionBody())
+          ? h('td', { class: darkMode.value }, slots.actionBody())
           : slots.actionBody()
         : ''
     }
@@ -118,7 +123,7 @@ export default defineComponent({
       return h(
         'th',
         {
-          class: [props.thClass, field.sortable ? 'cursor-pointer' : ''],
+          class: [props.thClass, darkMode.value, field.sortable ? 'cursor-pointer' : ''],
           onClick: () => {
             if (field.sortable) props.paging.sortData(field.key)
           },
@@ -161,7 +166,7 @@ export default defineComponent({
           h('tr', { class: props.trClass }, [
             // Checkbox for "Select All"
             props.selection
-              ? h('th', { class: props.thClass }, checkAll())
+              ? h('th', { class: [props.thClass, darkMode.value] }, checkAll())
               : '',
 
             // Column headers
@@ -173,21 +178,21 @@ export default defineComponent({
         ]),
         h('tbody', { class: props.tbodyClass }, [
           data.value.map((item) =>
-            h('tr', { class: props.trClass }, [
+            h('tr', { class: [props.trClass, darkMode.value] }, [
               // Checkbox for selecting item
               props.selection
                 ? h(
                     'td',
-                    { class: [props.tdClass, 'text-center'] },
+                    { class: [props.tdClass, darkMode.value, 'text-center'] },
                     checkItem(item[props.rowKey])
                   )
                 : '',
               isDesktop()
                 ? props.fields.map(
                     (field) =>
-                      h('td', { class: props.tdClass }, item[field.key] || '-') // Using key from fields
+                      h('td', { class: [props.tdClass, darkMode.value] }, item[field.key] || '-') // Using key from fields
                   )
-                : h('td', { class: [props.tdClass, 'sp-td-expand'] }, [
+                : h('td', { class: [props.tdClass, darkMode.value, 'sp-td-expand'] }, [
                     expandTitle(item[props.rowKey]),
                     h(
                       'span',
