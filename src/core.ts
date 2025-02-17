@@ -195,7 +195,7 @@ function runPaging(): void {
   if (state.debug) {
     console.clear()
     console.info(
-      'If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.'
+      '[SSPaging] If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.'
     )
   }
 }
@@ -315,9 +315,10 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
       }
 
       if (state.debug) {
-        console.info('Reactive state:')
+        console.info('[SSPaging] Generated URL: ', requestURL)
+        console.info('[SSPaging] Reactive state:')
         console.log(state)
-        console.info('Below are options you have provided:')
+        console.info('[SSPaging] Below are options you have provided:')
         console.log(options)
       }
     })
@@ -399,12 +400,12 @@ function create(settings: Settings) {
     : (state.prev = settings.start - 1)
 
   if (state.debug) {
-    console.info('Settings for generating pagination:')
+    console.info('[SSPaging] Settings for generating pagination:')
     console.log(settings)
-    console.info('Total possible links (if shown): ' + countLink)
-    console.info('Start link: ' + startLink)
+    console.info('[SSPaging] Total possible links (if shown): ' + countLink)
+    console.info('[SSPaging] Start link: ' + startLink)
     console.info(
-      'If startLink value never change, it may caused linkNum is hidden'
+      '[SSPaging] If startLink value never change, it may caused linkNum is hidden'
     )
   }
 }
