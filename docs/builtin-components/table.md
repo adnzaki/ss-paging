@@ -20,6 +20,7 @@ This component not only streamlines the process of displaying server-side pagina
 | `fields`    | `Array`          | None                     | Yes      | Array of field definitions for dynamic columns (each field should include at least a `label` and `key`, and optionally a `sortable` flag) |
 | `rowKey`    | `String`         | `"id"`                   | No       | Unique key used to identify each row                            |
 | `selection` | `Boolean`        | `false`                  | No       | Enable row selection checkboxes                                 |
+| `dark`      | `Boolean`        | `false`                  | No       | Activate dark mode |
 | `modelValue`| `Array`          | None                     | No       | Array of selected rows (used with `v-model`)                    |
 | `tableClass`| `String` or `Array` | None                  | No       | Custom CSS classes for the table element                        |
 | `tbodyClass`| `String` or `Array` | None                  | No       | Custom CSS classes for the table body element                   |

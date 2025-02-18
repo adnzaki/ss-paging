@@ -51,7 +51,7 @@ If not using a build tool, pagination components can only be used globally. Howe
 const { Table, SelectRow, Navigator, SearchBox } = SSComponents
 const app = Vue.createApp({})
 
-app.component('table', Table)
+app.component('data-table', Table)
 app.component('select-row', SelectRow)
 app.component('navigator', Navigator)
 app.component('search-box', SearchBox)
@@ -62,7 +62,7 @@ import { Table, SelectRow, Navigator, SearchBox } from 'ss-paging-vue/components
 import { createApp } from 'vue'
 
 const app = createApp({})
-app.component('table', Table)
+app.component('data-table', Table)
 app.component('select-row', SelectRow)
 app.component('navigator', Navigator)
 app.component('search-box', SearchBox)
@@ -72,7 +72,7 @@ app.mount('#app')
 
 Then in your HTML file:
 ```html
-<table></table>
+<data-table></data-table>
 <select-row></select-row>
 <navigator></navigator>
 <search-box></search-box>

@@ -11,6 +11,7 @@
 | `placeholder`  | `String`        | None       | No       | Placeholder text for the input field                              |
 | `icon`         | `String`        | `'search'` | No       | Optional icon: `search` or `arrow`                                |
 | `customClass`  | `String\|Array` | None       | No       | Custom class for the input field                                  |
+| `dark`         | `Booelan`       | `false`    | No       | Activate dark mode                                                |
 
 ## Example
 
