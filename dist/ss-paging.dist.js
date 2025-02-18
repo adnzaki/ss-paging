@@ -183,7 +183,7 @@ var SSPaging = (function (exports, vue, pinia) {
         }, true);
         if (state.debug) {
             console.clear();
-            console.info('If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.');
+            console.info('[SSPaging] If you see this message, it means getData() is executed through runPaging() and your initial options have been redefined using reactive state.');
         }
     }
     /**
@@ -224,7 +224,7 @@ var SSPaging = (function (exports, vue, pinia) {
             baseURL = "".concat(baseURL, "/").concat(state.searchBy);
         }
         else {
-            baseURL = "".concat(baseURL).concat(state.limit, "/").concat(state.offset, "/").concat(state.orderBy, "/").concat(state.searchBy, "/").concat(state.sort);
+            baseURL = "".concat(baseURL, "/").concat(state.limit, "/").concat(state.offset, "/").concat(state.orderBy, "/").concat(state.searchBy, "/").concat(state.sort);
         }
         var requestURL = "".concat(baseURL).concat(searchParam);
         if (options.autoReset !== undefined) {
@@ -280,9 +280,10 @@ var SSPaging = (function (exports, vue, pinia) {
                 options.afterRequest();
             }
             if (state.debug) {
-                console.info('Reactive state:');
+                console.info('[SSPaging] Generated URL: ', requestURL);
+                console.info('[SSPaging] Reactive state:');
                 console.log(state);
-                console.info('Below are options you have provided:');
+                console.info('[SSPaging] Below are options you have provided:');
                 console.log(options);
             }
         })
@@ -348,11 +349,11 @@ var SSPaging = (function (exports, vue, pinia) {
             ? (state.prev = settings.start)
             : (state.prev = settings.start - 1);
         if (state.debug) {
-            console.info('Settings for generating pagination:');
+            console.info('[SSPaging] Settings for generating pagination:');
             console.log(settings);
-            console.info('Total possible links (if shown): ' + countLink);
-            console.info('Start link: ' + startLink);
-            console.info('If startLink value never change, it may caused linkNum is hidden');
+            console.info('[SSPaging] Total possible links (if shown): ' + countLink);
+            console.info('[SSPaging] Start link: ' + startLink);
+            console.info('[SSPaging] If startLink value never change, it may caused linkNum is hidden');
         }
     }
     /**

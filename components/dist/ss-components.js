@@ -1,9 +1,5 @@
-var SSComponents = (function (exports, vue, ssPagingVue) {
+var SSComponents = (function (exports, vue) {
   'use strict';
-
-  const getPaging = (useStore, paging) => {
-    return paging === undefined ? useStore ? ssPagingVue.usePagingStore() : ssPagingVue.usePaging() : paging
-  };
 
   const largePadding = { padding: '10px 15px' };
 
@@ -13,6 +9,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     props: {
       paging: {
         type: Object,
+        required: true,
       },
       sortIcon: {
         type: String,
@@ -30,7 +27,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
         type: Boolean,
         default: false,
       },
-      useStore: {
+      dark: {
         type: Boolean,
         default: false,
       },
@@ -44,9 +41,9 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-      const paging = getPaging(props.useStore, props.paging);
-      const { data } = vue.toRefs(paging.state);
+      const { data } = vue.toRefs(props.paging.state);
       const selectedItems = vue.ref(props.modelValue || []);
+      const darkMode = vue.computed(() => (props.dark ? 'dark' : ''));
 
       const allSelected = vue.computed(() => {
         return (
@@ -87,7 +84,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
 
       const checkAll = () => {
         return vue.h('input', {
-          class: 'sp-checkbox',
+          class: ['sp-checkbox', darkMode.value],
           type: 'checkbox',
           checked: allSelected.value,
           onChange: toggleSelectAll,
@@ -96,7 +93,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
 
       const checkItem = (id) => {
         return vue.h('input', {
-          class: 'sp-checkbox',
+          class: ['sp-checkbox', darkMode.value],
           type: 'checkbox',
           checked: selectedItems.value.includes(id),
           onChange: () => toggleSelection(id),
@@ -110,7 +107,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
       const actionBody = () => {
         return slots.actionBody
           ? isDesktop()
-            ? vue.h('td', null, slots.actionBody())
+            ? vue.h('td', { class: darkMode.value }, slots.actionBody())
             : slots.actionBody()
           : ''
       };
@@ -123,9 +120,9 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
         return vue.h(
           'th',
           {
-            class: [props.thClass, field.sortable ? 'cursor-pointer' : ''],
+            class: [props.thClass, darkMode.value, field.sortable ? 'cursor-pointer' : ''],
             onClick: () => {
-              if (field.sortable) paging.sortData(field.key);
+              if (field.sortable) props.paging.sortData(field.key);
             },
           },
           [
@@ -166,7 +163,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
             vue.h('tr', { class: props.trClass }, [
               // Checkbox for "Select All"
               props.selection
-                ? vue.h('th', { class: props.thClass }, checkAll())
+                ? vue.h('th', { class: [props.thClass, darkMode.value] }, checkAll())
                 : '',
 
               // Column headers
@@ -178,21 +175,21 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
           ]),
           vue.h('tbody', { class: props.tbodyClass }, [
             data.value.map((item) =>
-              vue.h('tr', { class: props.trClass }, [
+              vue.h('tr', { class: [props.trClass, darkMode.value] }, [
                 // Checkbox for selecting item
                 props.selection
                   ? vue.h(
                       'td',
-                      { class: [props.tdClass, 'text-center'] },
+                      { class: [props.tdClass, darkMode.value, 'text-center'] },
                       checkItem(item[props.rowKey])
                     )
                   : '',
                 isDesktop()
                   ? props.fields.map(
                       (field) =>
-                        vue.h('td', { class: props.tdClass }, item[field.key] || '-') // Using key from fields
+                        vue.h('td', { class: [props.tdClass, darkMode.value] }, item[field.key] || '-') // Using key from fields
                     )
-                  : vue.h('td', { class: [props.tdClass, 'sp-td-expand'] }, [
+                  : vue.h('td', { class: [props.tdClass, darkMode.value, 'sp-td-expand'] }, [
                       expandTitle(item[props.rowKey]),
                       vue.h(
                         'span',
@@ -231,6 +228,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     props: {
       paging: {
         type: Object,
+        required: true,
       },
       label: {
         type: String,
@@ -251,10 +249,6 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
         type: Boolean,
         default: false,
       },
-      useStore: {
-        type: Boolean,
-        default: false,
-      },
       customSelectClass: [String, Array],
       customOptionClass: [String, Array],
       dark: {
@@ -264,14 +258,13 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     },
     emits: ['update:selected'],
     setup(props, { emit }) {
-      // Pagination instance
-      const paging = getPaging(props.useStore, props.paging);
-
       const label = vue.ref(props.label);
       const optionsWidth = vue.ref(0);
 
       const listWrapperActive = vue.ref('');
       const activeIcon = vue.ref('');
+
+      const darkMode = vue.computed(() => (props.dark ? 'dark' : ''));
 
       vue.onMounted(() => {
         // hide options if users click outside the select element
@@ -304,7 +297,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
       }
 
       const selectClass = () => {
-        const classes = [props.dark ? 'sp-select dark' : 'sp-select'];
+        const classes = ['sp-select', darkMode.value];
         if (props.customSelectClass !== undefined) {
           classes.push(props.customSelectClass);
         }
@@ -332,7 +325,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
       };
 
       const optionClass = () => {
-        const classes = [props.dark ? 'dark' : ''];
+        const classes = [darkMode.value];
         if (props.customOptionClass !== undefined) {
           classes.push(props.customOptionClass);
         }
@@ -347,10 +340,10 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
           key,
           style: props.large ? largePadding : '',
           onClick(event) {
-            paging.state.rows = row;
+            props.paging.state.rows = row;
 
             label.value = `${row} ${props.rowLabel}`;
-            paging.showPerPage();
+            props.paging.showPerPage();
 
             // allow users to do something after internal operation completed
             emit('update:selected', event, row);
@@ -373,7 +366,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
           {
             class: [
               'sp-select-options',
-              props.dark ? 'dark' : '',
+              darkMode.value,
               listWrapperActive.value,
             ],
             style: { width: `${optionsWidth.value}px` },
@@ -390,6 +383,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     props: {
       paging: {
         type: Object,
+        required: true,
       },
       modelValue: {
         required: true,
@@ -402,21 +396,18 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
         type: Boolean,
         default: false,
       },
-      useStore: {
-        type: Boolean,
-        default: false,
-      },
       customNavigationClass: [String, Array],
       customInputClass: [String, Array],
       customNumlinkClass: [String, Array],
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
-      const paging = getPaging(props.useStore, props.paging);
-      const { pageLinks, first, prev, next, last } = vue.toRefs(paging.state);
+      const { pageLinks, first, prev, next, last } = vue.toRefs(props.paging.state);
+
+      const darkMode = vue.computed(() => (props.dark ? 'dark' : ''));
 
       const resetModelValue = () => {
-        if (paging.activePage.value === 1) {
+        if (props.paging.activePage.value === 1) {
           emit('update:modelValue', 1);
         }
       };
@@ -424,9 +415,9 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
       // for build tool version
       vue.watch(pageLinks, resetModelValue);
 
-      const activePage = vue.computed(() => paging.activePage);
+      const activePage = vue.computed(() => props.paging.activePage);
 
-      // when paging.activePage changed, update the modelValue
+      // when props.paging.activePage changed, update the modelValue
       vue.watch(activePage, () => {
         emit('update:modelValue', activePage.value);
       });
@@ -442,7 +433,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
             onClick(event) {
               if (goTo !== null) {
                 emit('update:modelValue', goTo + 1);
-                paging.nav(goTo);
+                props.paging.nav(goTo);
               }
             },
           },
@@ -461,8 +452,8 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
             icon
           ),
           target,
-          paging.isDisabled(target),
-          props.dark ? 'dark' : '',
+          props.paging.isDisabled(target),
+          darkMode.value,
           props.customNavigationClass
         )
       };
@@ -474,8 +465,8 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
             item,
             item - 1,
             'sp-numlink',
-            paging.activeLink(item),
-            props.dark ? 'dark' : '',
+            props.paging.activeLink(item),
+            darkMode.value,
             props.customNumlinkClass
           )
         })
@@ -485,15 +476,15 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
       const setPage = () => {
         return createList(
           vue.h('input', {
-            class: ['sp-input', props.customInputClass],
+            class: ['sp-input', darkMode.value, props.customInputClass],
             value: props.modelValue,
             onKeyup(event) {
               // when user hit enter
-              if (event.keyCode === 13) {
+              if (event.key === 'Enter') {
                 const targetPage = event.target.value - 1;
                 if (targetPage <= last.value && targetPage >= 0) {
                   emit('update:modelValue', event.target.value);
-                  paging.nav(targetPage);
+                  props.paging.nav(targetPage);
                 }
               }
             },
@@ -518,6 +509,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     props: {
       paging: {
         type: Object,
+        required: true,
       },
       modelValue: {
         required: true
@@ -530,7 +522,7 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
         type: String,
         default: 'search'
       },
-      useStore: {
+      dark: {
         type: Boolean,
         default: false
       },
@@ -538,7 +530,6 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
-      const paging = getPaging(props.useStore, props.paging);
       const icons = {
         search: 'search',
         arrow: 'arrow_forward'
@@ -549,18 +540,18 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
         [
           // input element
           vue.h('input', { 
-            class: ['sp-searchbox', props.customClass],
+            class: ['sp-searchbox', props.dark ? 'dark' : '', props.customClass],
             placeholder: props.placeholder,
             onInput(event) {
               if(event.target.value === '') {
                 emit('update:modelValue', event.target.value);
-                paging.onSearchChanged();
+                props.paging.onSearchChanged();
               }
             },
             onKeyup(event) {
-              if(event.keyCode === 13) {
+              if(event.key === "Enter") {
                 emit('update:modelValue', event.target.value);
-                paging.filter();
+                props.paging.filter();
               }
             }
           }),
@@ -579,4 +570,4 @@ var SSComponents = (function (exports, vue, ssPagingVue) {
 
   return exports;
 
-})({}, Vue, ssPagingVue);
+})({}, Vue);
