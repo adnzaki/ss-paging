@@ -14,7 +14,7 @@ import { defineStore } from 'pinia';
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.0
+ * @version     3.0.1
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = ref(null);
@@ -190,7 +190,7 @@ function runPaging() {
  * Get data from the server with several configuration options
  */
 function getData(options, callFromRunPaging) {
-    if (callFromRunPaging === undefined) { callFromRunPaging = false; }
+    if (callFromRunPaging === void 0) { callFromRunPaging = false; }
     state.token = options.token;
     state.pagingLang = options.lang;
     state.debug = options.debug;
@@ -267,10 +267,10 @@ function getData(options, callFromRunPaging) {
         create({
             rows: res.totalRows,
             start: options.offset,
-            linkNum: (_a = options.linkNum) !== null && _a !== undefined ? _a : state.linkNum,
-            activeClass: (_b = options.activeClass) !== null && _b !== undefined ? _b : state.activeClass,
-            linkClass: (_c = options.linkClass) !== null && _c !== undefined ? _c : state.linkClass,
-            disabledClass: (_d = options.disabledClass) !== null && _d !== undefined ? _d : state.disabledClass,
+            linkNum: (_a = options.linkNum) !== null && _a !== void 0 ? _a : state.linkNum,
+            activeClass: (_b = options.activeClass) !== null && _b !== void 0 ? _b : state.activeClass,
+            linkClass: (_c = options.linkClass) !== null && _c !== void 0 ? _c : state.linkClass,
+            disabledClass: (_d = options.disabledClass) !== null && _d !== void 0 ? _d : state.disabledClass,
         });
         // do something after the request success
         if (options.afterRequest !== undefined) {
