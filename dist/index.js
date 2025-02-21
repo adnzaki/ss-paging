@@ -14,7 +14,7 @@ import { defineStore } from 'pinia';
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.1
+ * @version     3.0.2
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = ref(null);
@@ -30,6 +30,7 @@ var state = reactive({
     setStart: 0,
     totalRows: 0,
     numLinks: true,
+    usePost: false,
     useHeader: false,
     showPaging: true,
     linkClass: 'item',
@@ -168,6 +169,7 @@ function runPaging() {
         mode: state.mode,
         linkClass: state.linkClass,
         useHeader: state.useHeader,
+        usePost: state.usePost,
         autoReset: state.autoReset,
         activeClass: state.activeClass,
         delay: state.delay,
@@ -210,6 +212,7 @@ function getData(options, callFromRunPaging) {
     state.offset = options.offset * options.limit;
     state.orderBy = options.orderBy;
     state.useHeader = options.useHeader;
+    state.usePost = options.usePost;
     // options.searchBy could be a string or array
     typeof options.searchBy === 'string'
         ? (state.searchBy = options.searchBy)
@@ -223,10 +226,10 @@ function getData(options, callFromRunPaging) {
     if (options.useHeader) {
         baseURL = "".concat(baseURL, "/").concat(state.searchBy);
     }
-    else {
+    if (!options.useHeader && !options.usePost) {
         baseURL = "".concat(baseURL, "/").concat(state.limit, "/").concat(state.offset, "/").concat(state.orderBy, "/").concat(state.searchBy, "/").concat(state.sort);
     }
-    var requestURL = "".concat(baseURL).concat(searchParam);
+    var requestURL = options.usePost ? baseURL : "".concat(baseURL).concat(searchParam);
     if (options.autoReset !== undefined) {
         state.autoReset = options.autoReset;
     }
@@ -250,15 +253,29 @@ function getData(options, callFromRunPaging) {
         optionHeaders.set('orderBy', state.orderBy);
         optionHeaders.set('sort', state.sort);
     }
+    var formData = new FormData();
+    if (options.usePost) {
+        formData.append('limit', state.limit.toString());
+        formData.append('offset', state.offset.toString());
+        formData.append('orderBy', state.orderBy);
+        formData.append('sort', state.sort);
+        formData.append('search', state.search);
+        formData.append('searchBy', state.searchBy);
+    }
     var fetchOptions = {
         method: 'GET',
         mode: options.mode === undefined ? 'cors' : options.mode, // CORS must be default
         headers: optionHeaders,
     };
+    var fetchOptionsUsingPost = {
+        method: 'POST',
+        mode: fetchOptions.mode,
+        body: formData
+    };
     if (options.mode !== undefined) {
         state.mode = options.mode;
     }
-    fetch(requestURL, fetchOptions)
+    fetch(requestURL, options.usePost ? fetchOptionsUsingPost : fetchOptions)
         .then(function (response) { return response.json(); })
         .then(function (res) {
         var _a, _b, _c, _d;
