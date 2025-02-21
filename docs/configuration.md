@@ -43,6 +43,9 @@ Set class for disabled links.
 ### `useHeader`: boolean <Badge type="tip" text="New in v3.x" />
 Set to `true` if you want to pass `limit`, `offset`, `orderBy`, and `sort` as request headers.
 
+### `usePost`: boolean <Badge type="tip" text="New in v3.x" />
+Set to `true` if you want to pass `limit`, `offset`, `orderBy`, `sort`, `searchBy` and `search` as POST request.
+
 ### `autoReset`: number
 This option allows you to automatically reset search to the default data if it meets the specified timeout.
 

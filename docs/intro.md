@@ -23,15 +23,46 @@ As a low-level pagination library, SSPaging requires more implementation steps c
 SSPaging works best with Vue.js versions >3.0, as it supports both the Composition API and Pinia. For Vue versions before 3.0, you need Vue >2.7, which supports the Composition API. If your app uses Vue <2.7, you will need to install the Composition API: `@vue/composition-api`. SSPaging does not support Vuex, as it has been deprecated by the Vue team.  
 
 ## URL Pattern
-SSPaging has 2 options for providing URL to get the data. The first option is following SSPaging URL pattern, and the second one is combined with HTTP request header.<br/>
-The pattern of URL  accepted by SSPaging must looked like this:
+
+SSPaging provides three different methods for passing parameters when requesting data:
+
+1. **GET Method using URL pattern**
+2. **GET Method with HTTP Headers**
+3. **POST Method using FormData**
+
+### 🔹 GET Method (URL Pattern)
+
+By default, SSPaging expects the URL to follow a specific pattern:
+
 ```
 /main-url/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}
 ```
-The `main-url` can contain any structure you prefer, but `/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` must follow this specific order. If you need additional URL arguments, you can include them before `/{limit}`.<br/>
 
-## Header Options
-In addition to using default URL pattern, you can also utilize HTTP request headers to pass several options, such as `limit`, `offset`, `orderBy`, and `sort`. By leveraging HTTP headers, the SSPaging URL pattern will be simplified to `/main-url/{searchBy}/{search}`.
+- `main-url` can be any base endpoint you define.  
+- The `/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` section must follow this order.  
+- If additional URL parameters are required, they must be placed **before** `/{limit}`.  
+
+### 🔹 GET Method with HTTP Headers
+
+Alternatively, SSPaging allows you to pass some parameters via HTTP headers, reducing the URL complexity:
+
+```
+/main-url/{searchBy}/{search}
+```
+
+In this case, `limit`, `offset`, `orderBy`, and `sort` values are sent via HTTP headers instead of being included in the URL.
+
+### 🔹 POST Method using FormData
+
+For an even cleaner request format, SSPaging supports sending parameters using **POST** method. With this approach, the URL is simplified to `main-url` only.
+
+Choose the method that best fits your API structure! 🚀
+
+::: tip
+To achieve the best flexibility and cleaner URLs, we highly recommend using the POST method.
+:::
+
+
 
 ## Response Format
 SSPaging accepts response in JSON format with `container` and `totalRows` as key for the response. `container` holds data from server that will be stored in `paging.state.data`, while `totalRows` holds the total number of data that will be used by `paging.state.totalRows`. Your response should match this format or SSPaging cannot process your data.
@@ -40,10 +71,15 @@ SSPaging accepts response in JSON format with `container` and `totalRows` as key
 For a more concrete example, we have prepared a sample API along with its database. You can install it on your local machine or access it via the public API we provide.<br/>
 We recommend using the public API as it requires no setup. For the public API with the default URL pattern, you can access it at:  
 ```
-https://lib.actudent.com/sspaging-api-example/public/customer/get-data/25/0/name/name/ASC
-```  
-Meanwhile, for usage with HTTP headers, you can access it at:  
-```
+# for usage with POST method
+https://lib.actudent.com/sspaging-api-example/public/customer/get-using-post
+
+
+# for usage with GET method without request header
+https://lib.actudent.com/sspaging-api-example/public/customer/get-data/25/0/name/name/ASC 
+
+
+# for usage with GET method with request header
 https://lib.actudent.com/sspaging-api-example/public/customer/get-customer/name
 ```
 If you prefer installing it on your localhost to further explore the SSPaging API example, you can clone the repository from GitHub at:  

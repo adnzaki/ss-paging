@@ -19,5 +19,9 @@ One of the challenges in previous versions of SSPaging was its inability to prov
 ## HTTP Header Options  
 You can now pass options such as `limit`, `offset`, `orderBy`, and `sort` through HTTP request headers. This allows you to simplify your URL pattern by removing these options from the URL and instead passing them in the request headers. This improvement makes the URL cleaner and more flexible while maintaining the same pagination functionality.
 
+## Cleaner URLs with POST Method
+
+Starting from version **3.0.2**, SSPaging now supports making requests using the **POST method**, allowing for a much cleaner and more flexible URL structure.
+
 ## Bug Fixes and Improvements  
 As expected with major updates, version 3 includes various bug fixes and improvements for both the SSPaging core and its components.

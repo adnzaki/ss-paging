@@ -48,7 +48,7 @@ onMounted(() => {
 })
 
 ```
-```js{20} [Using HTTP header]
+```js [Using HTTP header]
 // DataTable.vue
 import { toRefs, onMounted, ref, inject } from 'vue';
 
@@ -56,6 +56,7 @@ const paging = inject('paging')
 const { data } = toRefs(paging.state)
 const showTable = ref(false)
 const current = ref(1)
+
 onMounted(() => {
   const limit = 25
   paging.state.rows = limit
@@ -71,6 +72,46 @@ onMounted(() => {
     url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-customer`,
     autoReset: 500,
     useHeader: true // [!code ++]
+    // linkNum: 3,
+    activeClass: 'active',
+    debug: true,
+    beforeRequest: () => {
+      showTable.value = false
+    },
+    afterRequest: () => {
+      setTimeout(() => {
+        showTable.value = true   
+        console.log('Full response: ', paging.state.rawResponse)     
+      }, 300);
+    }
+  })
+})
+
+```
+```js [Using POST Request]
+// DataTable.vue
+import { toRefs, onMounted, ref, inject } from 'vue';
+
+const paging = inject('paging')
+const { data } = toRefs(paging.state)
+const showTable = ref(false)
+const current = ref(1)
+
+onMounted(() => {
+  const limit = 25
+  paging.state.rows = limit
+
+  paging.getData({
+    lang: 'english',
+    limit,
+    offset: current.value - 1,
+    orderBy: 'name',
+    searchBy: 'name',
+    sort: 'ASC',
+    search: '',
+    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-customer`,
+    autoReset: 500,
+    usePost: true // [!code ++]
     // linkNum: 3,
     activeClass: 'active',
     debug: true,

@@ -48,6 +48,7 @@ paging.getData({
   linkClass: 'page-item',
   activeClass: 'active',
   // useHeader: true // If enabled (set to true), it will send limit, offset, orderBy, and sort as request headers.
+  // usePost: true // If you prefer using POST method to make request
   // token: yourToken, // do not set useAuth if you use token-based authentication
   beforeRequest: () => {
     // do something
