@@ -30,6 +30,7 @@ const state: StateInterface = reactive({
   setStart: 0,
   totalRows: 0,
   numLinks: true,
+  usePost: false,
   useHeader: false,
   showPaging: true,
   linkClass: 'item',
@@ -178,6 +179,7 @@ function runPaging(): void {
       mode: state.mode,
       linkClass: state.linkClass,
       useHeader: state.useHeader,
+      usePost: state.usePost,
       autoReset: state.autoReset,
       activeClass: state.activeClass,
       delay: state.delay,
@@ -229,6 +231,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   state.offset = options.offset * options.limit
   state.orderBy = options.orderBy
   state.useHeader = options.useHeader
+  state.usePost = options.usePost
 
   // options.searchBy could be a string or array
   typeof options.searchBy === 'string'
@@ -241,15 +244,16 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   state.search === '' ? (searchParam = '') : (searchParam = '/' + state.search)
 
   let baseURL: string = options.url
-
+  
   // if not using header, then we need to add limit, offset, orderBy, searchBy, sort
   if (options.useHeader) {
     baseURL = `${baseURL}/${state.searchBy}`
-  } else {
+  }
+  if(!options.useHeader && !options.usePost) {
     baseURL = `${baseURL}/${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`
   }
 
-  let requestURL: string = `${baseURL}${searchParam}`
+  let requestURL: string = options.usePost ? baseURL : `${baseURL}${searchParam}`
 
   if (options.autoReset !== undefined) {
     state.autoReset = options.autoReset
@@ -281,17 +285,34 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     optionHeaders.set('sort', state.sort)
   }
 
+  const formData: FormData = new FormData()
+
+  if(options.usePost) {
+    formData.append('limit', state.limit.toString())
+    formData.append('offset', state.offset.toString())
+    formData.append('orderBy', state.orderBy)
+    formData.append('sort', state.sort)
+    formData.append('search', state.search)
+    formData.append('searchBy', state.searchBy)
+  }
+
   const fetchOptions = {
     method: 'GET',
     mode: options.mode === undefined ? 'cors' : options.mode, // CORS must be default
     headers: optionHeaders,
   }
 
+  const fetchOptionsUsingPost = {
+    method: 'POST',
+    mode: fetchOptions.mode, 
+    body: formData
+  }
+
   if (options.mode !== undefined) {
     state.mode = options.mode
   }
 
-  fetch(requestURL, fetchOptions)
+  fetch(requestURL, options.usePost ? fetchOptionsUsingPost : fetchOptions)
     .then((response) => response.json())
     .then((res) => {
       state.rawResponse = res

@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 
 const paging = usePagingStore()
 
-const limit = 25
+const limit = 5
 paging.state.rows = limit
 
 const current = ref(1)
@@ -20,8 +20,10 @@ onMounted(() => {
     sort: 'DESC',
     search: '',
     url: `http://localhost/ss-paging-api-example/public/customer/get-data`,
+    // url: `http://localhost/ss-paging-api-example/public/customer/get-using-post`,
     // url: `http://localhost/ss-paging-api-example/public/customer/get-customer`,
-    useHeader: false,
+    // useHeader: true,
+    // usePost: true,
     autoReset: 500,
     linkNum: 3,
     activeClass: 'active',

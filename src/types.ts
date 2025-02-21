@@ -27,7 +27,8 @@ export interface StateInterface {
   token: string
   delay: number,
   autoReset: number,
-  useHeader: boolean
+  useHeader: boolean,
+  usePost: boolean
   mode: 'cors' | 'same-origin' | 'no-cors',
   sentences: {
     indonesia: {
@@ -63,6 +64,7 @@ export interface OptionsInterface {
   linkClass?: string
   disabledClass?: string
   useHeader?: boolean
+  usePost?: boolean
   autoReset?: number
   delay?: number
   mode?: 'cors' | 'same-origin' | 'no-cors',
