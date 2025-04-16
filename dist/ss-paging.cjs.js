@@ -16,7 +16,7 @@ var pinia = require('pinia');
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.3
+ * @version     3.0.4
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = vue.ref(null);
@@ -70,6 +70,7 @@ var state = vue.reactive({
         },
     },
     pagingLang: 'english', // Current language for pagination messages
+    errorMessages: '', // Error messages
 });
 /**
  * Method for giving a disabled state on pagination buttons.
@@ -212,7 +213,8 @@ function getData(options, callFromRunPaging) {
         searchBy === undefined ||
         sort === undefined ||
         search === undefined) {
-        console.error('[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options');
+        state.errorMessages = '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options';
+        console.error(state.errorMessages);
         return;
     }
     state.url = options.url;
@@ -289,7 +291,16 @@ function getData(options, callFromRunPaging) {
         }
     }
     fetch(requestURL, options.usePost ? fetchOptionsUsingPost : fetchOptions)
-        .then(function (response) { return response.json(); })
+        .then(function (response) {
+        if (!response.ok) {
+            if (options.onError !== undefined) {
+                options.onError();
+            }
+            state.errorMessages = "[SSPaging] Unable to retrieve data from server caused by: [".concat(response.status, "] ").concat(response.statusText);
+            console.error(state.errorMessages);
+        }
+        return response.json();
+    })
         .then(function (res) {
         var _a, _b, _c, _d;
         state.rawResponse = res;
@@ -319,7 +330,8 @@ function getData(options, callFromRunPaging) {
     })
         .catch(function (error) {
         // for developer
-        console.error('[SSPaging] Error:', error);
+        state.errorMessages = "[SSPaging] ".concat(error);
+        console.error(state.errorMessages);
         // for user
         if (options.onError !== undefined) {
             options.onError();

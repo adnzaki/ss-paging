@@ -1,6 +1,6 @@
 {
   "name": "ss-paging-vue",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "SSPaging: Server-side pagination library for Vue.js",
   "main": "dist/index.js",
   "directories": {},
