@@ -21,7 +21,7 @@ You can now pass options such as `limit`, `offset`, `orderBy`, and `sort` throug
 
 ## Cleaner URLs with POST Method
 
-Starting from version **3.0.2**, SSPaging now supports making requests using the **POST method**, allowing for a much cleaner and more flexible URL structure.
+Starting from version **3.0.2**, SSPaging now supports making requests using the **POST method**, allowing for a much cleaner and more flexible URL structure. Usage of URL pattern remains the default for **backward compatibility only**.
 
 ## Error Handling  
 SSPaging by default logs error information to the console when it fails to retrieve data. While this is helpful for developers, it does not provide any feedback to end users in case an error occurs. Starting from version **3.0.3**, developers can now implement custom error handling to display user-friendly error messages.

@@ -40,8 +40,10 @@ By default, SSPaging expects the URL to follow a specific pattern:
 
 - `main-url` can be any base endpoint you define.  
 - The `/{limit}/{offset}/{orderBy}/{searchBy}/{sort}/{search}` section must follow this order.  
-- If additional URL parameters are required, they must be placed **before** `/{limit}`.  
-
+- If additional URL parameters are required, they must be placed **before** `/{limit}`.
+::: warning NOTE
+While this approach is quite powerful, we highly **recommend using POST** for a cleaner and more maintainable API URL.  
+:::
 ### 🔹 GET Method with HTTP Headers
 
 Alternatively, SSPaging allows you to pass some parameters via HTTP headers, reducing the URL complexity:
@@ -57,10 +59,6 @@ In this case, `limit`, `offset`, `orderBy`, and `sort` values are sent via HTTP 
 For an even cleaner request format, SSPaging supports sending parameters using **POST** method. With this approach, the URL is simplified to `main-url` only.
 
 Choose the method that best fits your API structure! 🚀
-
-::: tip
-To achieve the best flexibility and cleaner URLs, we highly recommend using the POST method.
-:::
 
 
 

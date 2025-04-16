@@ -193,14 +193,14 @@ The final part or this tutorial is wrapping up our components. It is just import
 ```vue
 <script setup>
 import { provide } from 'vue';
-import { usePaging } from 'ss-paging-vue';
+import { usePagingStore } from 'ss-paging-vue';
 import DataTable from './DataTable.vue'; 
 import Navigation from './Navigation.vue'; 
 import RowSelection from './RowSelection.vue'; 
 import SearchBox from './SearchBox.vue'; 
 import ReloadButton from './ReloadButton.vue'; 
 
-const paging = usePaging()
+const paging = usePagingStore()
 provide('paging', paging)
 </script>
 
