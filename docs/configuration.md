@@ -62,7 +62,10 @@ The mode you want to use for the request with the `fetch()` method, e.g., `cors`
 Set to `true` to activate console debugging.
 
 ### `beforeRequest`: function
-You can run something before the request is sent by defining your function in this option.
+You can run something before the request is sent by defining your function in this option. 
+::: tip
+It is best practice to set `state.token` here to ensure SSPaging always uses a fresh token for each request and properly handles errors if the token is invalid.
+:::
 
 ### `afterRequest`: function
 You can also execute a function after a successful request by defining it in this option.
