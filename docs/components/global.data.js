@@ -1,7 +1,7 @@
 export default {
   load() {
     return {
-      mode: 'development',
+      mode: 'production',
     }
   },
 }
