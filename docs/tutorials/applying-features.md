@@ -11,9 +11,10 @@ The first thing we have to do to apply SSPaging is getting data. Let's add SSPag
 ::: code-group
 ```js [Using default URL pattern]
 // DataTable.vue
+import { usePagingStore } from 'ss-paging-vue';
 import { toRefs, onMounted, ref, inject } from 'vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { data } = toRefs(paging.state)
 const showTable = ref(false)
 const current = ref(1)
@@ -53,9 +54,10 @@ onMounted(() => {
 ```
 ```js [Using HTTP header]
 // DataTable.vue
+import { usePagingStore } from 'ss-paging-vue';
 import { toRefs, onMounted, ref, inject } from 'vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { data } = toRefs(paging.state)
 const showTable = ref(false)
 const current = ref(1)
@@ -96,9 +98,10 @@ onMounted(() => {
 ```
 ```js [Using POST Request]
 // DataTable.vue
+import { usePagingStore } from 'ss-paging-vue';
 import { toRefs, onMounted, ref, inject } from 'vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { data } = toRefs(paging.state)
 const showTable = ref(false)
 const current = ref(1)
@@ -168,9 +171,9 @@ SSPaging provides `reloadData()` method to reload data. This method is also used
 ```vue
 <!-- ReloadButton.vue -->
 <script setup>
-import { inject } from 'vue';
+import { usePagingStore } from 'ss-paging-vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 </script>
 
 <style scoped>
@@ -192,7 +195,6 @@ button {
 The final part or this tutorial is wrapping up our components. It is just importing each component into our main component `SSPaging.vue`. The complete code of `SSPaging.vue` will be like this:
 ```vue
 <script setup>
-import { provide } from 'vue';
 import { usePagingStore } from 'ss-paging-vue';
 import DataTable from './DataTable.vue'; 
 import Navigation from './Navigation.vue'; 
@@ -201,7 +203,6 @@ import SearchBox from './SearchBox.vue';
 import ReloadButton from './ReloadButton.vue'; 
 
 const paging = usePagingStore()
-provide('paging', paging)
 </script>
 
 <style scoped>
