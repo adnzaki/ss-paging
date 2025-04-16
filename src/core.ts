@@ -211,7 +211,19 @@ function runPaging(): void {
  * @param callFromRunPaging - Indicates if the call is from runPaging().
  */
 function getData(options: OptionsInterface, callFromRunPaging = false): void {
-  state.token = options.token
+  // do something before the request sent
+  if (options.beforeRequest !== undefined) {
+    if (!callFromRunPaging) {
+      beforeRequest.value = () => options.beforeRequest()
+    }
+
+    options.beforeRequest()
+  }
+
+  if(state.token === '') {
+    state.token = options.token
+  }
+  
   state.pagingLang = options.lang
   state.debug = options.debug
 
@@ -226,7 +238,8 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     sort === undefined ||
     search === undefined
   ) {
-    state.errorMessages = '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options'
+    state.errorMessages =
+      '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options'
     console.error(state.errorMessages)
 
     return
@@ -250,16 +263,18 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   state.search === '' ? (searchParam = '') : (searchParam = '/' + state.search)
 
   let baseURL: string = options.url
-  
+
   // if not using header, then we need to add limit, offset, orderBy, searchBy, sort
   if (options.useHeader) {
     baseURL = `${baseURL}/${state.searchBy}`
   }
-  if(!options.useHeader && !options.usePost) {
+  if (!options.useHeader && !options.usePost) {
     baseURL = `${baseURL}/${state.limit}/${state.offset}/${state.orderBy}/${state.searchBy}/${state.sort}`
   }
 
-  let requestURL: string = options.usePost ? baseURL : `${baseURL}${searchParam}`
+  let requestURL: string = options.usePost
+    ? baseURL
+    : `${baseURL}${searchParam}`
 
   if (options.autoReset !== undefined) {
     state.autoReset = options.autoReset
@@ -267,15 +282,6 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
 
   if (options.delay !== undefined) {
     state.delay = options.delay
-  }
-
-  // do something before the request sent
-  if (options.beforeRequest !== undefined) {
-    if (!callFromRunPaging) {
-      beforeRequest.value = () => options.beforeRequest()
-    }
-
-    options.beforeRequest()
   }
 
   let optionHeaders: Headers = new Headers()
@@ -293,7 +299,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
 
   const formData: FormData = new FormData()
 
-  if(options.usePost) {
+  if (options.usePost) {
     formData.append('limit', state.limit.toString())
     formData.append('offset', state.offset.toString())
     formData.append('orderBy', state.orderBy)
@@ -310,16 +316,16 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
 
   const fetchOptionsUsingPost = {
     method: 'POST',
-    mode: fetchOptions.mode, 
-    body: formData
+    mode: fetchOptions.mode,
+    body: formData,
   }
 
   if (options.mode !== undefined) {
     state.mode = options.mode
   }
 
-  if(options.onError !== undefined) {
-    if(!callFromRunPaging) {
+  if (options.onError !== undefined) {
+    if (!callFromRunPaging) {
       onError.value = () => options.onError()
     }
   }
