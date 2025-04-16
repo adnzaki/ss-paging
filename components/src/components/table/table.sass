@@ -1,0 +1,139 @@
+@use '../variables' as *
+
+.sp-table
+  border-collapse: collapse
+  width: 100%
+  border: solid 1px $sp-default-border-color
+
+  td, th
+    border: solid 1px $sp-default-border-color
+    padding: 8px
+
+    &.dark
+      border: solid 1px $sp-default-dark-border-color
+
+  thead th span.material-icons-round
+    margin-left: 5px
+    position: absolute
+
+  tbody tr
+    &:hover
+      background-color: #ddd
+
+    &.dark:hover
+      background-color: #9797977f
+
+  .sp-checkbox
+    position: relative
+    width: 20px
+    height: 20px
+    appearance: none
+    background-color: white
+    border: 2px solid #ccc
+    border-radius: 4px
+    cursor: pointer
+    display: inline-block
+    vertical-align: middle
+    transition: all 0.2s
+
+    &.dark
+      background-color: $sp-dark
+      border-color: $sp-default-dark-border-color
+
+    &:checked
+      background-color: #4f46e5
+      border-color: #4f46e5
+
+      &::after
+        content: '✔'
+        color: white
+        font-size: 14px
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+
+  .cursor-pointer
+    cursor: pointer
+
+  .text-center
+    text-align: center
+
+  .action-button, .delete-button
+    display: inline-flex
+    align-items: center
+    gap: 8px
+    padding: 8px 16px
+    font-size: 12px
+    font-weight: 600
+    color: white
+    border: none
+    border-radius: 8px
+    cursor: pointer
+    transition: all 0.3s ease
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1)
+
+    &:active
+      transform: scale(0.96)
+
+  .action-button
+    background-color: #4e73df
+
+    &:hover
+      background: #1d59d6
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15)
+
+  .delete-button
+    background-color: #dc2626
+
+    &:hover
+      background: #b91c1c
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15)
+
+  ul
+    padding: 0
+    border-top: solid 1px $sp-default-border-color
+
+.sp-text-bold
+  font-weight: bold
+
+.sp-list
+  list-style: none
+  padding: 8px
+  margin: 0
+  display: flex
+  flex-direction: column
+  gap: 10px
+  border-bottom: solid 1px $sp-default-border-color
+  border-right: solid 1px $sp-default-border-color
+  border-left: solid 1px $sp-default-border-color
+
+.sp-td-expand
+  position: relative
+  padding-top: 10px
+
+  span.material-icons-round
+    position: absolute
+    margin-top: 2px
+    cursor: pointer
+    border-radius: 5px
+
+    &:hover
+      background-color: #ccc
+
+  span.title
+    padding-left: 30px
+
+@media (max-width: 768px)
+  .sp-table
+    .action-button, .delete-button
+      margin-bottom: 5px
+
+    tbody tr
+      &:hover
+        background-color: #f6f2f2 !important
+
+      &.dark:hover
+        background-color: #97979747 !important
+
+

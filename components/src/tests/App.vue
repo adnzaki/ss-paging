@@ -36,6 +36,9 @@ onMounted(() => {
         showList.value = true   
         console.log('Full response: ', paging.state.rawResponse)     
       }, 300);
+    },
+    onError: () => {
+      alert('Unable to communicate with the server')
     }
   })
 })
@@ -53,6 +56,13 @@ const onSelected = () => {
 
 const isDesktop = () => {
   return window.innerWidth >= 768
+}
+
+const darkMode = ref(false)
+
+const toggleDarkMode = () => {
+  darkMode.value = !darkMode.value
+  document.documentElement.setAttribute('data-theme', darkMode.value ? 'dark' : 'light')
 }
 
 </script>
@@ -73,12 +83,47 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+.toggle-dark-mode {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  padding: 10px 20px;
+  background-color: #2c133f;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-dark-mode:hover {
+  padding: 10px 30px;
+  right: 20px;
+}
+
+.toggle-dark-mode span.material-icons {
+  transition: all 0.5s ease;
+}
+
+.toggle-dark-mode:hover span.material-icons {
+  transform: scale(1.2);
+}
+
+.toggle-dark-mode.dark {
+  background-color: #ced5ac;
+  color: #201e1e;
+}
+
 </style>
 
 <template>
+  <button :class="['toggle-dark-mode', darkMode ? 'dark' : '']" @click="toggleDarkMode">
+    <span class="material-icons">brightness_4</span>
+  </button>
   <div style="width: 250px; box-sizing: border-box;">
     <sp-select 
-      dark 
+      :dark="darkMode" 
       :paging="paging" 
       :selected="limit" 
       row-label="baris"
@@ -88,20 +133,20 @@ body {
     <sp-searchbox 
       :paging="paging"
       placeholder="Search for customer name..." 
-      v-model="paging.state.search" dark>
+      v-model="paging.state.search" :dark="darkMode">
     </sp-searchbox>
   </div>
   
   <!-- result example -->
   <p>Current active page: {{ paging.activePage }}</p>
   <sp-navigation
-    dark
+    :dark="darkMode"
     :paging="paging"
     v-model="current" use-input
     >
   </sp-navigation>  
   <sp-table 
-    dark
+    :dark="darkMode"
     :paging="paging"
     :fields="tableColumns" 
     v-model="selected"
@@ -111,13 +156,15 @@ body {
       <th class="dark" :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important' } ">Action</th>
     </template>
     <template #actionBody>
-      <button class="action-button">Edit</button> &nbsp; 
-      <button class="delete-button">Hapus</button>
+      <td class="dark">
+        <button class="action-button">Edit</button> &nbsp; 
+        <button class="delete-button">Hapus</button>
+      </td>
     </template>
   </sp-table>
   
   <sp-navigation
-    dark
+    :dark="darkMode"
     :paging="paging"
     v-model="current"
     >

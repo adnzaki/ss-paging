@@ -1,0 +1,78 @@
+@use '../variables' as *;
+  
+.sp-navigation
+  list-style: none
+  display: flex
+  padding: 0
+
+  .sp-item
+    display: flex
+    justify-content: center
+    align-items: center
+
+    .sp-link
+      display: block
+      padding: 9px 10.5px 5px 10px
+      cursor: pointer
+      border-radius: 40%
+      transition: .2s
+      background-color: transparent
+      border: none
+      // border: $sp-default-border
+
+      &.disabled
+        cursor: default
+        color: #7d7d7d
+
+        &.dark
+          color: #7d7d7d
+
+        &:hover
+          background-color: transparent
+
+      &.dark
+        color: #fff
+
+        &:hover
+          background-color: $sp-dark
+          color: #fff
+
+      &.no-background
+        background-color: transparent !important
+
+      &:hover
+        background-color: $sp-active-mark-color
+
+    .sp-numlink
+      display: flex
+      width: 24px
+      height: 24px
+      padding: 20px 21px 20px 20px
+      border-radius: 40%
+      justify-content: center
+      align-items: center
+
+      &.active
+        background-color: $sp-active-mark-color
+
+        &.dark
+          background-color: $sp-dark
+
+    .sp-input
+      width: 50px
+      padding: 10px 8px
+      margin-top: -2px
+      text-align: center
+      border-radius: $sp-default-border-radius
+      border: $sp-default-border
+      outline: none
+      box-sizing: border-box
+      transition: box-shadow 180ms ease-in
+      background-color: transparent
+
+      &.dark
+        color: #fff
+
+      &:focus
+        box-shadow: 0 0 0 2px $sp-default-border-color
+

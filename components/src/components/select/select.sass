@@ -1,0 +1,70 @@
+@use '../variables' as *;
+  
+.sp-select
+  padding: $sp-default-padding
+  cursor: pointer
+  border: $sp-default-border
+  border-radius: $sp-default-border-radius
+  position: relative
+
+  span
+    float: right;
+    margin-right: -10px;
+    transition: .2s;
+
+  &.dark
+    background-color: $sp-dark
+    color: #fff
+    border-color: $sp-default-dark-border-color
+
+  &.active span
+    rotate: 180deg
+
+.sp-select-options
+  background-color: #fff
+  border-radius: $sp-default-border-radius
+  box-shadow: $sp-default-box-shadow
+  margin-top: -40px
+  list-style: none
+  padding: 0
+  text-align: left
+  overflow: auto
+  max-height: 50px
+  position: absolute
+  z-index: 999
+  transition: .2s
+  opacity: 0
+  visibility: hidden
+
+  &.active
+    margin-top: 3px
+    opacity: 1
+    visibility: visible
+    max-height: 250px
+
+  &.dark
+    background-color: $sp-dark
+    box-shadow: $sp-dark-box-shadow
+
+  li
+    padding: $sp-default-padding
+    cursor: pointer
+    transition: .2s
+
+    &:first-child
+      border-top-right-radius: $sp-default-border-radius
+      border-top-left-radius: $sp-default-border-radius
+
+    &:last-child
+      border-bottom-right-radius: $sp-default-border-radius
+      border-bottom-left-radius: $sp-default-border-radius
+
+    &:hover
+      background-color: $sp-active-mark-color
+
+    &.dark
+      background-color: $sp-dark
+      color: #fff
+
+      &:hover
+        background-color: $sp-dark-hover

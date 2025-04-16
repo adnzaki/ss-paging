@@ -1,0 +1,27 @@
+@use '../variables' as *;
+
+.sp-searchbox-wrapper
+  display: flex
+  align-items: center
+
+.sp-searchbox
+  outline: none
+  padding: 10px 15px 10px 10px
+  border: $sp-default-border
+  border-radius: $sp-default-border-radius
+  box-sizing: border-box
+  transition: box-shadow 180ms ease-in
+  width: 100%
+
+  &.dark
+    background-color: $sp-dark
+    color: #fff
+    border-color: $sp-default-dark-border-color
+
+  &:focus
+    /* border: solid 1px $sp-default-border-color !important */
+    box-shadow: 0 0 0 2px $sp-default-border-color
+
+.sp-searchbox-icon
+  margin-left: -30px
+  color: $sp-grey-color

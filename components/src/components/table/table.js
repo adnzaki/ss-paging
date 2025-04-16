@@ -109,9 +109,7 @@ export default defineComponent({
 
     const actionBody = () => {
       return slots.actionBody
-        ? isDesktop()
-          ? h('td', { class: darkMode.value }, slots.actionBody())
-          : slots.actionBody()
+        ? slots.actionBody()
         : ''
     }
 
