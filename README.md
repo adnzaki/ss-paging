@@ -1,4 +1,3 @@
-// @ts-ignore
 <p align="center">
   <a href="https://lib.actudent.com/ss-paging" target="_blank" rel="noopener noreferrer">
     <img width="100" src="https://lib.actudent.com/ss-paging/sspaging-logo.png" alt="SSPaging logo">
