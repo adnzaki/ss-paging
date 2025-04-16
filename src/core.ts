@@ -70,6 +70,7 @@ const state: StateInterface = reactive({
     },
   },
   pagingLang: 'english', // Current language for pagination messages
+  errorMessages: '', // Error messages
 })
 
 /**
@@ -225,9 +226,9 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     sort === undefined ||
     search === undefined
   ) {
-    console.error(
-      '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options'
-    )
+    state.errorMessages = '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options'
+    console.error(state.errorMessages)
+
     return
   }
 
@@ -324,7 +325,19 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
   }
 
   fetch(requestURL, options.usePost ? fetchOptionsUsingPost : fetchOptions)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        if (options.onError !== undefined) {
+          options.onError()
+        }
+
+        state.errorMessages = `[SSPaging] Unable to retrieve data from server caused by: [${response.status}] ${response.statusText}`
+
+        console.error(state.errorMessages)
+      }
+
+      return response.json()
+    })
     .then((res) => {
       state.rawResponse = res
       state.data = res.container
@@ -356,7 +369,8 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     })
     .catch((error) => {
       // for developer
-      console.error('[SSPaging] Error:', error)
+      state.errorMessages = `[SSPaging] ${error}`
+      console.error(state.errorMessages)
 
       // for user
       if (options.onError !== undefined) {

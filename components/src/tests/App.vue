@@ -58,7 +58,7 @@ const isDesktop = () => {
   return window.innerWidth >= 768
 }
 
-const darkMode = ref(false)
+const darkMode = ref(true)
 
 const toggleDarkMode = () => {
   darkMode.value = !darkMode.value

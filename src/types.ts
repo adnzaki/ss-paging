@@ -46,6 +46,7 @@ export interface StateInterface {
   }
   pagingLang: string
   debug: boolean
+  errorMessages: string
 }
 
 export interface OptionsInterface {
