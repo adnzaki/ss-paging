@@ -200,7 +200,16 @@ function runPaging() {
  */
 function getData(options, callFromRunPaging) {
     if (callFromRunPaging === void 0) { callFromRunPaging = false; }
-    state.token = options.token;
+    // do something before the request sent
+    if (options.beforeRequest !== undefined) {
+        if (!callFromRunPaging) {
+            beforeRequest.value = function () { return options.beforeRequest(); };
+        }
+        options.beforeRequest();
+    }
+    if (state.token === '') {
+        state.token = options.token;
+    }
     state.pagingLang = options.lang;
     state.debug = options.debug;
     var url = options.url, limit = options.limit, offset = options.offset, orderBy = options.orderBy, searchBy = options.searchBy, sort = options.sort, search = options.search;
@@ -211,7 +220,8 @@ function getData(options, callFromRunPaging) {
         searchBy === undefined ||
         sort === undefined ||
         search === undefined) {
-        state.errorMessages = '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options';
+        state.errorMessages =
+            '[SSPaging] Please provide url, limit, offset, orderBy, searchBy, sort and search in getData() options';
         console.error(state.errorMessages);
         return;
     }
@@ -237,19 +247,14 @@ function getData(options, callFromRunPaging) {
     if (!options.useHeader && !options.usePost) {
         baseURL = "".concat(baseURL, "/").concat(state.limit, "/").concat(state.offset, "/").concat(state.orderBy, "/").concat(state.searchBy, "/").concat(state.sort);
     }
-    var requestURL = options.usePost ? baseURL : "".concat(baseURL).concat(searchParam);
+    var requestURL = options.usePost
+        ? baseURL
+        : "".concat(baseURL).concat(searchParam);
     if (options.autoReset !== undefined) {
         state.autoReset = options.autoReset;
     }
     if (options.delay !== undefined) {
         state.delay = options.delay;
-    }
-    // do something before the request sent
-    if (options.beforeRequest !== undefined) {
-        if (!callFromRunPaging) {
-            beforeRequest.value = function () { return options.beforeRequest(); };
-        }
-        options.beforeRequest();
     }
     var optionHeaders = new Headers();
     if (options.token !== undefined) {
@@ -278,7 +283,7 @@ function getData(options, callFromRunPaging) {
     var fetchOptionsUsingPost = {
         method: 'POST',
         mode: fetchOptions.mode,
-        body: formData
+        body: formData,
     };
     if (options.mode !== undefined) {
         state.mode = options.mode;
