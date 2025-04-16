@@ -1,7 +1,8 @@
 <script setup>
-import { inject, watch, computed } from 'vue';
+import { watch, computed } from 'vue';
+import { usePagingStore } from '../../index';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 
 const search = computed(() => paging.state.search)
 watch(search, () => paging.onSearchChanged())

@@ -1,14 +1,13 @@
 <script setup>
-import { provide } from 'vue';
-import { usePaging } from '../../index';
+import { usePagingStore } from '../../index';
 import DataTable from './DataTable.vue';
 import Navigation from './Navigation.vue';
 import RowSelection from './RowSelection.vue';
 import SearchBox from './SearchBox.vue';
 import ReloadButton from './ReloadButton.vue';
 
-const paging = usePaging()
-provide('paging', paging)
+const paging = usePagingStore()
+
 </script>
 
 <style scoped>

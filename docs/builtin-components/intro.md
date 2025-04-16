@@ -9,9 +9,6 @@ Pagination components offer almost all the elements needed by SSPaging, with the
 - ### Integrated
   All SSPaging components are fully integrated, meaning you don’t need to worry about handling pagination logic. The components work together effortlessly out-of-the-box.
   
-- ### Unlimited Instances
-  SSPaging components can be used in multiple instances on the same page, as they rely on props to connect to the corresponding SSPaging instance. This means you can use the same components more than once, even with different instances.
-  
 - ### Nearly Zero Configuration
   Pagination components are designed to work optimally with SSPaging, requiring very little configuration. They are ready to go as soon as you include them in your project.
   

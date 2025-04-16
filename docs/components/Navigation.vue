@@ -1,7 +1,8 @@
 <script setup>
-import { toRefs, inject } from 'vue';
+import { toRefs } from 'vue';
+import { usePagingStore } from '../../index';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { 
   numLinks, 
   pageLinks,

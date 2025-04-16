@@ -1,7 +1,7 @@
 <script setup>
-import { inject } from 'vue';
+import { usePagingStore } from '../../index';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 </script>
 
 <style scoped>

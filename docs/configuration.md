@@ -37,13 +37,13 @@ The class style of the pagination item. It is optional; use only if you want to 
 ### `activeClass`: string
 The current active page class style (for link numbers only).
 
-### `disabledClass`: string <Badge type="tip" text="New in v3.x" />
+### `disabledClass`: string <Badge type="tip" text="⚡New in v3" />
 Set class for disabled links.
 
-### `useHeader`: boolean <Badge type="tip" text="New in v3.x" />
+### `useHeader`: boolean <Badge type="tip" text="⚡New in v3" />
 Set to `true` if you want to pass `limit`, `offset`, `orderBy`, and `sort` as request headers.
 
-### `usePost`: boolean <Badge type="tip" text="New in v3.x" />
+### `usePost`: boolean <Badge type="tip" text="⚡New in v3.0.2" />
 Set to `true` if you want to pass `limit`, `offset`, `orderBy`, `sort`, `searchBy` and `search` as POST request.
 
 ### `autoReset`: number
@@ -58,7 +58,7 @@ This option is used to store your token.
 ### `mode`: string
 The mode you want to use for the request with the `fetch()` method, e.g., `cors`, `no-cors`, or `same-origin`. Default is `cors`.
 
-### `debug`: boolean <Badge type="tip" text="New in v3.x" />
+### `debug`: boolean <Badge type="tip" text="⚡New in v3" />
 Set to `true` to activate console debugging.
 
 ### `beforeRequest`: function
@@ -67,21 +67,24 @@ You can run something before the request is sent by defining your function in th
 ### `afterRequest`: function
 You can also execute a function after a successful request by defining it in this option.
 
+### `onError`: function <Badge type="tip" text="⚡New in v3.0.3" />
+Use this option to define a custom function that handles errors and displays user-friendly messages.
+
 
 
 ## API References
 Here is a complete list of SSPaging API methods:
 
-| Method                      | Target     | Description                                                             |
+| Method                      | Scope      | Description                                                             |
 |-----------------------------|------------|-------------------------------------------------------------------------|
 | `isDisabled(page: int)`     | Navigation | Determine if a first/prev/next/last link should be disabled             |
-| `onSearchChanged()`         | Search     | Method to run after the search parameter has changed                    |
 | `nav(page: int)`            | Navigation | Navigate to the given page                                              |
-| `filter()`                  | Search     | Filter data based on search parameter                                   |
-| `sortData(orderBy: string)` | Table      | Apply sorting to the server-side data                                   |
-| `showPerPage()`             | Dropdown   | Change the number of items per page based on the selected row           |
-| `reloadData()`              | Table      | Reload data based on SSPaging settings                                  |
 | `activeLink(link: int)`     | Navigation | Determine if a page link is currently active                            |
+| `onSearchChanged()`         | Search     | Method to run after the search parameter has changed                    |
+| `filter()`                  | Search     | Filter data based on search parameter                                   |
+| `showPerPage()`             | Dropdown   | Change the number of items per page based on the selected row           |
+| `sortData(orderBy: string)` | Table      | Apply sorting to the server-side data                                   |
+| `reloadData()`              | Table      | Reload data based on SSPaging settings                                  |
 | `itemNumber(index: int)`    | Table      | Show the item number based on its order in the data                     |
 | `activePage`                | -          | Get the current active page                                             |
 | `rowRange()`                | -          | Show the range of the current active data                               |

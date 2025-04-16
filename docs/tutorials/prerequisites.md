@@ -9,3 +9,6 @@ SSPaging is designed to work best with the Composition API. While using the Opti
 
 ## Reusable Components
 In this tutorial, we aim to provide clear examples. With the power of SFCs, you can create reusable pagination components for use in real-world projects.
+
+## Pinia
+Since SSPaging is used across multiple components, we will use Pinia to share the state between them.

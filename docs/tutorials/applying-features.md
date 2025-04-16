@@ -30,9 +30,9 @@ onMounted(() => {
     searchBy: 'name',
     sort: 'ASC',
     search: '',
-    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-data/`,
+    url: 'https://lib.actudent.com/sspaging-api-example/public/customer/get-data',
     autoReset: 500,
-    // linkNum: 3,
+    linkNum: 3,
     activeClass: 'active',
     debug: true,
     beforeRequest: () => {
@@ -43,6 +43,9 @@ onMounted(() => {
         showTable.value = true   
         console.log('Full response: ', paging.state.rawResponse)     
       }, 300);
+    },
+    onError: () => {
+      alert('Unable to communicate with the server')
     }
   })
 })
@@ -69,10 +72,10 @@ onMounted(() => {
     searchBy: 'name',
     sort: 'ASC',
     search: '',
-    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-customer`,
+    url: 'https://lib.actudent.com/sspaging-api-example/public/customer/get-customer',
     autoReset: 500,
     useHeader: true // [!code ++]
-    // linkNum: 3,
+    linkNum: 3,
     activeClass: 'active',
     debug: true,
     beforeRequest: () => {
@@ -83,6 +86,9 @@ onMounted(() => {
         showTable.value = true   
         console.log('Full response: ', paging.state.rawResponse)     
       }, 300);
+    },
+    onError: () => {
+      alert('Unable to communicate with the server')
     }
   })
 })
@@ -109,10 +115,10 @@ onMounted(() => {
     searchBy: 'name',
     sort: 'ASC',
     search: '',
-    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-customer`,
+    url: 'https://lib.actudent.com/sspaging-api-example/public/customer/get-customer',
     autoReset: 500,
     usePost: true // [!code ++]
-    // linkNum: 3,
+    linkNum: 3,
     activeClass: 'active',
     debug: true,
     beforeRequest: () => {
@@ -123,6 +129,9 @@ onMounted(() => {
         showTable.value = true   
         console.log('Full response: ', paging.state.rawResponse)     
       }, 300);
+    },
+    onError: () => {
+      alert('Unable to communicate with the server')
     }
   })
 })
@@ -138,8 +147,8 @@ Let's modify `DataTable.vue` to give it continous numbering:
 <!-- DataTable.vue -->
 <tbody>
   <tr v-for="(item, index) in data" :key="index">
-    <td>{{ index + 1 }}</td> // [!code --]
-    <td>{{ paging.itemNumber(index) }}</td> // [!code ++]
+    <td>{{ index + 1 }}</td> 
+    <td>{{ paging.itemNumber(index) }}</td> 
     <td>{{ item.name }}</td>
     <td>{{ item.email }}</td>
     <td>{{ item.phone }}</td>
@@ -185,11 +194,11 @@ The final part or this tutorial is wrapping up our components. It is just import
 <script setup>
 import { provide } from 'vue';
 import { usePaging } from 'ss-paging-vue';
-import DataTable from './DataTable.vue'; // [!code ++]
-import Navigation from './Navigation.vue'; // [!code ++]
-import RowSelection from './RowSelection.vue'; // [!code ++]
-import SearchBox from './SearchBox.vue'; // [!code ++]
-import ReloadButton from './ReloadButton.vue'; // [!code ++]
+import DataTable from './DataTable.vue'; 
+import Navigation from './Navigation.vue'; 
+import RowSelection from './RowSelection.vue'; 
+import SearchBox from './SearchBox.vue'; 
+import ReloadButton from './ReloadButton.vue'; 
 
 const paging = usePaging()
 provide('paging', paging)
@@ -221,30 +230,30 @@ provide('paging', paging)
 </style>
 
 <template>
-  <div class="row"> // [!code ++]
-    <div class="col col-sm-6">  // [!code ++]
-      <row-selection></row-selection> // [!code ++]
-    </div> // [!code ++]
-    <div class="col col-sm-6"> // [!code ++]
-      <search-box></search-box> // [!code ++]
-    </div> // [!code ++]
-  </div> // [!code ++]
-  <div class="row"> // [!code ++]
-    <div class="col"> // [!code ++]
-      <data-table></data-table> // [!code ++]
-    </div> // [!code ++]
-  </div> // [!code ++]
-  <p>{{ paging.rowRange() }}</p> // [!code ++]
-  <div class="row"> // [!code ++]
-    <div class="col"> // [!code ++]
-      <navigation></navigation> // [!code ++]
-    </div> // [!code ++]
-  </div> // [!code ++]
-  <div class="row"> // [!code ++]
-    <div class="col"> // [!code ++]
-      <reload-button></reload-button> // [!code ++]
-    </div> // [!code ++]
-  </div> // [!code ++]
+  <div class="row"> 
+    <div class="col col-sm-6">  
+      <row-selection></row-selection> 
+    </div> 
+    <div class="col col-sm-6"> 
+      <search-box></search-box> 
+    </div> 
+  </div> 
+  <div class="row"> 
+    <div class="col"> 
+      <data-table></data-table> 
+    </div> 
+  </div> 
+  <p>{{ paging.rowRange() }}</p> 
+  <div class="row"> 
+    <div class="col"> 
+      <navigation></navigation> 
+    </div> 
+  </div> 
+  <div class="row"> 
+    <div class="col"> 
+      <reload-button></reload-button> 
+    </div> 
+  </div> 
 </template>
 ```
 <SSPaging></SSPaging>

@@ -1,18 +1,37 @@
 # Preparing Template
 
-In this tutorial, we'll guide you step by step on how to create a template for your complete pagination system, which includes row selection, a search box, a data table, and navigation. We'll use the composable version of SSPaging for this example.
+In this tutorial, we'll guide you step by step on how to create a template for your complete pagination system, which includes row selection, a search box, a data table, and navigation. We'll use the Pinia version of SSPaging for this example.
 
-## Main Component
+## Installing Pinia
+To use Pinia in your app, please refer to the installation guide [here](https://pinia.vuejs.org/getting-started.html#Installation). Once installed, you can use the Pinia version of SSPaging.
 
-The first component we need is the main component called `SSPaging.vue`. This component will wrap all the necessary SSPaging components and provide the `paging` object, which will be injected into child components. Here's how you can set it up:
+## Why Use Pinia?  
+In real-world applications, managing deeply nested components can be difficult. Since SSPaging is often used across multiple components—and sometimes even within the store itself—it's strongly recommended to understand how to use the Pinia version of SSPaging. And using the Pinia version of SSPaging only requires adding the word **"Store"** to the import statement and its definition, as shown below:
+```js
+import { usePagingStore } from 'ss-paging-vue';
 
-```vue
-<script setup>
-import { provide } from 'vue';
+const paging = usePagingStore()
+```
+While the normal version is:
+```js
 import { usePaging } from 'ss-paging-vue';
 
 const paging = usePaging()
-provide('paging', paging)
+```
+However, note that this approach requires using `provide` and `inject` in nested components. <br/>
+::: tip
+Although you use the Pinia version of SSPaging, it only requires basic knowledge of Pinia, such as how to install it and use it within a Vue application. *We've done the heavy lifting* — **you enjoy the benefits!**
+:::
+
+## Main Component
+
+The first component we need is the main component called `SSPaging.vue`. This component will wrap all the necessary SSPaging components. Here's how you can set it up:
+
+```vue
+<script setup>
+import { usePagingStore } from 'ss-paging-vue';
+
+const paging = usePagingStore()
 </script>
 
 <style scoped>
@@ -51,9 +70,10 @@ The `DataTable.vue` component will be used to display the data to the user. Crea
 
 ```vue [DataTable.vue]
 <script setup>
-import { toRefs, ref, inject } from 'vue';
+import { toRefs, ref } from 'vue';
+import { usePagingStore } from 'ss-paging-vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { data } = toRefs(paging.state)
 const showTable = ref(true)
 </script>
@@ -89,8 +109,6 @@ const showTable = ref(true)
 </template>
 ```
 
-In this example, we inject `paging` from the main component and add a loading indicator. The template will show the data if it's successfully loaded.
-
 ::: info
 In the name header, we add `paging.sortData()` to sort the data. The `'name'` is the field name in the database.
 :::
@@ -101,9 +119,9 @@ The row selection component allows users to choose how many rows of data to disp
 
 ```vue
 <script setup>
-import { inject } from 'vue';
+import { usePagingStore } from 'ss-paging-vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 </script>
 
 <style scoped>
@@ -135,9 +153,10 @@ To allow users to search for specific data, we create a search box. The search b
 
 ```vue
 <script setup>
-import { inject, watch, computed } from 'vue';
+import { watch, computed } from 'vue';
+import { usePagingStore } from 'ss-paging-vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const search = computed(() => paging.state.search)
 watch(search, () => paging.onSearchChanged())
 </script>
@@ -170,9 +189,10 @@ The navigation component provides the user with pagination controls such as "Fir
 
 ```vue
 <script setup>
-import { toRefs, inject } from 'vue';
+import { toRefs } from 'vue';
+import { usePagingStore } from 'ss-paging-vue';
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { numLinks, pageLinks, first, prev, next, last } = toRefs(paging.state)
 </script>
 

@@ -55,6 +55,9 @@ paging.getData({
   },
   afterRequest: () => {
     // do something
+  },
+  onError: () => {
+    // do something
   }
 })
 

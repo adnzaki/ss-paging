@@ -1,4 +1,11 @@
 import DefaultTheme from 'vitepress/theme'
+import { createPinia } from 'pinia'
 import './sspaging.css'
 
-export default DefaultTheme
+/** @type {import('vitepress').Theme} */
+export default {
+  extends: DefaultTheme,
+  enhanceApp({ app }) {
+    app.use(createPinia())
+  }
+}

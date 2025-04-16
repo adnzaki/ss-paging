@@ -45,8 +45,10 @@ Below is an example of using the `Table` component, assuming `paging` is your SS
     <th :style="isDesktop() ? { width: '200px !important' } : { width: '100px !important' } ">Action</th>
   </template>
   <template #actionBody>
-    <button class="action-button">Edit</button> &nbsp; 
-    <button class="delete-button">Hapus</button>
+    <td class="dark">
+      <button class="action-button">Edit</button> &nbsp; 
+      <button class="delete-button">Hapus</button>
+    </td>
   </template>
 </sp-table>
 ```
@@ -69,6 +71,3 @@ const isDesktop = () => {
 :::
 
 You can try out this component [here](https://stackblitz.com/edit/vitejs-vite-mvx7ohax?file=src%2Fcomponents%2FDataTable.vue)
-## Note for Slots 
-- For the `#actionHeader` slot, **you must define a `<th>` element** since it is inserted directly into the table header row.  
-- For the `#actionBody` slot, **do not wrap your content in a `<td>` element**, as the internal component already provides the `<td>` wrapper.

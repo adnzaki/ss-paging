@@ -1,12 +1,17 @@
 <script setup>
-import { toRefs, onMounted, ref, inject } from 'vue';
+import { toRefs, onMounted, ref } from 'vue';
+import { usePagingStore } from '../../index';
+import { data as globalData } from './global.data'
 
-const paging = inject('paging')
+const paging = usePagingStore()
 const { data } = toRefs(paging.state)
 const showTable = ref(false)
 const current = ref(1)
 
+const baseURL = globalData.mode === 'development' ? 'http://localhost/ss-paging-api-example/' : 'https://lib.actudent.com/sspaging-api-example/'
+
 onMounted(() => {
+  console.log(globalData)
   const limit = 25
   paging.state.rows = limit
 
@@ -18,9 +23,9 @@ onMounted(() => {
     searchBy: 'name',
     sort: 'ASC',
     search: '',
-    url: `https://lib.actudent.com/sspaging-api-example/public/customer/get-data/`,
+    url: `${baseURL}public/customer/get-data`,
     autoReset: 500,
-    // linkNum: 3,
+    linkNum: 3,
     activeClass: 'active',
     debug: true,
     beforeRequest: () => {
@@ -31,6 +36,9 @@ onMounted(() => {
         showTable.value = true   
         console.log('Full response: ', paging.state.rawResponse)     
       }, 300);
+    },
+    onError: () => {
+      alert('Unable to communicate with the server')
     }
   })
 })
