@@ -72,9 +72,7 @@ Use this option to define a custom function that handles errors and displays use
 
 
 
-## API References
-Here is a complete list of SSPaging API methods:
-
+## API Reference
 | Method                      | Scope      | Description                                                             |
 |-----------------------------|------------|-------------------------------------------------------------------------|
 | `isDisabled(page: int)`     | Navigation | Determine if a first/prev/next/last link should be disabled             |
@@ -88,3 +86,44 @@ Here is a complete list of SSPaging API methods:
 | `itemNumber(index: int)`    | Table      | Show the item number based on its order in the data                     |
 | `activePage`                | -          | Get the current active page                                             |
 | `rowRange()`                | -          | Show the range of the current active data                               |
+
+## State Reference
+
+| **State**          | **Value Type**                        | **Description**                                                                 |
+|--------------------|----------------------------------------|---------------------------------------------------------------------------------|
+| `pageLinks`        | `number[]`                            | Array of page numbers to display                                               |
+| `limit`            | `number`                              | Number of items per page                                                       |
+| `offset`           | `number`                              | Starting index for current page                                                |
+| `prev`             | `number`                              | Previous page number                                                           |
+| `next`             | `number`                              | Next page number                                                               |
+| `first`            | `number`                              | First page number                                                              |
+| `last`             | `number`                              | Last page number                                                               |
+| `setStart`         | `number`                              | Starting link number                                                           |
+| `totalRows`        | `number`                              | Total number of records                                                        |
+| `numLinks`         | `boolean`                             | Whether to show numeric links                                                  |
+| `activeClass`      | `string`                              | CSS class for active page link                                                 |
+| `linkClass`        | `string`                              | CSS class for normal page link                                                 |
+| `disabledClass`    | `string`                              | CSS class for disabled link                                                    |
+| `showPaging`       | `boolean`                             | Whether to show pagination                                                     |
+| `search`           | `string`                              | Search keyword                                                                 |
+| `data`             | `Array<string>`                       | Fetched data result                                                            |
+| `rawResponse`      | `Array<string>`                       | Raw server response                                                            |
+| `orderBy`          | `string`                              | Column name for sorting                                                        |
+| `searchBy`         | `string`                              | Column name to search by                                                       |
+| `sort`             | `string`                              | Sort direction (`asc` or `desc`)                                               |
+| `whereClause`      | `string \| boolean \| null`           | Custom filter condition                                                        |
+| `url`              | `string`                              | Data endpoint URL                                                              |
+| `ascendingSort`    | `boolean`                             | Whether sorting is ascending                                                   |
+| `linkNum`          | `number \| boolean`                   | How many page links to display, or `false` to hide                             |
+| `rows`             | `number`                              | Custom rows per page                                                           |
+| `token`            | `string`                              | Authorization token                                                            |
+| `delay`            | `number`                              | Delay (in ms) for filtering (debounce)                                         |
+| `autoReset`        | `number`                              | Auto-reset pagination on filter change                                        |
+| `useHeader`        | `boolean`                             | Use HTTP headers for request                                                   |
+| `usePost`          | `boolean`                             | Use POST method instead of GET                                                 |
+| `mode`             | `'cors' \| 'same-origin' \| 'no-cors'`| Fetch mode                                                                     |
+| `sentences`        | `object`                              | Multilingual text config                                                       |
+| `pagingLang`       | `string`                              | Selected language for pagination message                                       |
+| `debug`            | `boolean`                             | Show internal logs for debugging                                               |
+| `errorMessages`    | `string`                              | Contains error messages                                                        |
+
