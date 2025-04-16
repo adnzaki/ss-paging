@@ -14,50 +14,45 @@ var SSPaging = (function (exports, vue, pinia) {
      * @package     Pagination
      * @author      Adnan Zaki
      * @type        Libraries
-     * @version     3.0.2
+     * @version     3.0.3
      * @url         https://lib.actudent.com/ss-paging
      */
     var beforeRequest = vue.ref(null);
     var afterRequest = vue.ref(null);
+    var onError = vue.ref(null);
     var state = vue.reactive({
-        pageLinks: [],
-        prev: 0,
-        next: 0,
-        last: 0,
-        first: 0,
-        limit: 10,
-        offset: 0,
-        setStart: 0,
-        totalRows: 0,
-        numLinks: true,
-        usePost: false,
-        useHeader: false,
-        showPaging: true,
-        linkClass: 'item',
-        activeClass: 'active',
-        disabledClass: 'disabled',
-        url: '',
-        rows: 10,
-        data: [],
-        search: '',
-        sort: 'ASC',
-        orderBy: '',
-        searchBy: '',
-        linkNum: false,
-        whereClause: null,
-        ascendingSort: false,
-        token: '',
-        mode: 'cors',
-        debug: false,
-        rawResponse: [],
-        // Delay runPaging() on search filter
-        // Useful when you use v-on:keyup directive,
-        // if set to true, it won't send any request to server
-        // directly when user is typing keywords
-        delay: 0,
-        // auto reset data to its default
-        // if search input is empty string
-        autoReset: 0,
+        pageLinks: [], // Array of pagination links
+        prev: 0, // Previous page number
+        next: 0, // Next page number
+        last: 0, // Last page number
+        first: 0, // First page number
+        limit: 10, // Number of rows per page
+        offset: 0, // Current offset for pagination
+        setStart: 0, // Starting page number
+        totalRows: 0, // Total number of rows in the dataset
+        numLinks: true, // Whether to show numeric links
+        usePost: false, // Whether to use POST requests
+        useHeader: false, // Whether to include pagination info in headers
+        showPaging: true, // Whether to display pagination
+        linkClass: 'item', // CSS class for pagination links
+        activeClass: 'active', // CSS class for the active link
+        disabledClass: 'disabled', // CSS class for disabled links
+        url: '', // Base URL for data fetching
+        rows: 10, // Number of rows to display per page
+        data: [], // Data fetched from the server
+        search: '', // Search query string
+        sort: 'ASC', // Sorting order (ASC or DESC)
+        orderBy: '', // Field to sort by
+        searchBy: '', // Field(s) to search by
+        linkNum: false, // Whether to limit the number of links displayed
+        whereClause: null, // Additional filtering conditions
+        ascendingSort: false, // Whether the sorting is ascending
+        token: '', // Authorization token
+        mode: 'cors', // Fetch mode (e.g., cors, no-cors)
+        debug: false, // Debug mode flag
+        rawResponse: [], // Raw response data from the server
+        delay: 0, // Delay for search filtering
+        autoReset: 0, // Auto-reset data when search input is empty
         sentences: {
             indonesia: {
                 noData: 'Tidak ada data yang ditampilkan',
@@ -72,21 +67,26 @@ var SSPaging = (function (exports, vue, pinia) {
                 rows: 'rows',
             },
         },
-        pagingLang: 'english',
+        pagingLang: 'english', // Current language for pagination messages
     });
     /**
-     * Method for giving a disabled state on pagination buttons
+     * Method for giving a disabled state on pagination buttons.
+     * @param page - The page number.
+     * @return A CSS class name for disabled state or an empty string.
      */
     function isDisabled(page) {
+        // Check if the current page is equal to the page number plus one
         if (page + 1 === activePage.value) {
             return state.disabledClass;
         }
         else {
+            // Return an empty string if not disabled
             return '';
         }
     }
     /**
-     * Call this function inside watcher
+     * Triggered when the search input changes.
+     * Resets the offset and reloads data if the search input is empty.
      */
     function onSearchChanged() {
         if (state.search === '' && state.autoReset > 0) {
@@ -97,14 +97,16 @@ var SSPaging = (function (exports, vue, pinia) {
         }
     }
     /**
-     * Method for navigating the page
+     * Navigate to a specific page.
+     * @param page - The page number to navigate to.
      */
     function nav(page) {
         state.offset = page;
         runPaging();
     }
     /**
-     * Search data based on parameters in the search box
+     * Filter data based on the search input.
+     * Delays the filtering process based on the configured delay.
      */
     function filter() {
         setTimeout(function () {
@@ -113,16 +115,16 @@ var SSPaging = (function (exports, vue, pinia) {
         }, state.delay);
     }
     /**
-     * Refresh data
-     *
-     * @return void
+     * Reload the current data by refreshing the active page.
      */
     function reloadData() {
         state.offset = activePage.value - 1;
         runPaging();
     }
     /**
-     * Method for sorting data based on table's field
+     * Sort data based on a specific field.
+     * Toggles between ascending and descending order.
+     * @param orderBy - The field to sort by.
      */
     function sortData(orderBy) {
         state.sort === 'ASC'
@@ -140,9 +142,7 @@ var SSPaging = (function (exports, vue, pinia) {
         runPaging();
     }
     /**
-     * Option to show number of data per page
-     *
-     * @return void
+     * Update the number of rows displayed per page.
      */
     function showPerPage() {
         state.limit = state.rows;
@@ -150,8 +150,8 @@ var SSPaging = (function (exports, vue, pinia) {
         runPaging();
     }
     /**
-     * Method for excecuting getData() based on current state
-     * like limit, offset, filter, etc.
+     * Execute the getData() function based on the current state.
+     * Handles pagination, filtering, and sorting.
      */
     function runPaging() {
         getData({
@@ -182,6 +182,10 @@ var SSPaging = (function (exports, vue, pinia) {
                 if (afterRequest.value !== null)
                     afterRequest.value();
             },
+            onError: function () {
+                if (onError.value !== null)
+                    onError.value();
+            },
         }, true);
         if (state.debug) {
             console.clear();
@@ -189,7 +193,9 @@ var SSPaging = (function (exports, vue, pinia) {
         }
     }
     /**
-     * Get data from the server with several configuration options
+     * Fetch data from the server with the provided options.
+     * @param options - Configuration options for the request.
+     * @param callFromRunPaging - Indicates if the call is from runPaging().
      */
     function getData(options, callFromRunPaging) {
         if (callFromRunPaging === void 0) { callFromRunPaging = false; }
@@ -275,6 +281,11 @@ var SSPaging = (function (exports, vue, pinia) {
         if (options.mode !== undefined) {
             state.mode = options.mode;
         }
+        if (options.onError !== undefined) {
+            if (!callFromRunPaging) {
+                onError.value = function () { return options.onError(); };
+            }
+        }
         fetch(requestURL, options.usePost ? fetchOptionsUsingPost : fetchOptions)
             .then(function (response) { return response.json(); })
             .then(function (res) {
@@ -305,11 +316,17 @@ var SSPaging = (function (exports, vue, pinia) {
             }
         })
             .catch(function (error) {
-            console.error('Error:', error);
+            // for developer
+            console.error('[SSPaging] Error:', error);
+            // for user
+            if (options.onError !== undefined) {
+                options.onError();
+            }
         });
     }
     /**
-     * Generate Pagination
+     * Generate pagination links based on the provided settings.
+     * @param settings - Configuration for pagination generation.
      */
     function create(settings) {
         state.totalRows = settings.rows;
@@ -374,7 +391,9 @@ var SSPaging = (function (exports, vue, pinia) {
         }
     }
     /**
-     * Method for marking active link
+     * Mark a pagination link as active.
+     * @param link - The link number to check.
+     * @return A CSS class name for the active state or an empty string.
      */
     function activeLink(link) {
         if (link === activePage.value) {
@@ -385,21 +404,23 @@ var SSPaging = (function (exports, vue, pinia) {
         }
     }
     /**
-     * Create item number based on its position
-     * in whole data
+     * Calculate the item number based on its position in the dataset.
+     * @param index - The index of the item in the current page.
+     * @return The item number in the entire dataset.
      */
     function itemNumber(index) {
         return dataFrom.value + index;
     }
     /**
-     * Get active page
+     * Get active page.
+     * @return The current active page number.
      */
     var activePage = vue.computed(function () {
         return state.offset / state.limit + 1;
     });
     /**
-     * Get the last data range
-     *
+     * Get the last data range.
+     * @return The last data range number.
      */
     var dataTo = vue.computed(function () {
         var currentPage = state.offset / state.limit;
@@ -413,8 +434,8 @@ var SSPaging = (function (exports, vue, pinia) {
         return range;
     });
     /**
-     * Get the first data range
-     *
+     * Get the first data range.
+     * @return The first data range number.
      */
     var dataFrom = vue.computed(function () {
         var from;
@@ -427,7 +448,8 @@ var SSPaging = (function (exports, vue, pinia) {
         return from;
     });
     /**
-     * Generate data range
+     * Generate a range of rows being displayed.
+     * @return A string representing the range of rows.
      */
     function rowRange() {
         if (state.pageLinks.length === 0) {
@@ -446,6 +468,11 @@ var SSPaging = (function (exports, vue, pinia) {
             return returnedText;
         }
     }
+    /**
+     * Hook to use the pagination functionality.
+     * Provides access to state and methods for pagination.
+     * @return An object containing state and pagination methods.
+     */
     function usePaging() {
         return {
             state: state,

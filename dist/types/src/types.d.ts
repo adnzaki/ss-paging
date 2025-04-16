@@ -70,4 +70,5 @@ export interface OptionsInterface {
     debug?: boolean;
     beforeRequest?: () => void;
     afterRequest?: () => void;
+    onError?: () => void;
 }
