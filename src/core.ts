@@ -11,7 +11,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.4
+ * @version     3.0.7
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'
@@ -211,6 +211,9 @@ function runPaging(): void {
  * @param callFromRunPaging - Indicates if the call is from runPaging().
  */
 function getData(options: OptionsInterface, callFromRunPaging = false): void {
+  state.pagingLang = options.lang
+  state.debug = options.debug
+
   // do something before the request sent
   if (options.beforeRequest !== undefined) {
     if (!callFromRunPaging) {
@@ -220,12 +223,10 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     options.beforeRequest()
   }
 
-  if(state.token === '') {
+  if(state.token === '' && options.token !== undefined) {
+    // set token if not set before
     state.token = options.token
-  }
-  
-  state.pagingLang = options.lang
-  state.debug = options.debug
+  }  
 
   const { url, limit, offset, orderBy, searchBy, sort, search } = options
 
@@ -286,9 +287,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
 
   let optionHeaders: Headers = new Headers()
 
-  if (options.token !== undefined) {
-    optionHeaders.set('Authorization', options.token)
-  }
+  optionHeaders.set('Authorization', state.token) 
 
   if (options.useHeader) {
     optionHeaders.set('limit', state.limit.toString())
