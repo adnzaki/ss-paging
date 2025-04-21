@@ -313,5 +313,10 @@
     background-color: rgba(151, 151, 151, 0.2784313725) !important;
   }
 }
+@media (max-width: 576px) {
+  .sp-table tr td td {
+    border: none !important;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -106,9 +106,7 @@ var SSComponents = (function (exports, vue) {
 
       const actionBody = () => {
         return slots.actionBody
-          ? isDesktop()
-            ? vue.h('td', { class: darkMode.value }, slots.actionBody())
-            : slots.actionBody()
+          ? slots.actionBody()
           : ''
       };
 

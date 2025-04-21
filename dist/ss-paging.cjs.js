@@ -16,7 +16,7 @@ var pinia = require('pinia');
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.4
+ * @version     3.0.8
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = vue.ref(null);
@@ -202,6 +202,8 @@ function runPaging() {
  */
 function getData(options, callFromRunPaging) {
     if (callFromRunPaging === void 0) { callFromRunPaging = false; }
+    state.pagingLang = options.lang;
+    state.debug = options.debug;
     // do something before the request sent
     if (options.beforeRequest !== undefined) {
         if (!callFromRunPaging) {
@@ -209,11 +211,10 @@ function getData(options, callFromRunPaging) {
         }
         options.beforeRequest();
     }
-    if (state.token === '') {
+    if (state.token === '' && options.token !== undefined) {
+        // set token if not set before
         state.token = options.token;
     }
-    state.pagingLang = options.lang;
-    state.debug = options.debug;
     var url = options.url, limit = options.limit, offset = options.offset, orderBy = options.orderBy, searchBy = options.searchBy, sort = options.sort, search = options.search;
     if (url === undefined ||
         limit === undefined ||
@@ -259,9 +260,7 @@ function getData(options, callFromRunPaging) {
         state.delay = options.delay;
     }
     var optionHeaders = new Headers();
-    if (options.token !== undefined) {
-        optionHeaders.set('Authorization', options.token);
-    }
+    optionHeaders.set('Authorization', state.token);
     if (options.useHeader) {
         optionHeaders.set('limit', state.limit.toString());
         optionHeaders.set('offset', state.offset.toString());
