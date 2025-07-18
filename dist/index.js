@@ -14,7 +14,7 @@ import { defineStore } from 'pinia';
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.1.0
+ * @version     3.1.1
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = ref(null);
