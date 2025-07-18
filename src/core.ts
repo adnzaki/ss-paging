@@ -371,6 +371,9 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
         console.log(state)
         console.info('[SSPaging] Below are options you have provided:')
         console.log(options)
+        console.info('[SSPaging] Generated headers: ', optionHeaders)
+        console.info('[SSPaging] Generated fetch options: ', fetchOptions)
+        console.info('[SSPaging] Generated fetch options using POST: ', fetchOptionsUsingPost)
       }
     })
     .catch((error) => {
