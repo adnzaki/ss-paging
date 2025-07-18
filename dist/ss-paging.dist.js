@@ -14,7 +14,7 @@ var SSPaging = (function (exports, vue, pinia) {
      * @package     Pagination
      * @author      Adnan Zaki
      * @type        Libraries
-     * @version     3.0.9
+     * @version     3.1.0
      * @url         https://lib.actudent.com/ss-paging
      */
     var beforeRequest = vue.ref(null);
@@ -329,6 +329,9 @@ var SSPaging = (function (exports, vue, pinia) {
                 console.log(state);
                 console.info('[SSPaging] Below are options you have provided:');
                 console.log(options);
+                console.info('[SSPaging] Generated headers: ', optionHeaders);
+                console.info('[SSPaging] Generated fetch options: ', fetchOptions);
+                console.info('[SSPaging] Generated fetch options using POST: ', fetchOptionsUsingPost);
             }
         })
             .catch(function (error) {
