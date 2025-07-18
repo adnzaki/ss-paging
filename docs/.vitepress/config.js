@@ -54,8 +54,8 @@ export default {
     ],
     nav: [
       {
-        text: 'Changelog v3.1.1',
-        link: 'https://github.com/adnzaki/ss-paging/releases/tag/3.1.1',
+        text: 'Changelog v3.1.2',
+        link: 'https://github.com/adnzaki/ss-paging/releases/tag/3.1.2',
       },
     ],
   },
