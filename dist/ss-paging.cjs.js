@@ -16,7 +16,7 @@ var pinia = require('pinia');
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.8
+ * @version     3.0.9
  * @url         https://lib.actudent.com/ss-paging
  */
 var beforeRequest = vue.ref(null);
@@ -285,6 +285,7 @@ function getData(options, callFromRunPaging) {
         method: 'POST',
         mode: fetchOptions.mode,
         body: formData,
+        headers: optionHeaders,
     };
     if (options.mode !== undefined) {
         state.mode = options.mode;

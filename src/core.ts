@@ -11,7 +11,7 @@
  * @package     Pagination
  * @author      Adnan Zaki
  * @type        Libraries
- * @version     3.0.8
+ * @version     3.0.9
  * @url         https://lib.actudent.com/ss-paging
  */
 import { ref, reactive, computed } from 'vue'
@@ -317,6 +317,7 @@ function getData(options: OptionsInterface, callFromRunPaging = false): void {
     method: 'POST',
     mode: fetchOptions.mode,
     body: formData,
+    headers: optionHeaders,
   }
 
   if (options.mode !== undefined) {
