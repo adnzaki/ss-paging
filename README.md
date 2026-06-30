@@ -52,7 +52,7 @@ const paging = SSPaging.usePaging()
 ```
 
 ## Documentation
-For full documentation, visit the **[SSPaging Official Documentation](https://lib.actudent.com/ss-paging/).**
+For full documentation, visit the **[SSPaging Official Documentation](https://lib.bitdanbait.web.id/ss-paging/).**
 
 ## Contribution
 Want to contribute? Feel free to submit a pull request for bug fixes or new features. 🚀
